@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TncNokToolingModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="TncNokToolingModelStoreContainer">
+    <EntitySet Name="td_pr" EntityType="TncNokToolingModel.Store.td_pr" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="td_tran" EntityType="TncNokToolingModel.Store.td_tran" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_td_tran_td_pr1" Association="TncNokToolingModel.Store.FK_td_tran_td_pr1">
+      <End Role="td_pr" EntitySet="td_pr" />
+      <End Role="td_tran" EntitySet="td_tran" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="td_pr">
+    <Key>
+      <PropertyRef Name="pr_no" />
+    </Key>
+    <Property Name="pr_no" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="condition" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="due_date" Type="date" Nullable="false" />
+    <Property Name="reason" Type="nvarchar(max)" />
+    <Property Name="issue_dt" Type="datetime" Nullable="false" />
+    <Property Name="issue_by" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="issue_group" Type="int" Nullable="false" />
+    <Property Name="issue_dept" Type="int" />
+    <Property Name="issue_plant" Type="int" />
+    <Property Name="ext" Type="varchar" MaxLength="4" />
+    <Property Name="rank" Type="char" Nullable="false" MaxLength="1" />
+    <Property Name="cost_code" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="item_code" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="problem" Type="varchar(max)" />
+    <Property Name="process" Type="tinyint" Nullable="false" />
+    <Property Name="nok_plant" Type="tinyint" Nullable="false" />
+    <Property Name="product" Type="tinyint" Nullable="false" />
+    <Property Name="type" Type="tinyint" Nullable="false" />
+    <Property Name="nok_contact" Type="nvarchar" MaxLength="100" />
+    <Property Name="issue_name" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="po_no" Type="varchar" MaxLength="50" />
+    <Property Name="issue_group_name" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="td_tran">
+    <Key>
+      <PropertyRef Name="pr_no" />
+      <PropertyRef Name="status_id" />
+      <PropertyRef Name="ulv_id" />
+      <PropertyRef Name="org" />
+      <PropertyRef Name="rev" />
+    </Key>
+    <Property Name="pr_no" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="status_id" Type="tinyint" Nullable="false" />
+    <Property Name="ulv_id" Type="tinyint" Nullable="false" />
+    <Property Name="org" Type="int" Nullable="false" />
+    <Property Name="rev" Type="tinyint" Nullable="false" />
+    <Property Name="actor" Type="varchar" MaxLength="10" />
+    <Property Name="act_id" Type="varchar" MaxLength="5" />
+    <Property Name="act_dt" Type="datetime" Nullable="false" />
+    <Property Name="comment" Type="nvarchar(max)" />
+  </EntityType>
+  <Association Name="FK_td_tran_td_pr1">
+    <End Role="td_pr" Type="TncNokToolingModel.Store.td_pr" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="td_tran" Type="TncNokToolingModel.Store.td_tran" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="td_pr">
+        <PropertyRef Name="pr_no" />
+      </Principal>
+      <Dependent Role="td_tran">
+        <PropertyRef Name="pr_no" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

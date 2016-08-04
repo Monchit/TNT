@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PRModelStoreContainer" CdmEntityContainer="PREntities">
+    <EntitySetMapping Name="PO_APP_HEAD">
+      <EntityTypeMapping TypeName="PRModel.PO_APP_HEAD">
+        <MappingFragment StoreEntitySet="PO_APP_HEAD">
+          <ScalarProperty Name="RecordStatus" ColumnName="RecordStatus" />
+          <ScalarProperty Name="CompanyCode" ColumnName="CompanyCode" />
+          <ScalarProperty Name="PONO" ColumnName="PONO" />
+          <ScalarProperty Name="AppCount" ColumnName="AppCount" />
+          <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+          <ScalarProperty Name="EntryTime" ColumnName="EntryTime" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+          <ScalarProperty Name="AppReqSign" ColumnName="AppReqSign" />
+          <ScalarProperty Name="AppReqReceipt" ColumnName="AppReqReceipt" />
+          <ScalarProperty Name="AppRepSign" ColumnName="AppRepSign" />
+          <ScalarProperty Name="AppRepReceipt" ColumnName="AppRepReceipt" />
+          <ScalarProperty Name="AppSign" ColumnName="AppSign" />
+          <ScalarProperty Name="AppDate" ColumnName="AppDate" />
+          <ScalarProperty Name="AppTime" ColumnName="AppTime" />
+          <ScalarProperty Name="AppUser" ColumnName="AppUser" />
+          <ScalarProperty Name="AppMemo" ColumnName="AppMemo" />
+          <ScalarProperty Name="Vendor" ColumnName="Vendor" />
+          <ScalarProperty Name="Currency" ColumnName="Currency" />
+          <ScalarProperty Name="POFixedDate" ColumnName="POFixedDate" />
+          <ScalarProperty Name="POFixedTime" ColumnName="POFixedTime" />
+          <ScalarProperty Name="Buyer" ColumnName="Buyer" />
+          <ScalarProperty Name="BuyerMemo" ColumnName="BuyerMemo" />
+          <ScalarProperty Name="Responser" ColumnName="Responser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PO_APP_LINE">
+      <EntityTypeMapping TypeName="PRModel.PO_APP_LINE">
+        <MappingFragment StoreEntitySet="PO_APP_LINE">
+          <ScalarProperty Name="RecordStatus" ColumnName="RecordStatus" />
+          <ScalarProperty Name="CompanyCode" ColumnName="CompanyCode" />
+          <ScalarProperty Name="PONO" ColumnName="PONO" />
+          <ScalarProperty Name="POLine" ColumnName="POLine" />
+          <ScalarProperty Name="AppCount" ColumnName="AppCount" />
+          <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+          <ScalarProperty Name="EntryTime" ColumnName="EntryTime" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+          <ScalarProperty Name="AppSign" ColumnName="AppSign" />
+          <ScalarProperty Name="AppMemo" ColumnName="AppMemo" />
+          <ScalarProperty Name="AppReqSign" ColumnName="AppReqSign" />
+          <ScalarProperty Name="AppReqReceipt" ColumnName="AppReqReceipt" />
+          <ScalarProperty Name="AppRepSign" ColumnName="AppRepSign" />
+          <ScalarProperty Name="AppRepReceipt" ColumnName="AppRepReceipt" />
+          <ScalarProperty Name="Item" ColumnName="Item" />
+          <ScalarProperty Name="PurchaseQTY" ColumnName="PurchaseQTY" />
+          <ScalarProperty Name="UnitPack" ColumnName="UnitPack" />
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+          <ScalarProperty Name="IncomingDay" ColumnName="IncomingDay" />
+          <ScalarProperty Name="IncomingDate" ColumnName="IncomingDate" />
+          <ScalarProperty Name="Duedate" ColumnName="Duedate" />
+          <ScalarProperty Name="CostCenterCode" ColumnName="CostCenterCode" />
+          <ScalarProperty Name="MTCode" ColumnName="MTCode" />
+          <ScalarProperty Name="InvestmentNo" ColumnName="InvestmentNo" />
+          <ScalarProperty Name="AccountCode" ColumnName="AccountCode" />
+          <ScalarProperty Name="PRNO" ColumnName="PRNO" />
+          <ScalarProperty Name="Quotation" ColumnName="Quotation" />
+          <ScalarProperty Name="BuyerMemo" ColumnName="BuyerMemo" />
+          <ScalarProperty Name="POStatus" ColumnName="POStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PO_APP_TRANSACTION">
+      <EntityTypeMapping TypeName="PRModel.PO_APP_TRANSACTION">
+        <MappingFragment StoreEntitySet="PO_APP_TRANSACTION">
+          <ScalarProperty Name="CompanyCode" ColumnName="CompanyCode" />
+          <ScalarProperty Name="PONO" ColumnName="PONO" />
+          <ScalarProperty Name="AppCount" ColumnName="AppCount" />
+          <ScalarProperty Name="AppLevel" ColumnName="AppLevel" />
+          <ScalarProperty Name="AppUser" ColumnName="AppUser" />
+          <ScalarProperty Name="AppAction" ColumnName="AppAction" />
+          <ScalarProperty Name="AppDate" ColumnName="AppDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

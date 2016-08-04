@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Master User";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#jTableUser').jtable({
+            title: 'Master User',
+            paging: true, //Enable paging
+            pageSize: 10, //Set page size (default: 10)
+            sorting: true, //Enable sorting
+            selecting: true, //Enable selecting
+            defaultSorting: 'id', //Set default sorting
+            actions: {
+                listAction: '@Url.Action("UserList", "Admin")',
+                deleteAction: '@Url.Action("DeleteUser", "Admin")',
+                updateAction: '@Url.Action("UpdateUser", "Admin")',
+                createAction: '@Url.Action("CreateUser", "Admin")'
+            },
+            fields: {
+                emp_code: { title: 'Emp', key: true, create: true, edit: false, width: '50%' },
+                utype_id: { title: 'User Type', create: true, edit: true, width: '50%' }
+            }
+        });
+
+        //Load student list from server
+        $('#jTableUser').jtable('load');
+
+    });
+</script>
+
+<h2>@ViewBag.Title</h2>
+
+<div id="jTableUser"></div>

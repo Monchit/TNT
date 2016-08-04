@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TncNokToolingModelStoreContainer" CdmEntityContainer="TncNokToolingEntities">
+    <EntitySetMapping Name="td_files">
+      <EntityTypeMapping TypeName="TncNokToolingModel.td_files">
+        <MappingFragment StoreEntitySet="td_files">
+          <ScalarProperty Name="pr_no" ColumnName="pr_no" />
+          <ScalarProperty Name="file_name" ColumnName="file_name" />
+          <ScalarProperty Name="file_type" ColumnName="file_type" />
+          <ScalarProperty Name="file_path" ColumnName="file_path" />
+          <ScalarProperty Name="upl_dt" ColumnName="upl_dt" />
+          <ScalarProperty Name="upl_by" ColumnName="upl_by" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="td_pr">
+      <EntityTypeMapping TypeName="TncNokToolingModel.td_pr">
+        <MappingFragment StoreEntitySet="td_pr">
+          <ScalarProperty Name="pr_no" ColumnName="pr_no" />
+          <ScalarProperty Name="condition" ColumnName="condition" />
+          <ScalarProperty Name="due_date" ColumnName="due_date" />
+          <ScalarProperty Name="reason" ColumnName="reason" />
+          <ScalarProperty Name="issue_dt" ColumnName="issue_dt" />
+          <ScalarProperty Name="issue_by" ColumnName="issue_by" />
+          <ScalarProperty Name="issue_group" ColumnName="issue_group" />
+          <ScalarProperty Name="issue_dept" ColumnName="issue_dept" />
+          <ScalarProperty Name="issue_plant" ColumnName="issue_plant" />
+          <ScalarProperty Name="ext" ColumnName="ext" />
+          <ScalarProperty Name="rank" ColumnName="rank" />
+          <ScalarProperty Name="cost_code" ColumnName="cost_code" />
+          <ScalarProperty Name="item_code" ColumnName="item_code" />
+          <ScalarProperty Name="problem" ColumnName="problem" />
+          <ScalarProperty Name="process" ColumnName="process" />
+          <ScalarProperty Name="nok_plant" ColumnName="nok_plant" />
+          <ScalarProperty Name="product" ColumnName="product" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="nok_contact" ColumnName="nok_contact" />
+          <ScalarProperty Name="issue_name" ColumnName="issue_name" />
+          <ScalarProperty Name="po_no" ColumnName="po_no" />
+          <ScalarProperty Name="issue_group_name" ColumnName="issue_group_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="td_tooling">
+      <EntityTypeMapping TypeName="TncNokToolingModel.td_tooling">
+        <MappingFragment StoreEntitySet="td_tooling">
+          <ScalarProperty Name="pr_no" ColumnName="pr_no" />
+          <ScalarProperty Name="pr_line" ColumnName="pr_line" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="qty" ColumnName="qty" />
+          <ScalarProperty Name="unit" ColumnName="unit" />
+          <ScalarProperty Name="sell" ColumnName="sell" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="td_tran">
+      <EntityTypeMapping TypeName="TncNokToolingModel.td_tran">
+        <MappingFragment StoreEntitySet="td_tran">
+          <ScalarProperty Name="pr_no" ColumnName="pr_no" />
+          <ScalarProperty Name="status_id" ColumnName="status_id" />
+          <ScalarProperty Name="ulv_id" ColumnName="ulv_id" />
+          <ScalarProperty Name="org" ColumnName="org" />
+          <ScalarProperty Name="rev" ColumnName="rev" />
+          <ScalarProperty Name="actor" ColumnName="actor" />
+          <ScalarProperty Name="act_id" ColumnName="act_id" />
+          <ScalarProperty Name="act_dt" ColumnName="act_dt" />
+          <ScalarProperty Name="comment" ColumnName="comment" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tm_action">
+      <EntityTypeMapping TypeName="TncNokToolingModel.tm_action">
+        <MappingFragment StoreEntitySet="tm_action">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tm_control_route">
+      <EntityTypeMapping TypeName="TncNokToolingModel.tm_control_route">
+        <MappingFragment StoreEntitySet="tm_control_route">
+          <ScalarProperty Name="start_org" ColumnName="start_org" />
+          <ScalarProperty Name="goto_status" ColumnName="goto_status" />
+          <ScalarProperty Name="goto_lv" ColumnName="goto_lv" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tm_file_type">
+      <EntityTypeMapping TypeName="TncNokToolingModel.tm_file_type">
+        <MappingFragment StoreEntitySet="tm_file_type">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tm_leadtime">
+      <EntityTypeMapping TypeName="TncNokToolingModel.tm_leadtime">
+        <MappingFragment StoreEntitySet="tm_leadtime">
+          <ScalarProperty Name="process" ColumnName="process" />
+          <ScalarProperty Name="plant" ColumnName="plant" />
+          <ScalarProperty Name="product" ColumnName="product" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="etd" ColumnName="etd" />
+          <ScalarProperty Name="inspection" ColumnName="inspection" />
+          <ScalarProperty Name="making" ColumnName="making" />
+          <ScalarProperty Name="trial" ColumnName="trial" />
+          <ScalarProperty Name="shipping" ColumnName="shipping" />
+          <ScalarProperty Name="eta" ColumnName="eta" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tm_nok_plant">
+      <EntityTypeMapping TypeName="TncNokToolingModel.tm_nok_plant">
+        <MappingFragment StoreEntitySet="tm_nok_plant">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tm_process">
+      <EntityTypeMapping TypeName="TncNokToolingModel.tm_process">
+        <MappingFragment StoreEntitySet="tm_process">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tm_product">
+      <EntityTypeMapping TypeName="TncNokToolingModel.tm_product">
+        <MappingFragment StoreEntitySet="tm_product">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tm_status">
+      <EntityTypeMapping TypeName="TncNokToolingModel.tm_status">
+        <MappingFragment StoreEntitySet="tm_status">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="lv_min" ColumnName="lv_min" />
+          <ScalarProperty Name="lv_max" ColumnName="lv_max" />
+          <ScalarProperty Name="next" ColumnName="next" />
+          <ScalarProperty Name="name2" ColumnName="name2" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tm_type">
+      <EntityTypeMapping TypeName="TncNokToolingModel.tm_type">
+        <MappingFragment StoreEntitySet="tm_type">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tm_user">
+      <EntityTypeMapping TypeName="TncNokToolingModel.tm_user">
+        <MappingFragment StoreEntitySet="tm_user">
+          <ScalarProperty Name="emp_code" ColumnName="emp_code" />
+          <ScalarProperty Name="utype_id" ColumnName="utype_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tm_user_lv">
+      <EntityTypeMapping TypeName="TncNokToolingModel.tm_user_lv">
+        <MappingFragment StoreEntitySet="tm_user_lv">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="min" ColumnName="min" />
+          <ScalarProperty Name="max" ColumnName="max" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tm_user_type">
+      <EntityTypeMapping TypeName="TncNokToolingModel.tm_user_type">
+        <MappingFragment StoreEntitySet="tm_user_type">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="v_tran">
+      <EntityTypeMapping TypeName="TncNokToolingModel.v_tran">
+        <MappingFragment StoreEntitySet="v_tran">
+          <ScalarProperty Name="pr_no" ColumnName="pr_no" />
+          <ScalarProperty Name="item_code" ColumnName="item_code" />
+          <ScalarProperty Name="condition" ColumnName="condition" />
+          <ScalarProperty Name="due_date" ColumnName="due_date" />
+          <ScalarProperty Name="rank" ColumnName="rank" />
+          <ScalarProperty Name="issue_dt" ColumnName="issue_dt" />
+          <ScalarProperty Name="act_dt" ColumnName="act_dt" />
+          <ScalarProperty Name="group_name" ColumnName="group_name" />
+          <ScalarProperty Name="issue_group" ColumnName="issue_group" />
+          <ScalarProperty Name="po_no" ColumnName="po_no" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="status_id" ColumnName="status_id" />
+          <ScalarProperty Name="ulv_id" ColumnName="ulv_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="v_tran_show">
+      <EntityTypeMapping TypeName="TncNokToolingModel.v_tran_show">
+        <MappingFragment StoreEntitySet="v_tran_show">
+          <ScalarProperty Name="pr_no" ColumnName="pr_no" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="lv" ColumnName="lv" />
+          <ScalarProperty Name="action" ColumnName="action" />
+          <ScalarProperty Name="emp_fname" ColumnName="emp_fname" />
+          <ScalarProperty Name="emp_lname" ColumnName="emp_lname" />
+          <ScalarProperty Name="act_dt" ColumnName="act_dt" />
+          <ScalarProperty Name="comment" ColumnName="comment" />
+          <ScalarProperty Name="ulv_id" ColumnName="ulv_id" />
+          <ScalarProperty Name="org" ColumnName="org" />
+          <ScalarProperty Name="status_id" ColumnName="status_id" />
+          <ScalarProperty Name="act_id" ColumnName="act_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

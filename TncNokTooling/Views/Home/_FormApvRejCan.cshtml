@@ -1,0 +1,71 @@
+﻿
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.validate({ form: '#formARC' });
+        
+        $("#action").change(function () {
+            if ($(this).val() == "APV") {
+                $("#lbText").text("Comment :");
+                $("#comment").removeAttr('data-validation');
+            } else if ($(this).val() == "REJ") {
+                $("#lbText").text("Reason for Reject :");
+                $("#comment").attr('data-validation', 'required');
+            } else if ($(this).val() == "CANC") {
+                $("#lbText").text("Reason for Cancel :");
+                $("#comment").attr('data-validation', 'required');
+            } else {
+                $("#lbText").text("");
+            }
+        });
+    });
+</script>
+
+<form id="formARC" name="formARC" action="@Url.Action("ApproveAction")" method="post" class="form-horizontal well" enctype="multipart/form-data">
+    <!-- Select Basic -->
+    <div class="control-group">
+      <label class="control-label" for="action">Action :</label>
+      <div class="controls">
+        <select id="action" name="action" class="span4" data-validation="required">
+          <option value="">-Please Select-</option>
+          <option value="APV">Approve</option>
+          <option value="REJ">Reject</option>
+          <option value="CANC">Cancel</option>
+        </select>
+        @{
+            var pr = ViewData["pr_no"];
+            var ulv = ViewData["ulv"];
+            var org = ViewData["org"];
+            var status = ViewData["status"];
+            var rev = ViewData["rev"];
+        }
+        <input type="hidden" id="hdpr" name="hdpr" value="@pr" />
+        <input type="hidden" id="hdulv" name="hdulv" value="@ulv" />
+        <input type="hidden" id="hdorg" name="hdorg" value="@org" />
+        <input type="hidden" id="hdstt" name="hdstt" value="@status" />
+        <input type="hidden" id="hdrev" name="hdrev" value="@rev" />
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="comment" id="lbText"></label>
+      <div class="controls">
+        <textarea rows="3" id="comment" name="comment" class="span8" data-validation="required"></textarea>
+      </div>
+    </div>
+
+    @*<div class="control-group">
+      <label class="control-label" for="uplAtt">Attach files :</label>
+      <div class="controls">
+        @Html.Partial("_SectionAtt")
+      </div>
+    </div>*@
+
+    <!-- Button -->
+    <div class="control-group">
+      <label class="control-label" for="btnSubmit"></label>
+      <div class="controls">
+        <button id="btnSubmit" name="btnSubmit" type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+</form>

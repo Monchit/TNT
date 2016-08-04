@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TncNokToolingModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="TncNokToolingEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="td_pr" EntityType="TncNokToolingModel.td_pr" />
+    <EntitySet Name="td_tran" EntityType="TncNokToolingModel.td_tran" />
+    <AssociationSet Name="FK_td_tran_td_pr1" Association="TncNokToolingModel.FK_td_tran_td_pr1">
+      <End Role="td_pr" EntitySet="td_pr" />
+      <End Role="td_tran" EntitySet="td_tran" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="td_pr">
+    <Key>
+      <PropertyRef Name="pr_no" />
+    </Key>
+    <Property Name="pr_no" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="condition" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="due_date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="reason" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="issue_dt" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="issue_by" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="issue_group" Type="Int32" Nullable="false" />
+    <Property Name="issue_dept" Type="Int32" />
+    <Property Name="issue_plant" Type="Int32" />
+    <Property Name="ext" Type="String" MaxLength="4" Unicode="false" FixedLength="false" />
+    <Property Name="rank" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+    <Property Name="cost_code" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="item_code" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="problem" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="process" Type="Byte" Nullable="false" />
+    <Property Name="nok_plant" Type="Byte" Nullable="false" />
+    <Property Name="product" Type="Byte" Nullable="false" />
+    <Property Name="type" Type="Byte" Nullable="false" />
+    <Property Name="nok_contact" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="issue_name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="po_no" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="issue_group_name" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="td_tran" Relationship="TncNokToolingModel.FK_td_tran_td_pr1" FromRole="td_pr" ToRole="td_tran" />
+  </EntityType>
+  <EntityType Name="td_tran">
+    <Key>
+      <PropertyRef Name="pr_no" />
+      <PropertyRef Name="status_id" />
+      <PropertyRef Name="ulv_id" />
+      <PropertyRef Name="org" />
+      <PropertyRef Name="rev" />
+    </Key>
+    <Property Name="pr_no" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="status_id" Type="Byte" Nullable="false" />
+    <Property Name="ulv_id" Type="Byte" Nullable="false" />
+    <Property Name="org" Type="Int32" Nullable="false" />
+    <Property Name="rev" Type="Byte" Nullable="false" />
+    <Property Name="actor" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="act_id" Type="String" MaxLength="5" Unicode="false" FixedLength="false" />
+    <Property Name="act_dt" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="comment" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="td_pr" Relationship="TncNokToolingModel.FK_td_tran_td_pr1" FromRole="td_tran" ToRole="td_pr" />
+  </EntityType>
+  <Association Name="FK_td_tran_td_pr1">
+    <End Role="td_pr" Type="TncNokToolingModel.td_pr" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="td_tran" Type="TncNokToolingModel.td_tran" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="td_pr">
+        <PropertyRef Name="pr_no" />
+      </Principal>
+      <Dependent Role="td_tran">
+        <PropertyRef Name="pr_no" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

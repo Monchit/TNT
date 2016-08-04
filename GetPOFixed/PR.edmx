@@ -1,0 +1,390 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PRModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="PRModelStoreContainer">
+          <EntitySet Name="PO_APP_HEAD" EntityType="PRModel.Store.PO_APP_HEAD" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PO_APP_LINE" EntityType="PRModel.Store.PO_APP_LINE" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PO_APP_TRANSACTION" EntityType="PRModel.Store.PO_APP_TRANSACTION" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_PO_APP_LINE_PO_APP_HEAD" Association="PRModel.Store.FK_PO_APP_LINE_PO_APP_HEAD">
+            <End Role="PO_APP_HEAD" EntitySet="PO_APP_HEAD" />
+            <End Role="PO_APP_LINE" EntitySet="PO_APP_LINE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PO_APP_TRANSACTION_PO_APP_HEAD" Association="PRModel.Store.FK_PO_APP_TRANSACTION_PO_APP_HEAD">
+            <End Role="PO_APP_HEAD" EntitySet="PO_APP_HEAD" />
+            <End Role="PO_APP_TRANSACTION" EntitySet="PO_APP_TRANSACTION" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="PO_APP_HEAD">
+          <Key>
+            <PropertyRef Name="CompanyCode" />
+            <PropertyRef Name="PONO" />
+            <PropertyRef Name="AppCount" />
+          </Key>
+          <Property Name="RecordStatus" Type="nvarchar" MaxLength="1" />
+          <Property Name="CompanyCode" Type="nvarchar" Nullable="false" MaxLength="5" />
+          <Property Name="PONO" Type="nvarchar" Nullable="false" MaxLength="7" />
+          <Property Name="AppCount" Type="int" Nullable="false" />
+          <Property Name="EntryDate" Type="date" />
+          <Property Name="EntryTime" Type="time" />
+          <Property Name="UpdateDate" Type="date" />
+          <Property Name="UpdateTime" Type="time" />
+          <Property Name="AppReqSign" Type="nchar" MaxLength="1" />
+          <Property Name="AppReqReceipt" Type="nchar" MaxLength="1" />
+          <Property Name="AppRepSign" Type="nchar" MaxLength="1" />
+          <Property Name="AppRepReceipt" Type="nchar" MaxLength="1" />
+          <Property Name="AppSign" Type="nchar" MaxLength="1" />
+          <Property Name="AppDate" Type="date" />
+          <Property Name="AppTime" Type="time" />
+          <Property Name="AppUser" Type="nvarchar" MaxLength="10" />
+          <Property Name="AppMemo" Type="nvarchar" MaxLength="100" />
+          <Property Name="Vendor" Type="nvarchar" MaxLength="4" />
+          <Property Name="Currency" Type="nvarchar" MaxLength="3" />
+          <Property Name="POFixedDate" Type="date" />
+          <Property Name="POFixedTime" Type="time" />
+          <Property Name="Buyer" Type="nvarchar" MaxLength="10" />
+          <Property Name="BuyerMemo" Type="nvarchar" MaxLength="100" />
+          <Property Name="Responser" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="PO_APP_LINE">
+          <Key>
+            <PropertyRef Name="CompanyCode" />
+            <PropertyRef Name="PONO" />
+            <PropertyRef Name="POLine" />
+            <PropertyRef Name="AppCount" />
+          </Key>
+          <Property Name="RecordStatus" Type="nvarchar" MaxLength="1" />
+          <Property Name="CompanyCode" Type="nvarchar" Nullable="false" MaxLength="5" />
+          <Property Name="PONO" Type="nvarchar" Nullable="false" MaxLength="7" />
+          <Property Name="POLine" Type="nvarchar" Nullable="false" MaxLength="3" />
+          <Property Name="AppCount" Type="int" Nullable="false" />
+          <Property Name="EntryDate" Type="date" />
+          <Property Name="EntryTime" Type="time" />
+          <Property Name="UpdateDate" Type="date" />
+          <Property Name="UpdateTime" Type="time" />
+          <Property Name="AppSign" Type="nchar" MaxLength="1" />
+          <Property Name="AppMemo" Type="nvarchar" MaxLength="100" />
+          <Property Name="AppReqSign" Type="nchar" MaxLength="1" />
+          <Property Name="AppReqReceipt" Type="nchar" MaxLength="1" />
+          <Property Name="AppRepSign" Type="nchar" MaxLength="1" />
+          <Property Name="AppRepReceipt" Type="nchar" MaxLength="1" />
+          <Property Name="Item" Type="nvarchar" MaxLength="50" />
+          <Property Name="PurchaseQTY" Type="float" />
+          <Property Name="UnitPack" Type="nvarchar" MaxLength="3" />
+          <Property Name="UnitPrice" Type="float" />
+          <Property Name="IncomingDay" Type="int" />
+          <Property Name="IncomingDate" Type="date" />
+          <Property Name="Duedate" Type="date" />
+          <Property Name="CostCenterCode" Type="nvarchar" MaxLength="4" />
+          <Property Name="MTCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="InvestmentNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="AccountCode" Type="nvarchar" MaxLength="6" />
+          <Property Name="PRNO" Type="nvarchar" MaxLength="10" />
+          <Property Name="Quotation" Type="int" />
+          <Property Name="BuyerMemo" Type="nvarchar" MaxLength="100" />
+          <Property Name="POStatus" Type="nchar" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="PO_APP_TRANSACTION">
+          <Key>
+            <PropertyRef Name="CompanyCode" />
+            <PropertyRef Name="PONO" />
+            <PropertyRef Name="AppCount" />
+            <PropertyRef Name="AppLevel" />
+          </Key>
+          <Property Name="CompanyCode" Type="nvarchar" Nullable="false" MaxLength="5" />
+          <Property Name="PONO" Type="nvarchar" Nullable="false" MaxLength="7" />
+          <Property Name="AppCount" Type="int" Nullable="false" />
+          <Property Name="AppLevel" Type="tinyint" Nullable="false" />
+          <Property Name="AppUser" Type="nvarchar" MaxLength="10" />
+          <Property Name="AppAction" Type="bit" />
+          <Property Name="AppDate" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_PO_APP_LINE_PO_APP_HEAD">
+          <End Role="PO_APP_HEAD" Type="PRModel.Store.PO_APP_HEAD" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PO_APP_LINE" Type="PRModel.Store.PO_APP_LINE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PO_APP_HEAD">
+              <PropertyRef Name="CompanyCode" />
+              <PropertyRef Name="PONO" />
+              <PropertyRef Name="AppCount" />
+            </Principal>
+            <Dependent Role="PO_APP_LINE">
+              <PropertyRef Name="CompanyCode" />
+              <PropertyRef Name="PONO" />
+              <PropertyRef Name="AppCount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PO_APP_TRANSACTION_PO_APP_HEAD">
+          <End Role="PO_APP_HEAD" Type="PRModel.Store.PO_APP_HEAD" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PO_APP_TRANSACTION" Type="PRModel.Store.PO_APP_TRANSACTION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PO_APP_HEAD">
+              <PropertyRef Name="CompanyCode" />
+              <PropertyRef Name="PONO" />
+              <PropertyRef Name="AppCount" />
+            </Principal>
+            <Dependent Role="PO_APP_TRANSACTION">
+              <PropertyRef Name="CompanyCode" />
+              <PropertyRef Name="PONO" />
+              <PropertyRef Name="AppCount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PRModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PREntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="PO_APP_HEAD" EntityType="PRModel.PO_APP_HEAD" />
+          <EntitySet Name="PO_APP_LINE" EntityType="PRModel.PO_APP_LINE" />
+          <EntitySet Name="PO_APP_TRANSACTION" EntityType="PRModel.PO_APP_TRANSACTION" />
+          <AssociationSet Name="FK_PO_APP_LINE_PO_APP_HEAD" Association="PRModel.FK_PO_APP_LINE_PO_APP_HEAD">
+            <End Role="PO_APP_HEAD" EntitySet="PO_APP_HEAD" />
+            <End Role="PO_APP_LINE" EntitySet="PO_APP_LINE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PO_APP_TRANSACTION_PO_APP_HEAD" Association="PRModel.FK_PO_APP_TRANSACTION_PO_APP_HEAD">
+            <End Role="PO_APP_HEAD" EntitySet="PO_APP_HEAD" />
+            <End Role="PO_APP_TRANSACTION" EntitySet="PO_APP_TRANSACTION" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="PO_APP_HEAD">
+          <Key>
+            <PropertyRef Name="CompanyCode" />
+            <PropertyRef Name="PONO" />
+            <PropertyRef Name="AppCount" />
+          </Key>
+          <Property Name="RecordStatus" Type="String" MaxLength="1" Unicode="true" FixedLength="false" />
+          <Property Name="CompanyCode" Type="String" Nullable="false" MaxLength="5" Unicode="true" FixedLength="false" />
+          <Property Name="PONO" Type="String" Nullable="false" MaxLength="7" Unicode="true" FixedLength="false" />
+          <Property Name="AppCount" Type="Int32" Nullable="false" />
+          <Property Name="EntryDate" Type="DateTime" Precision="0" />
+          <Property Name="EntryTime" Type="Time" Precision="7" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="0" />
+          <Property Name="UpdateTime" Type="Time" Precision="7" />
+          <Property Name="AppReqSign" Type="String" MaxLength="1" Unicode="true" FixedLength="true" />
+          <Property Name="AppReqReceipt" Type="String" MaxLength="1" Unicode="true" FixedLength="true" />
+          <Property Name="AppRepSign" Type="String" MaxLength="1" Unicode="true" FixedLength="true" />
+          <Property Name="AppRepReceipt" Type="String" MaxLength="1" Unicode="true" FixedLength="true" />
+          <Property Name="AppSign" Type="String" MaxLength="1" Unicode="true" FixedLength="true" />
+          <Property Name="AppDate" Type="DateTime" Precision="0" />
+          <Property Name="AppTime" Type="Time" Precision="7" />
+          <Property Name="AppUser" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="AppMemo" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Vendor" Type="String" MaxLength="4" Unicode="true" FixedLength="false" />
+          <Property Name="Currency" Type="String" MaxLength="3" Unicode="true" FixedLength="false" />
+          <Property Name="POFixedDate" Type="DateTime" Precision="0" />
+          <Property Name="POFixedTime" Type="Time" Precision="7" />
+          <Property Name="Buyer" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="BuyerMemo" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Responser" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="PO_APP_LINE" Relationship="PRModel.FK_PO_APP_LINE_PO_APP_HEAD" FromRole="PO_APP_HEAD" ToRole="PO_APP_LINE" />
+          <NavigationProperty Name="PO_APP_TRANSACTION" Relationship="PRModel.FK_PO_APP_TRANSACTION_PO_APP_HEAD" FromRole="PO_APP_HEAD" ToRole="PO_APP_TRANSACTION" />
+        </EntityType>
+        <EntityType Name="PO_APP_LINE">
+          <Key>
+            <PropertyRef Name="CompanyCode" />
+            <PropertyRef Name="PONO" />
+            <PropertyRef Name="POLine" />
+            <PropertyRef Name="AppCount" />
+          </Key>
+          <Property Name="RecordStatus" Type="String" MaxLength="1" Unicode="true" FixedLength="false" />
+          <Property Name="CompanyCode" Type="String" Nullable="false" MaxLength="5" Unicode="true" FixedLength="false" />
+          <Property Name="PONO" Type="String" Nullable="false" MaxLength="7" Unicode="true" FixedLength="false" />
+          <Property Name="POLine" Type="String" Nullable="false" MaxLength="3" Unicode="true" FixedLength="false" />
+          <Property Name="AppCount" Type="Int32" Nullable="false" />
+          <Property Name="EntryDate" Type="DateTime" Precision="0" />
+          <Property Name="EntryTime" Type="Time" Precision="7" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="0" />
+          <Property Name="UpdateTime" Type="Time" Precision="7" />
+          <Property Name="AppSign" Type="String" MaxLength="1" Unicode="true" FixedLength="true" />
+          <Property Name="AppMemo" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="AppReqSign" Type="String" MaxLength="1" Unicode="true" FixedLength="true" />
+          <Property Name="AppReqReceipt" Type="String" MaxLength="1" Unicode="true" FixedLength="true" />
+          <Property Name="AppRepSign" Type="String" MaxLength="1" Unicode="true" FixedLength="true" />
+          <Property Name="AppRepReceipt" Type="String" MaxLength="1" Unicode="true" FixedLength="true" />
+          <Property Name="Item" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="PurchaseQTY" Type="Double" />
+          <Property Name="UnitPack" Type="String" MaxLength="3" Unicode="true" FixedLength="false" />
+          <Property Name="UnitPrice" Type="Double" />
+          <Property Name="IncomingDay" Type="Int32" />
+          <Property Name="IncomingDate" Type="DateTime" Precision="0" />
+          <Property Name="Duedate" Type="DateTime" Precision="0" />
+          <Property Name="CostCenterCode" Type="String" MaxLength="4" Unicode="true" FixedLength="false" />
+          <Property Name="MTCode" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="InvestmentNo" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="AccountCode" Type="String" MaxLength="6" Unicode="true" FixedLength="false" />
+          <Property Name="PRNO" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="Quotation" Type="Int32" />
+          <Property Name="BuyerMemo" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="POStatus" Type="String" MaxLength="1" Unicode="true" FixedLength="true" />
+          <NavigationProperty Name="PO_APP_HEAD" Relationship="PRModel.FK_PO_APP_LINE_PO_APP_HEAD" FromRole="PO_APP_LINE" ToRole="PO_APP_HEAD" />
+        </EntityType>
+        <EntityType Name="PO_APP_TRANSACTION">
+          <Key>
+            <PropertyRef Name="CompanyCode" />
+            <PropertyRef Name="PONO" />
+            <PropertyRef Name="AppCount" />
+            <PropertyRef Name="AppLevel" />
+          </Key>
+          <Property Name="CompanyCode" Type="String" Nullable="false" MaxLength="5" Unicode="true" FixedLength="false" />
+          <Property Name="PONO" Type="String" Nullable="false" MaxLength="7" Unicode="true" FixedLength="false" />
+          <Property Name="AppCount" Type="Int32" Nullable="false" />
+          <Property Name="AppLevel" Type="Byte" Nullable="false" />
+          <Property Name="AppUser" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="AppAction" Type="Boolean" />
+          <Property Name="AppDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="PO_APP_HEAD" Relationship="PRModel.FK_PO_APP_TRANSACTION_PO_APP_HEAD" FromRole="PO_APP_TRANSACTION" ToRole="PO_APP_HEAD" />
+        </EntityType>
+        <Association Name="FK_PO_APP_LINE_PO_APP_HEAD">
+          <End Role="PO_APP_HEAD" Type="PRModel.PO_APP_HEAD" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PO_APP_LINE" Type="PRModel.PO_APP_LINE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PO_APP_HEAD">
+              <PropertyRef Name="CompanyCode" />
+              <PropertyRef Name="PONO" />
+              <PropertyRef Name="AppCount" />
+            </Principal>
+            <Dependent Role="PO_APP_LINE">
+              <PropertyRef Name="CompanyCode" />
+              <PropertyRef Name="PONO" />
+              <PropertyRef Name="AppCount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PO_APP_TRANSACTION_PO_APP_HEAD">
+          <End Role="PO_APP_HEAD" Type="PRModel.PO_APP_HEAD" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PO_APP_TRANSACTION" Type="PRModel.PO_APP_TRANSACTION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PO_APP_HEAD">
+              <PropertyRef Name="CompanyCode" />
+              <PropertyRef Name="PONO" />
+              <PropertyRef Name="AppCount" />
+            </Principal>
+            <Dependent Role="PO_APP_TRANSACTION">
+              <PropertyRef Name="CompanyCode" />
+              <PropertyRef Name="PONO" />
+              <PropertyRef Name="AppCount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PRModelStoreContainer" CdmEntityContainer="PREntities">
+          <EntitySetMapping Name="PO_APP_HEAD">
+            <EntityTypeMapping TypeName="PRModel.PO_APP_HEAD">
+              <MappingFragment StoreEntitySet="PO_APP_HEAD">
+                <ScalarProperty Name="RecordStatus" ColumnName="RecordStatus" />
+                <ScalarProperty Name="CompanyCode" ColumnName="CompanyCode" />
+                <ScalarProperty Name="PONO" ColumnName="PONO" />
+                <ScalarProperty Name="AppCount" ColumnName="AppCount" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="EntryTime" ColumnName="EntryTime" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="AppReqSign" ColumnName="AppReqSign" />
+                <ScalarProperty Name="AppReqReceipt" ColumnName="AppReqReceipt" />
+                <ScalarProperty Name="AppRepSign" ColumnName="AppRepSign" />
+                <ScalarProperty Name="AppRepReceipt" ColumnName="AppRepReceipt" />
+                <ScalarProperty Name="AppSign" ColumnName="AppSign" />
+                <ScalarProperty Name="AppDate" ColumnName="AppDate" />
+                <ScalarProperty Name="AppTime" ColumnName="AppTime" />
+                <ScalarProperty Name="AppUser" ColumnName="AppUser" />
+                <ScalarProperty Name="AppMemo" ColumnName="AppMemo" />
+                <ScalarProperty Name="Vendor" ColumnName="Vendor" />
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
+                <ScalarProperty Name="POFixedDate" ColumnName="POFixedDate" />
+                <ScalarProperty Name="POFixedTime" ColumnName="POFixedTime" />
+                <ScalarProperty Name="Buyer" ColumnName="Buyer" />
+                <ScalarProperty Name="BuyerMemo" ColumnName="BuyerMemo" />
+                <ScalarProperty Name="Responser" ColumnName="Responser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PO_APP_LINE">
+            <EntityTypeMapping TypeName="PRModel.PO_APP_LINE">
+              <MappingFragment StoreEntitySet="PO_APP_LINE">
+                <ScalarProperty Name="RecordStatus" ColumnName="RecordStatus" />
+                <ScalarProperty Name="CompanyCode" ColumnName="CompanyCode" />
+                <ScalarProperty Name="PONO" ColumnName="PONO" />
+                <ScalarProperty Name="POLine" ColumnName="POLine" />
+                <ScalarProperty Name="AppCount" ColumnName="AppCount" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="EntryTime" ColumnName="EntryTime" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="AppSign" ColumnName="AppSign" />
+                <ScalarProperty Name="AppMemo" ColumnName="AppMemo" />
+                <ScalarProperty Name="AppReqSign" ColumnName="AppReqSign" />
+                <ScalarProperty Name="AppReqReceipt" ColumnName="AppReqReceipt" />
+                <ScalarProperty Name="AppRepSign" ColumnName="AppRepSign" />
+                <ScalarProperty Name="AppRepReceipt" ColumnName="AppRepReceipt" />
+                <ScalarProperty Name="Item" ColumnName="Item" />
+                <ScalarProperty Name="PurchaseQTY" ColumnName="PurchaseQTY" />
+                <ScalarProperty Name="UnitPack" ColumnName="UnitPack" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="IncomingDay" ColumnName="IncomingDay" />
+                <ScalarProperty Name="IncomingDate" ColumnName="IncomingDate" />
+                <ScalarProperty Name="Duedate" ColumnName="Duedate" />
+                <ScalarProperty Name="CostCenterCode" ColumnName="CostCenterCode" />
+                <ScalarProperty Name="MTCode" ColumnName="MTCode" />
+                <ScalarProperty Name="InvestmentNo" ColumnName="InvestmentNo" />
+                <ScalarProperty Name="AccountCode" ColumnName="AccountCode" />
+                <ScalarProperty Name="PRNO" ColumnName="PRNO" />
+                <ScalarProperty Name="Quotation" ColumnName="Quotation" />
+                <ScalarProperty Name="BuyerMemo" ColumnName="BuyerMemo" />
+                <ScalarProperty Name="POStatus" ColumnName="POStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PO_APP_TRANSACTION">
+            <EntityTypeMapping TypeName="PRModel.PO_APP_TRANSACTION">
+              <MappingFragment StoreEntitySet="PO_APP_TRANSACTION">
+                <ScalarProperty Name="CompanyCode" ColumnName="CompanyCode" />
+                <ScalarProperty Name="PONO" ColumnName="PONO" />
+                <ScalarProperty Name="AppCount" ColumnName="AppCount" />
+                <ScalarProperty Name="AppLevel" ColumnName="AppLevel" />
+                <ScalarProperty Name="AppUser" ColumnName="AppUser" />
+                <ScalarProperty Name="AppAction" ColumnName="AppAction" />
+                <ScalarProperty Name="AppDate" ColumnName="AppDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

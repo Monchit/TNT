@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RunNumberCenterModelStoreContainer" CdmEntityContainer="RunNumberCenterEntities">
+    <EntitySetMapping Name="TD_RunNumber">
+      <EntityTypeMapping TypeName="RunNumberCenterModel.TD_RunNumber">
+        <MappingFragment StoreEntitySet="TD_RunNumber">
+          <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="Additional" ColumnName="Additional" />
+          <ScalarProperty Name="RunningNumber" ColumnName="RunningNumber" />
+          <ScalarProperty Name="InsertDate" ColumnName="InsertDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TM_Program">
+      <EntityTypeMapping TypeName="RunNumberCenterModel.TM_Program">
+        <MappingFragment StoreEntitySet="TM_Program">
+          <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="InsertBy" ColumnName="InsertBy" />
+          <ScalarProperty Name="InsertDate" ColumnName="InsertDate" />
+          <ScalarProperty Name="ResetCountPoint" ColumnName="ResetCountPoint" />
+          <ScalarProperty Name="RunDigit" ColumnName="RunDigit" />
+          <ScalarProperty Name="YearDigit" ColumnName="YearDigit" />
+          <ScalarProperty Name="RunNoPattern" ColumnName="RunNoPattern" />
+          <ScalarProperty Name="ProgramName" ColumnName="ProgramName" />
+          <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TM_ResetCountPoint">
+      <EntityTypeMapping TypeName="RunNumberCenterModel.TM_ResetCountPoint">
+        <MappingFragment StoreEntitySet="TM_ResetCountPoint">
+          <ScalarProperty Name="PointPattern" ColumnName="PointPattern" />
+          <ScalarProperty Name="Point" ColumnName="Point" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

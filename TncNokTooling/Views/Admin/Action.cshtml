@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Master Action";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#jTableAction').jtable({
+            title: 'Master Action',
+            paging: true, //Enable paging
+            pageSize: 10, //Set page size (default: 10)
+            sorting: true, //Enable sorting
+            selecting: true, //Enable selecting
+            defaultSorting: 'id', //Set default sorting
+            actions: {
+                listAction: '@Url.Action("ActionList", "Admin")',
+                deleteAction: '@Url.Action("DeleteAction", "Admin")',
+                updateAction: '@Url.Action("UpdateAction", "Admin")',
+                createAction: '@Url.Action("CreateAction", "Admin")'
+            },
+            fields: {
+                id: { title: 'Action Code', key: true, create: true, edit: false, width: '20%' },
+                name: { title: 'Action Name', create: true, edit: true, width: '80%' },
+            }
+        });
+
+        //Load student list from server
+        $('#jTableAction').jtable('load');
+
+    });
+</script>
+
+<h2>@ViewBag.Title</h2>
+
+<div id="jTableAction"></div>

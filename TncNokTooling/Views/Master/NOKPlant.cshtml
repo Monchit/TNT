@@ -1,0 +1,152 @@
+﻿@{
+    ViewBag.Title = "NOKPlant";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        //$("#accordion").accordion({
+        //    heightStyle: "content"
+        //});
+
+        $('#jTablePlant').jtable({
+            title: 'NOK Plant',
+            paging: true, //Enable paging
+            pageSize: 10, //Set page size (default: 10)
+            sorting: true, //Enable sorting
+            selecting: true, //Enable selecting
+            defaultSorting: 'name', //Set default sorting
+            actions: {
+                listAction: '@Url.Action("PlantList", "Master")',
+                deleteAction: '@Url.Action("DeletePlant", "Master")',
+                updateAction: '@Url.Action("UpdatePlant", "Master")',
+                createAction: '@Url.Action("CreatePlant", "Master")'
+            },
+            fields: {
+                id: { title: 'ID', key: true, create: false, edit: false, width: '20%' },
+                name: { title: 'Name', create: true, edit: true, width: '80%' }
+            }
+        });
+
+        //Load student list from server
+        $('#jTablePlant').jtable('load');
+
+        $('#jTableDescription').jtable({
+            title: 'Description',
+            paging: true, //Enable paging
+            pageSize: 10, //Set page size (default: 10)
+            sorting: true, //Enable sorting
+            selecting: true, //Enable selecting
+            defaultSorting: 'name', //Set default sorting
+            actions: {
+                listAction: '@Url.Action("DescriptionList", "Master")',
+                deleteAction: '@Url.Action("DeleteDescription", "Master")',
+                updateAction: '@Url.Action("UpdateDescription", "Master")',
+                createAction: '@Url.Action("CreateDescription", "Master")'
+            },
+            fields: {
+                id: { title: 'ID', key: true, create: false, edit: false, width: '20%' },
+                name: { title: 'Name', create: true, edit: true, width: '80%' }
+            }
+        });
+
+        //Load student list from server
+        $('#jTableDescription').jtable('load');
+
+        $('#jTableProduct').jtable({
+            title: 'Product',
+            paging: true, //Enable paging
+            pageSize: 10, //Set page size (default: 10)
+            sorting: true, //Enable sorting
+            selecting: true, //Enable selecting
+            defaultSorting: 'name', //Set default sorting
+            actions: {
+                listAction: '@Url.Action("ProductList", "Master")',
+                deleteAction: '@Url.Action("DeleteProduct", "Master")',
+                updateAction: '@Url.Action("UpdateProduct", "Master")',
+                createAction: '@Url.Action("CreateProduct", "Master")'
+            },
+            fields: {
+                id: { title: 'ID', key: true, create: false, edit: false, width: '20%' },
+                name: { title: 'Name', create: true, edit: true, width: '80%' }
+            }
+        });
+
+        //Load student list from server
+        $('#jTableProduct').jtable('load');
+
+        $('#jTableType').jtable({
+            title: 'Type',
+            paging: true, //Enable paging
+            pageSize: 10, //Set page size (default: 10)
+            sorting: true, //Enable sorting
+            selecting: true, //Enable selecting
+            defaultSorting: 'name', //Set default sorting
+            actions: {
+                listAction: '@Url.Action("TypeList", "Master")',
+                deleteAction: '@Url.Action("DeleteType", "Master")',
+                updateAction: '@Url.Action("UpdateType", "Master")',
+                createAction: '@Url.Action("CreateType", "Master")'
+            },
+            fields: {
+                id: { title: 'ID', key: true, create: false, edit: false, width: '20%' },
+                name: { title: 'Name', create: true, edit: true, width: '80%' }
+            }
+        });
+
+        //Load student list from server
+        $('#jTableType').jtable('load');
+
+    });
+</script>
+
+<div class="row-fluid">
+    <div class="span6">
+        <div id="jTablePlant"></div>
+    </div>
+    <div class="span6">
+        <div id="jTableDescription"></div>
+    </div>
+</div>
+<br />
+
+<div class="row-fluid">
+    <div class="span6">
+        <div id="jTableProduct"></div>
+    </div>
+    <div class="span6">
+        <div id="jTableType"></div>
+    </div>
+</div>
+
+@*<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">NOK Plant</a></li>
+        <li><a href="#tabs-2">Description</a></li>
+        <li><a href="#tabs-3">Product</a></li>
+        <li><a href="#tabs-4">Type</a></li>
+    </ul>
+    <div id="tabs-1">
+    </div>
+    <div id="tabs-2">
+    </div>
+    <div id="tabs-3">
+    </div>
+    <div id="tabs-4">
+    </div>
+</div>
+
+<div id="accordion">
+  <h3>NOK Plant</h3>
+  <div>
+  </div>
+  <h3>Description</h3>
+  <div>
+  </div>
+  <h3>Product</h3>
+  <div>
+  </div>
+  <h3>Type</h3>
+  <div>
+  </div>
+</div>*@

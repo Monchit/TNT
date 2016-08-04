@@ -1,0 +1,8 @@
+C:\Users\monchit.TNC\Documents\Visual Studio 2012\Projects\TncNokTooling\GetPOFixed\bin\Debug\GetPOFixed.exe.config
+C:\Users\monchit.TNC\Documents\Visual Studio 2012\Projects\TncNokTooling\GetPOFixed\bin\Debug\GetPOFixed.exe
+C:\Users\monchit.TNC\Documents\Visual Studio 2012\Projects\TncNokTooling\GetPOFixed\bin\Debug\GetPOFixed.pdb
+C:\Users\monchit.TNC\Documents\Visual Studio 2012\Projects\TncNokTooling\GetPOFixed\bin\Debug\EntityFramework.dll
+C:\Users\monchit.TNC\Documents\Visual Studio 2012\Projects\TncNokTooling\GetPOFixed\bin\Debug\EntityFramework.xml
+C:\Users\monchit.TNC\Documents\Visual Studio 2012\Projects\TncNokTooling\GetPOFixed\obj\Debug\GetPOFixed.csprojResolveAssemblyReference.cache
+C:\Users\monchit.TNC\Documents\Visual Studio 2012\Projects\TncNokTooling\GetPOFixed\obj\Debug\GetPOFixed.exe
+C:\Users\monchit.TNC\Documents\Visual Studio 2012\Projects\TncNokTooling\GetPOFixed\obj\Debug\GetPOFixed.pdb

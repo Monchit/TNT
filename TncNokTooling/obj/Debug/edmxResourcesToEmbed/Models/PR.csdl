@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PRModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="PREntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="PR_TO_POEDI" EntityType="PRModel.PR_TO_POEDI" />
+    <EntitySet Name="PR_TO_POEDI_TRAIN" EntityType="PRModel.PR_TO_POEDI_TRAIN" />
+  </EntityContainer>
+  <EntityType Name="PR_TO_POEDI">
+    <Key>
+      <PropertyRef Name="pr_no" />
+      <PropertyRef Name="pr_line" />
+    </Key>
+    <Property Name="pr_no" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+    <Property Name="pr_line" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+    <Property Name="isTransfer" Type="String" Nullable="false" MaxLength="1" Unicode="true" FixedLength="true" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UploadDate" Type="DateTime" Precision="3" />
+    <Property Name="PIC" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+    <Property Name="vendor" Type="String" Nullable="false" MaxLength="4" Unicode="true" FixedLength="false" />
+    <Property Name="item" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="description" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="QTY" Type="Double" Nullable="false" />
+    <Property Name="unitPack" Type="String" Nullable="false" MaxLength="3" Unicode="true" FixedLength="false" />
+    <Property Name="duedate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="investmentNo" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="investmentName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="accountCode" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="false" />
+    <Property Name="costCode" Type="String" Nullable="false" MaxLength="4" Unicode="true" FixedLength="false" />
+    <Property Name="costCodeNote" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="unitPrice" Type="Double" Nullable="false" />
+    <Property Name="brand" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="quotation" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+    <Property Name="ApprovedDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="ApprovedTime" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="IssueBy" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="IssueGroup" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="CostNote" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Model" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="WONo" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Purpose" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="vQuoNo" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Sparepart" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="MTC" Type="String" Nullable="false" MaxLength="4" Unicode="true" FixedLength="false" />
+    <Property Name="PRUser" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Reason" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="PR_TO_POEDI_TRAIN">
+    <Key>
+      <PropertyRef Name="pr_no" />
+      <PropertyRef Name="pr_line" />
+    </Key>
+    <Property Type="String" Name="pr_no" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="pr_line" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="isTransfer" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Type="DateTime" Name="CreateDate" Nullable="false" Precision="3" />
+    <Property Type="DateTime" Name="UploadDate" Precision="3" />
+    <Property Type="String" Name="PIC" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="vendor" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="item" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="description" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Double" Name="QTY" Nullable="false" />
+    <Property Type="String" Name="unitPack" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="duedate" Nullable="false" Precision="0" />
+    <Property Type="String" Name="investmentNo" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="investmentName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="accountCode" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="costCode" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="costCodeNote" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="Double" Name="unitPrice" Nullable="false" />
+    <Property Type="String" Name="brand" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="quotation" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="ApprovedDate" Nullable="false" Precision="0" />
+    <Property Type="Time" Name="ApprovedTime" Nullable="false" Precision="7" />
+    <Property Type="String" Name="IssueBy" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="IssueGroup" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="CostNote" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Model" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="WONo" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Purpose" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="vQuoNo" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Sparepart" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="MTC" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="PRUser" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="ProjectName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Reason" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

@@ -1,0 +1,138 @@
+﻿@using TncNokTooling.Helpers
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="IE=8" />
+    <title>@ViewBag.Title | TNC/NOK Tooling System</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    @Styles.Render("~/Content/bootstrap")
+    @Styles.Render("~/Content/themes/base/css")
+    @Styles.Render("~/Content/formvalidator")
+    @Styles.Render("~/Content/jTable")
+    @Styles.Render("~/Content/select2")
+    @Styles.Render("~/Content/css")
+    
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jTable")
+    @Scripts.Render("~/bundles/formvalidator")
+    @Scripts.Render("~/bundles/select2")
+    @Scripts.Render("~/bundles/noty")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+             @if (TempData["noty_warn"] != null)
+             {
+                <text>
+            noty({
+                text: '@TempData["noty_warn"].ToString()',
+                type: 'warning',
+                layout: 'topCenter',
+                timeout: 8000
+            });
+            </text>
+             }
+            @if (TempData["noty_comp"] != null)
+            {
+                <text>
+            noty({
+                text: '@TempData["noty_comp"].ToString()',
+                type: 'success',
+                layout: 'topRight',
+                timeout: 6000
+            });
+            </text>
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="brand" href="">TNC/NOK Tooling System</a>
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        @if (Session["TNT_Auth"] != null)
+                        {
+                            @Html.MenuLink("Search", "Index", "Home")
+                            if (Session["TNT_ULv"] != null && (Session["TNT_ULv"].ToString() == "1" || Session["TNT_ULv"].ToString() == "2"))
+                            {
+                            @Html.MenuLink("Issue PR", "Issue", "Home")
+                            }
+
+                            var user_type = byte.Parse(Session["TNT_UType"].ToString());
+                            if (user_type > 0)
+                            {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Master <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    @switch (user_type)
+                                    {
+                                        case 1: <text>
+                                            @Html.MenuLink("Status", "Status", "Admin")
+                                            @Html.MenuLink("Action", "Action", "Admin")
+                                            @Html.MenuLink("User Type", "UserType", "Admin")
+                                            @Html.MenuLink("File Type", "FileType", "Admin")
+                                            </text>
+                                            goto case 10;
+                                        case 10: <text><li class="divider"></li></text>
+                                            goto case 11;
+                                        case 11: <text>
+                                        @Html.MenuLink("User", "Users", "Admin")
+                                            </text>
+                                            goto case 12;
+                                        case 12: <text><li class="divider"></li></text>
+                                            goto case 13;
+                                        case 13: goto case 15;
+                                        case 15: goto case 17;
+                                        case 17: <text>
+                                            @Html.MenuLink("PR Data", "PRData", "Master")
+                                            @Html.MenuLink("Lead Time", "LeadTime", "Master")
+                                            </text>
+                                            break;
+                                    }
+                                </ul>
+                            </li>
+                            }
+                        }
+                        <li><a href="@Url.Content("~/SourceFiles/Manual.pptx")" target="_blank">Manual</a></li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        @RenderBody()
+        <hr>
+
+        <footer>
+            <p>
+                Copyright &copy; @DateTime.Now.Year - Thai NOK Co.,Ltd. All Rights Reserved.
+                <br />
+                <small>Created by <a href="mailto:monchit@nok.co.th">Monchit W.</a> (IT - Information Technology Group)</small>
+            </p>
+        </footer>
+    </div>
+    <!--/.fluid-container-->
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

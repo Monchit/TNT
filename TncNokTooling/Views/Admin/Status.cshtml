@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Master Status";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#jTableStatus').jtable({
+            title: 'Master Status',
+            paging: true, //Enable paging
+            pageSize: 10, //Set page size (default: 10)
+            sorting: true, //Enable sorting
+            selecting: true, //Enable selecting
+            defaultSorting: 'id', //Set default sorting
+            actions: {
+                listAction: '@Url.Action("StatusList", "Admin")',
+                deleteAction: '@Url.Action("DeleteStatus", "Admin")',
+                updateAction: '@Url.Action("UpdateStatus", "Admin")',
+                createAction: '@Url.Action("CreateStatus", "Admin")'
+            },
+            fields: {
+                id: { title: 'ID', key: true, create: true, edit: false, width: '15%' },
+                name: { title: 'Status Name', create: true, edit: true, width: '40%' },
+                lv_min: { title: 'Lv Min.', create: true, edit: true, width: '15%' },
+                lv_max: { title: 'Lv Max.', create: true, edit: true, width: '15%' },
+                next: { title: 'Next Status', create: true, edit: true, width: '15%' }
+            }
+        });
+
+        //Load student list from server
+        $('#jTableStatus').jtable('load');
+
+    });
+</script>
+
+<h2>@ViewBag.Title</h2>
+
+<div id="jTableStatus"></div>

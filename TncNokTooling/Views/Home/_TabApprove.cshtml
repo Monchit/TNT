@@ -1,0 +1,17 @@
+﻿@if (ViewBag.CurrentTran != null && ViewBag.ActionForm != null)
+{
+    <hr />
+    var pr = ViewBag.CurrentTran.pr_no;
+    var status = ViewBag.CurrentTran.status_id;
+    var ulv = ViewBag.CurrentTran.ulv_id;
+    var org = ViewBag.CurrentTran.org;
+    var rev = ViewBag.CurrentTran.rev;
+    string form = ViewBag.ActionForm;
+    
+    if (form == "EditPR")
+    {
+        <a href="@Url.Action(form, "Home", new { pr_no = pr, ulv = ulv, org = org, status = status, rev = rev })" class="btn btn-warning"><i class="icon-wrench icon-white"></i> Edit PR</a>
+    }else{
+        @Html.Partial(form, new ViewDataDictionary { { "pr_no", pr }, { "ulv", ulv }, { "org", org }, {"status", status}, {"rev", rev} })
+    }
+}

@@ -1,0 +1,448 @@
+﻿@{
+    ViewBag.Title = "Issue PR";
+}
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.validate({
+                modules: 'date, file',
+                form: '#form_issue'
+            });
+
+            $(".datepicker").datepicker({
+                dateFormat: 'dd-mm-yy',
+                changeMonth: true,
+                changeYear: true,
+                showButtonPanel: true,
+                minDate: new Date()//set minDate is today
+            });
+
+            $(".allow_only_numbers").keydown(function (e) {
+                // Allow: backspace, delete, tab, escape, enter and .(190)
+                if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110]) !== -1 ||
+                    // Allow: Ctrl+A,Ctrl+C,Ctrl+V, Command+A
+                  ((e.keyCode == 65 || e.keyCode == 86 || e.keyCode == 67) && (e.ctrlKey === true || e.metaKey === true)) ||
+                    // Allow: home, end, left, right, down, up
+                  (e.keyCode >= 35 && e.keyCode <= 40)) {
+                    // let it happen, don't do anything
+                    return;
+                }
+                // Ensure that it is a number and stop the keypress
+                if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                    e.preventDefault();
+                }
+            });
+
+            $("#condition").change(function () {
+                if ($(this).val() == "Urgent") {
+                    $("#urgent").show();
+                    $("#reason").attr("data-validation", "required");
+                    //$("#due_dt").removeAttr("disabled");
+                    $("#due_dt").show();
+                    $("#due_clone").hide();
+                    $("#lbcal").text("Please select Due Date.");
+                } else {
+                    $("#urgent").hide();
+                    $("#reason").removeAttr("data-validation");
+                    //$("#due_dt").val("").attr("disabled", "");
+                    $("#due_dt").hide();
+                    $("#due_clone").show();
+                    $("#lbcal").text("By calculation");
+                }
+            });
+
+            $(document).on('change', '#process', function () {
+                if ($(this).val() == "1") {
+                    $("#nok").show();
+                    $("#remedy").hide();
+                    $("#problem").removeAttr("data-validation");
+                    $("#contact").attr("data-validation", "required");
+                    $("#fmail").attr("data-validation", "required extension");
+                    $("#fwr").attr("data-validation", "required extension");
+                    $("#fmom").attr("data-validation", "required extension");
+                    $("#fdraw").attr("data-validation", "required extension");
+                } else if ($(this).val() == "3") {
+                    $("#nok").hide();
+                    $("#remedy").show();
+                    $("#problem").attr("data-validation", "required");
+                    $("#contact").removeAttr("data-validation");
+                    $("#fmail").removeAttr("data-validation");
+                    $("#fwr").removeAttr("data-validation");
+                    $("#fmom").removeAttr("data-validation");
+                    $("#fdraw").removeAttr("data-validation");
+                } else {
+                    $("#nok").hide();
+                    $("#remedy").hide();
+                    $("#problem").removeAttr("data-validation");
+                    $("#contact").removeAttr("data-validation");
+                    $("#fmail").removeAttr("data-validation");
+                    $("#fwr").removeAttr("data-validation");
+                    $("#fmom").removeAttr("data-validation");
+                    $("#fdraw").removeAttr("data-validation");
+                }
+            });
+
+            var elements = $('.leadtime').on('change', function () {
+                if ($("#condition").val() == "Normal") {
+                    var valid = true;
+                    elements.each(function () {
+                        var elm = $(this).val();
+                        if (elm == '') {
+                            valid = false;
+                            return false;
+                        }
+                    });
+
+                    if (valid) {
+                        $.get("@Url.Action("GetLeadTime", "Home")", { process: $("#process").val(), plant: $("#nok_plant").val(), product: $("#product").val(), type: $("#type").val() }, function (data) {
+                            $("#due_dt").datepicker("setDate", data);
+                            $("#due_clone").datepicker("setDate", data);
+                        });
+                    }
+                }
+            });
+
+            $("#btnAddFile").click(function () {
+                $('#divAttach').append($('<div style="padding: 3px 0px 3px 0px;"><input type="file" name="atfiles" class="input-file" data-validation="extension" data-validation-allowing="pdf" data-validation-optional="true" /><button type="button" class="DelFile btn btn-small btn-danger"><i class="icon-remove icon-white"></i></button></div>'));
+            });
+
+            $(document).on("click", ".DelFile", function () {
+                $(this).parent().remove();
+                return false;
+            });
+
+            $('#btnAdd').click(function () {
+                if ($("#listDesc").val() == "") {
+                    alert("Please fill in Description !!!");
+                } else if ($("#listQty").val() == "") {
+                    alert("Please fill in Q'ty !!!");
+                } else {
+                    $("#tbtooling tbody").append("<tr>" +
+                        "<td>" + $("#listDesc").val() + "</td>" +
+                        "<td>" + $("#listQty").val() + "</td>" +
+                        "<td>" + $("#listUnit").val() + "</td>" +
+                        "<td>" + $("#listSell option:selected").text() + "</td>" +
+                        "<td>" +
+                        "<button type='button' class='delTd btn btn-small btn-danger'><i class='icon-trash icon-white'></i></button>" +
+                        "<input type='hidden' name='hcDesc' value='" + $("#listDesc").val() + "' />" +
+                        "<input type='hidden' name='hcQty' value='" + $("#listQty").val() + "' />" +
+                        "<input type='hidden' name='hcUnit' value='" + $("#listUnit").val() + "' />" +
+                        "<input type='hidden' name='hcSell' value='" + $("#listSell").val() + "' />" +
+                        "</td>" +
+                        "</tr>");
+                    $("#listDesc").val("");
+                    $("#listQty").val("");
+                    $('#listUnit').get(0).selectedIndex = 0;
+                    $('#listSell').get(0).selectedIndex = 0;
+                    $('#countrow').val($('#tbtooling tbody').children('tr').length);
+                }
+                return false;
+            });
+
+            $(document).on("click", ".delTd", function (event) {
+                var tr = $(this).closest('tr');
+                tr.remove();
+                if ($('#tbtooling tbody').children('tr').length == 0) {
+                    $('#countrow').val("");
+                } else {
+                    var curr = $('#countrow').val();
+                    $('#countrow').val(curr - 1);
+                }
+                return false;
+            });
+        });
+    </script>
+}
+
+<div class="well"><h2>New PR</h2></div>
+
+<form class="form-horizontal" id="form_issue" name="form_issue" action="@Url.Action("CreatePR", "Home")" method="post" enctype="multipart/form-data">
+
+    <div class="row-fluid">
+        <div class="span6">
+            <!-- Select Basic -->
+            <div class="control-group">
+                <label class="control-label" for="condition">Purchase Condition** :</label>
+                <div class="controls">
+                    <select id="condition" name="condition" class="input-medium" data-validation="required">
+                        <option value="">--</option>
+                        <option>Urgent</option>
+                        <option>Normal</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="control-group">
+                <label class="control-label" for="due_dt">Due Date** :</label>
+                <div class="controls">
+                    <input id="due_dt" name="due_dt" type="text" class="input-medium datepicker" readonly="true"
+                        data-validation="date" data-validation-format="dd-mm-yyyy">
+                    <input id="due_clone" name="due_clone" type="text" class="input-medium datepicker" disabled="disabled" style="display:none;">
+                    <span id="lbcal" class="label label-info"></span>
+                </div>
+            </div>
+
+            <!-- Textarea -->
+            <div class="control-group" id="urgent" style="display: none;">
+                <label class="control-label" for="reason">Reason** :</label>
+                <div class="controls">
+                    <textarea id="reason" name="reason"></textarea>
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="control-group">
+                <label class="control-label" for="issue_by">Issue by :</label>
+                <div class="controls">
+                    <input id="issue_by" name="issue_by" type="text" value="@Session["TNT_Name"].ToString().ToUpper()" class="input-large" readonly="true">
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="control-group">
+                <label class="control-label" for="issue_dt">Issue Date :</label>
+                <div class="controls">
+                    <input id="issue_dt" name="issue_dt" type="text" value="@DateTime.Now.ToString("dd/MM/yyyy")" class="input-large" readonly="true">
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="control-group">
+                <label class="control-label" for="group">Issue Group :</label>
+                <div class="controls">
+                    <input id="group_name" name="group_name" type="text" value="@ViewBag.GroupName.group_name.ToUpper()" class="input-large" readonly="true">
+                    <input type="hidden" id="issue_dept" name="issue_dept" value="@ViewBag.GroupName.dept_id" />
+                    <input type="hidden" id="issue_plant" name="issue_plant" value="@ViewBag.GroupName.plant_id" />
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="control-group">
+                <label class="control-label" for="ext">Internal Phone :</label>
+                <div class="controls">
+                    <input id="ext" name="ext" type="text" class="input-small" data-validation="number" data-validation-allowing="range[1000;9999]" maxlength="4">
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="control-group">
+                <label class="control-label" for="cost_code">Cost code** :</label>
+                <div class="controls">
+                    @*<input id="cost_code" name="cost_code" type="text" class="input-small" data-validation="number" data-validation-allowing="range[1000;9999]" maxlength="4">*@
+                    <select class="input-large" name="cost_code" id="cost_code" data-validation="required">
+                    <option value="">-- Select --</option>
+                    @foreach (var item in ViewBag.CostCode)
+                    {
+                        <option value="@item.cost_code">@item.cost_code - @item.LeafTitle</option>
+                    }
+                </select>
+                </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label" for="filebutton">Attach files <button id="btnAddFile" type="button" class="btn btn-small btn-success"><i class="icon-plus icon-white"></i></button> : </label>
+              <div class="controls" id="divAttach">
+                <div style="padding: 3px 0px 3px 0px;"><input type="file" name="atfiles" class="input-file" 
+                    data-validation="extension" data-validation-allowing="pdf" data-validation-optional="true"></div>
+              </div>
+            </div>
+
+        </div>
+
+        <div class="span6">
+            <!-- Select Basic -->
+            <div class="control-group">
+                <label class="control-label" for="rank">Rank :</label>
+                <div class="controls">
+                    <select id="rank" name="rank" class="input-small">
+                        <option>-</option>
+                        <option>A</option>
+                        <option>B</option>
+                        <option>C</option>
+                        <option>D</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="control-group">
+                <label class="control-label" for="item_code">Item code/Part no.** :</label>
+                <div class="controls">
+                    <input id="item_code" name="item_code" type="text" class="input-large" data-validation="required">
+                </div>
+            </div>
+
+            <!-- Select Basic -->
+            <div class="control-group">
+                <label class="control-label" for="process">Process** :</label>
+                <div class="controls">
+                    <select id="process" name="process" class="input-large leadtime" data-validation="required">
+                        <option value="">-- Select --</option>
+                        @foreach (var item in ViewBag.ProcessList)
+                        {
+                            <option value="@item.id">@item.name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <!-- Select Basic -->
+            <div class="control-group">
+                <label class="control-label" for="nok_plant">NOK Plant** :</label>
+                <div class="controls">
+                    <select id="nok_plant" name="nok_plant" class="input-large leadtime" data-validation="required">
+                        <option value="">-- Select --</option>
+                        @foreach (var item in ViewBag.NOKPlantList)
+                        {
+                            <option value="@item.id">@item.name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <!-- Select Basic -->
+            <div class="control-group">
+                <label class="control-label" for="product">Product** :</label>
+                <div class="controls">
+                    <select id="product" name="product" class="input-large leadtime" data-validation="required">
+                        <option value="">-- Select --</option>
+                        @foreach (var item in ViewBag.ProductList)
+                        {
+                            <option value="@item.id">@item.name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <!-- Select Basic -->
+            <div class="control-group">
+                <label class="control-label" for="type">Type** :</label>
+                <div class="controls">
+                    <select id="type" name="type" class="input-large leadtime" data-validation="required">
+                        <option value="">-- Select --</option>
+                        @foreach (var item in ViewBag.TypeList)
+                        {
+                            <option value="@item.id">@item.name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div id="remedy" style="display: none;">
+                <!-- Text input-->
+                <div class="control-group">
+                    <label class="control-label" for="problem">Mold Problem** :</label>
+                    <div class="controls">
+                        <textarea id="problem" name="problem" class="input-large"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div id="nok" style="display: none;">
+                <div class="control-group">
+                    <label class="control-label" for="contact">Prior contact to NOK** :</label>
+                    <div class="controls">
+                        <input id="contact" name="contact" type="text" class="input-large">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="fmail">File Mail** :</label>
+                    <div class="controls">
+                        <input id="fmail" name="fmail" type="file" data-validation-allowing="pdf">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="fwr">File WR** :</label>
+                    <div class="controls">
+                        <input id="fwr" name="fwr" type="file" data-validation-allowing="pdf">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="fmom">File MOM** :</label>
+                    <div class="controls">
+                        <input id="fmom" name="fmom" type="file" data-validation-allowing="pdf">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="fdraw">File Drawing** :</label>
+                    <div class="controls">
+                        <input id="fdraw" name="fdraw" type="file" data-validation-allowing="pdf">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row-fluid">
+        <div class="span5">
+            <!-- Text input-->
+            <div class="control-group">
+                <label class="control-label" for="listDesc">Description :</label>
+                <div class="controls">
+                    <input id="listDesc" name="listDesc" type="text" class="input-large">
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="control-group">
+                <label class="control-label" for="listQty">Q'ty :</label>
+                <div class="controls">
+                    <input id="listQty" name="listQty" type="text" class="input-small allow_only_numbers">
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="control-group">
+                <label class="control-label" for="listUnit">Unit :</label>
+                <div class="controls">
+                    <select id="listUnit" name="listUnit" class="input-small">
+                        <option>PCS</option>
+                        <option>SET</option>
+                        <option>BOX</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="listSell">Sell :</label>
+                <div class="controls">
+                    <select id="listSell" name="listSell" class="input-small">
+                        <option value="false">No</option>
+                        <option value="true">Yes</option>
+                    </select>
+                    <button type="button" id="btnAdd" name="btnAdd" class="btn btn-success">
+                        <i class="icon-plus icon-white"></i> Add Tooling</button>
+                </div>
+            </div>
+        </div>
+        <div class="span7">
+            <div class="text-right">
+                Row count : <input type="text" id="countrow" name="countrow" class="input-mini" readonly="true" data-validation="required" />
+            </div>
+            
+            <table id="tbtooling" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Q'ty</th>
+                        <th>Unit</th>
+                        <th>Sell</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="well text-center">
+        <button id="btnSubmit" name="btnSubmit" class="btn btn-primary" type="submit"><i class="icon-ok icon-white"></i> Submit</button>
+        <button id="btnClear" name="btnClear" class="btn btn-danger" type="reset"><i class="icon-trash icon-white"></i> Clear</button>
+    </div>
+</form>

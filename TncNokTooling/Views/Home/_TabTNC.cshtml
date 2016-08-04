@@ -1,0 +1,58 @@
+﻿@model IEnumerable<TncNokTooling.Models.v_tran_show>
+
+<table class="table table-condensed">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Group</th>
+            <th>Status</th>
+            <th>Position</th>
+            <th>Action</th>
+            <th>Comment</th>
+            <th>Date-Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr> @*@if(item.action == "Rejected"){ <text>class="warning"</text> }*@
+                <td>@item.emp_fname @item.emp_lname</td>
+                <td>
+                    @{
+                        TncNokTooling.Models.TNC_ADMINEntities dbTNC = new TncNokTooling.Models.TNC_ADMINEntities();
+                        var orgname = "";
+                        if (item.org != 0)
+                        {
+                            if (item.ulv_id < 3)
+                            {
+                                orgname = dbTNC.tnc_group_master.Find(item.org).group_name;
+                            }
+                            else if (item.ulv_id == 3)
+                            {
+                                orgname = dbTNC.tnc_dept_master.Find(item.org).dept_name;
+                            }
+                            else if (item.ulv_id == 4)
+                            {
+                                orgname = dbTNC.tnc_plant_master.Find(item.org).plant_name;
+                            }
+                            else if (item.ulv_id == 5)
+                            {
+                                orgname = "Managing Director";
+                            }
+                        }
+                        else
+                        {
+                            orgname = "-";
+                        }
+                        <text>@orgname</text>
+                    }
+                </td>
+                <td>@item.status</td>
+                <td>@item.lv</td>
+                <td>@item.action</td>
+                <td>@item.comment</td>
+                <td>@if(item.action != "-"){ <text>@String.Format("{0:dd/MM/yyyy HH:mm}", item.act_dt)</text> }</td>
+            </tr>
+        }
+    </tbody>
+</table>

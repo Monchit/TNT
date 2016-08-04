@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PRModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="PRModelStoreContainer">
+    <EntitySet Name="PO_APP_HEAD" EntityType="PRModel.Store.PO_APP_HEAD" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PO_APP_LINE" EntityType="PRModel.Store.PO_APP_LINE" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PO_APP_TRANSACTION" EntityType="PRModel.Store.PO_APP_TRANSACTION" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_PO_APP_LINE_PO_APP_HEAD" Association="PRModel.Store.FK_PO_APP_LINE_PO_APP_HEAD">
+      <End Role="PO_APP_HEAD" EntitySet="PO_APP_HEAD" />
+      <End Role="PO_APP_LINE" EntitySet="PO_APP_LINE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PO_APP_TRANSACTION_PO_APP_HEAD" Association="PRModel.Store.FK_PO_APP_TRANSACTION_PO_APP_HEAD">
+      <End Role="PO_APP_HEAD" EntitySet="PO_APP_HEAD" />
+      <End Role="PO_APP_TRANSACTION" EntitySet="PO_APP_TRANSACTION" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="PO_APP_HEAD">
+    <Key>
+      <PropertyRef Name="CompanyCode" />
+      <PropertyRef Name="PONO" />
+      <PropertyRef Name="AppCount" />
+    </Key>
+    <Property Name="RecordStatus" Type="nvarchar" MaxLength="1" />
+    <Property Name="CompanyCode" Type="nvarchar" Nullable="false" MaxLength="5" />
+    <Property Name="PONO" Type="nvarchar" Nullable="false" MaxLength="7" />
+    <Property Name="AppCount" Type="int" Nullable="false" />
+    <Property Name="EntryDate" Type="date" />
+    <Property Name="EntryTime" Type="time" />
+    <Property Name="UpdateDate" Type="date" />
+    <Property Name="UpdateTime" Type="time" />
+    <Property Name="AppReqSign" Type="nchar" MaxLength="1" />
+    <Property Name="AppReqReceipt" Type="nchar" MaxLength="1" />
+    <Property Name="AppRepSign" Type="nchar" MaxLength="1" />
+    <Property Name="AppRepReceipt" Type="nchar" MaxLength="1" />
+    <Property Name="AppSign" Type="nchar" MaxLength="1" />
+    <Property Name="AppDate" Type="date" />
+    <Property Name="AppTime" Type="time" />
+    <Property Name="AppUser" Type="nvarchar" MaxLength="10" />
+    <Property Name="AppMemo" Type="nvarchar" MaxLength="100" />
+    <Property Name="Vendor" Type="nvarchar" MaxLength="4" />
+    <Property Name="Currency" Type="nvarchar" MaxLength="3" />
+    <Property Name="POFixedDate" Type="date" />
+    <Property Name="POFixedTime" Type="time" />
+    <Property Name="Buyer" Type="nvarchar" MaxLength="10" />
+    <Property Name="BuyerMemo" Type="nvarchar" MaxLength="100" />
+    <Property Name="Responser" Type="nvarchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="PO_APP_LINE">
+    <Key>
+      <PropertyRef Name="CompanyCode" />
+      <PropertyRef Name="PONO" />
+      <PropertyRef Name="POLine" />
+      <PropertyRef Name="AppCount" />
+    </Key>
+    <Property Name="RecordStatus" Type="nvarchar" MaxLength="1" />
+    <Property Name="CompanyCode" Type="nvarchar" Nullable="false" MaxLength="5" />
+    <Property Name="PONO" Type="nvarchar" Nullable="false" MaxLength="7" />
+    <Property Name="POLine" Type="nvarchar" Nullable="false" MaxLength="3" />
+    <Property Name="AppCount" Type="int" Nullable="false" />
+    <Property Name="EntryDate" Type="date" />
+    <Property Name="EntryTime" Type="time" />
+    <Property Name="UpdateDate" Type="date" />
+    <Property Name="UpdateTime" Type="time" />
+    <Property Name="AppSign" Type="nchar" MaxLength="1" />
+    <Property Name="AppMemo" Type="nvarchar" MaxLength="100" />
+    <Property Name="AppReqSign" Type="nchar" MaxLength="1" />
+    <Property Name="AppReqReceipt" Type="nchar" MaxLength="1" />
+    <Property Name="AppRepSign" Type="nchar" MaxLength="1" />
+    <Property Name="AppRepReceipt" Type="nchar" MaxLength="1" />
+    <Property Name="Item" Type="nvarchar" MaxLength="50" />
+    <Property Name="PurchaseQTY" Type="float" />
+    <Property Name="UnitPack" Type="nvarchar" MaxLength="3" />
+    <Property Name="UnitPrice" Type="float" />
+    <Property Name="IncomingDay" Type="int" />
+    <Property Name="IncomingDate" Type="date" />
+    <Property Name="Duedate" Type="date" />
+    <Property Name="CostCenterCode" Type="nvarchar" MaxLength="4" />
+    <Property Name="MTCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="InvestmentNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="AccountCode" Type="nvarchar" MaxLength="6" />
+    <Property Name="PRNO" Type="nvarchar" MaxLength="10" />
+    <Property Name="Quotation" Type="int" />
+    <Property Name="BuyerMemo" Type="nvarchar" MaxLength="100" />
+    <Property Name="POStatus" Type="nchar" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="PO_APP_TRANSACTION">
+    <Key>
+      <PropertyRef Name="CompanyCode" />
+      <PropertyRef Name="PONO" />
+      <PropertyRef Name="AppCount" />
+      <PropertyRef Name="AppLevel" />
+    </Key>
+    <Property Name="CompanyCode" Type="nvarchar" Nullable="false" MaxLength="5" />
+    <Property Name="PONO" Type="nvarchar" Nullable="false" MaxLength="7" />
+    <Property Name="AppCount" Type="int" Nullable="false" />
+    <Property Name="AppLevel" Type="tinyint" Nullable="false" />
+    <Property Name="AppUser" Type="nvarchar" MaxLength="10" />
+    <Property Name="AppAction" Type="bit" />
+    <Property Name="AppDate" Type="datetime" />
+  </EntityType>
+  <Association Name="FK_PO_APP_LINE_PO_APP_HEAD">
+    <End Role="PO_APP_HEAD" Type="PRModel.Store.PO_APP_HEAD" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="PO_APP_LINE" Type="PRModel.Store.PO_APP_LINE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PO_APP_HEAD">
+        <PropertyRef Name="CompanyCode" />
+        <PropertyRef Name="PONO" />
+        <PropertyRef Name="AppCount" />
+      </Principal>
+      <Dependent Role="PO_APP_LINE">
+        <PropertyRef Name="CompanyCode" />
+        <PropertyRef Name="PONO" />
+        <PropertyRef Name="AppCount" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PO_APP_TRANSACTION_PO_APP_HEAD">
+    <End Role="PO_APP_HEAD" Type="PRModel.Store.PO_APP_HEAD" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="PO_APP_TRANSACTION" Type="PRModel.Store.PO_APP_TRANSACTION" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PO_APP_HEAD">
+        <PropertyRef Name="CompanyCode" />
+        <PropertyRef Name="PONO" />
+        <PropertyRef Name="AppCount" />
+      </Principal>
+      <Dependent Role="PO_APP_TRANSACTION">
+        <PropertyRef Name="CompanyCode" />
+        <PropertyRef Name="PONO" />
+        <PropertyRef Name="AppCount" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

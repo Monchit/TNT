@@ -1,0 +1,17 @@
+﻿@if (Session["TNT_Auth"] == null)
+{
+    <text>
+        @*<form id="formLogin" name="formLogin" class="navbar-form pull-right" action="@Url.Action("Index","Account")" method="post">
+            <button type="submit" class="btn btn-success"><i class="icon-user icon-white"></i> Log in</button>
+        </form>*@
+        <div class="pull-right"><a href="@Url.Action("Login","Account")" class="btn btn-success"><i class="icon-user icon-white"></i> Sign in</a></div>
+        
+    </text>
+} else {
+    <text>
+        <form id="formLogout" name="formLogout" class="navbar-form pull-right" action="@Url.Action("Logout", "Account")" method="post">
+            <a class="username"><i class="icon-user icon-white icon-header"></i> @Session["TNT_Name"].ToString()</a>
+            <button type="submit" class="btn btn-danger"><i class="icon-off icon-white"></i> Log out</button>
+        </form>
+    </text>
+}

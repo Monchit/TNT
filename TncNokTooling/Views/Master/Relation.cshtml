@@ -1,0 +1,108 @@
+﻿@{
+    ViewBag.Title = "Relation";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#jTablePlantDesc').jtable({
+            title: 'Plant -> Description',
+            paging: true, //Enable paging
+            pageSize: 10, //Set page size (default: 10)
+            sorting: true, //Enable sorting
+            selecting: true, //Enable selecting
+            defaultSorting: 'plant', //Set default sorting
+            actions: {
+                listAction: '@Url.Action("PlantDescList", "Master")',
+                deleteAction: '@Url.Action("DeletePlantDesc", "Master")',
+                @*updateAction: '@Url.Action("UpdatePlantDesc", "Master")',*@
+                createAction: '@Url.Action("CreatePlantDesc", "Master")'
+            },
+            fields: {
+                plant: { title: 'NOK Plant', create: true, edit: false, width: '50%', options: '@Url.Action("GetPlantList", "Master")' },
+                process: { title: 'Description', create: true, edit: false, width: '50%', options: '@Url.Action("GetDescList", "Master")' }
+            }
+        });
+
+        //Load student list from server
+        $('#jTablePlantDesc').jtable('load');
+
+        $('#jTableDescProduct').jtable({
+            title: 'Description -> Product',
+            paging: true, //Enable paging
+            pageSize: 10, //Set page size (default: 10)
+            sorting: true, //Enable sorting
+            selecting: true, //Enable selecting
+            defaultSorting: 'process', //Set default sorting
+            actions: {
+                listAction: '@Url.Action("DescProductList", "Master")',
+                deleteAction: '@Url.Action("DeleteDescProduct", "Master")',
+                @*updateAction: '@Url.Action("UpdateDescProduct", "Master")',*@
+                createAction: '@Url.Action("CreateDescProduct", "Master")'
+            },
+            fields: {
+                process: { title: 'Description', create: true, edit: false, width: '50%', options: '@Url.Action("GetDescList", "Master")' },
+                product: { title: 'Product', create: true, edit: false, width: '50%', options: '@Url.Action("GetProductList", "Master")' }
+            }
+        });
+
+        //Load student list from server
+        $('#jTableDescProduct').jtable('load');
+
+        $('#jTableProductType').jtable({
+            title: 'Product -> Type',
+            paging: true, //Enable paging
+            pageSize: 10, //Set page size (default: 10)
+            sorting: true, //Enable sorting
+            selecting: true, //Enable selecting
+            defaultSorting: 'product', //Set default sorting
+            actions: {
+                listAction: '@Url.Action("ProductTypeList", "Master")',
+                deleteAction: '@Url.Action("DeleteProductType", "Master")',
+                @*updateAction: '@Url.Action("UpdateProductType", "Master")',*@
+                createAction: '@Url.Action("CreateProductType", "Master")'
+            },
+            fields: {
+                product: { title: 'Product', create: true, edit: false, width: '50%', options: '@Url.Action("GetProductList", "Master")' },
+                type: { title: 'Type', create: true, edit: false, width: '50%', options: '@Url.Action("GetTypeList", "Master")' }
+            }
+        });
+
+        //Load student list from server
+        $('#jTableProductType').jtable('load');
+
+    });
+</script>
+
+<div class="accordion" id="accordion2" style="width:50%;">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" href="#col1">NOK Plant -> Description</a>
+        </div>
+        <div id="col1" class="accordion-body collapse in">
+            <div class="accordion-inner">
+                <div id="jTablePlantDesc"></div>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" href="#col2">Description -> Product</a>
+        </div>
+        <div id="col2" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <div id="jTableDescProduct"></div>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" href="#col3">Product -> Type</a>
+        </div>
+        <div id="col3" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <div id="jTableProductType"></div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8f3aab441fcd44bc80da716ec5afdf4d" Name="Diagram1">
+        <EntityTypeShape EntityType="TncNokToolingModel.td_files" Width="1.5" PointX="8.25" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TncNokToolingModel.td_pr" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TncNokToolingModel.td_tooling" Width="1.5" PointX="5.25" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TncNokToolingModel.td_tran" Width="1.5" PointX="8.25" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="TncNokToolingModel.tm_action" Width="1.5" PointX="6" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="TncNokToolingModel.tm_control_route" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TncNokToolingModel.tm_file_type" Width="1.5" PointX="6" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="TncNokToolingModel.tm_leadtime" Width="1.5" PointX="6" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TncNokToolingModel.tm_nok_plant" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TncNokToolingModel.tm_process" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TncNokToolingModel.tm_product" Width="1.5" PointX="0.75" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TncNokToolingModel.tm_status" Width="1.5" PointX="6" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TncNokToolingModel.tm_type" Width="1.5" PointX="0.75" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TncNokToolingModel.tm_user" Width="1.5" PointX="13" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TncNokToolingModel.tm_user_lv" Width="1.5" PointX="6" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TncNokToolingModel.tm_user_type" Width="1.5" PointX="10.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TncNokToolingModel.v_tran" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TncNokToolingModel.v_tran_show" Width="1.5" PointX="10.75" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="TncNokToolingModel.FK_td_files_td_pr1" ManuallyRouted="false" />
+        <AssociationConnector Association="TncNokToolingModel.FK_td_files_tm_file_type" ManuallyRouted="false" />
+        <AssociationConnector Association="TncNokToolingModel.FK_td_pr_tm_nok_plant" ManuallyRouted="false" />
+        <AssociationConnector Association="TncNokToolingModel.FK_td_pr_tm_process" ManuallyRouted="false" />
+        <AssociationConnector Association="TncNokToolingModel.FK_td_pr_tm_product" ManuallyRouted="false" />
+        <AssociationConnector Association="TncNokToolingModel.FK_td_pr_tm_type" ManuallyRouted="false" />
+        <AssociationConnector Association="TncNokToolingModel.FK_td_tooling_td_pr1" ManuallyRouted="false" />
+        <AssociationConnector Association="TncNokToolingModel.FK_td_tran_td_pr1" ManuallyRouted="false" />
+        <AssociationConnector Association="TncNokToolingModel.FK_td_tran_tm_action" ManuallyRouted="false" />
+        <AssociationConnector Association="TncNokToolingModel.FK_td_tran_tm_status" ManuallyRouted="false" />
+        <AssociationConnector Association="TncNokToolingModel.FK_td_tran_tm_user_lv" ManuallyRouted="false" />
+        <AssociationConnector Association="TncNokToolingModel.FK_tm_leadtime_tm_nok_plant" ManuallyRouted="false" />
+        <AssociationConnector Association="TncNokToolingModel.FK_tm_leadtime_tm_process" ManuallyRouted="false" />
+        <AssociationConnector Association="TncNokToolingModel.FK_tm_leadtime_tm_product" ManuallyRouted="false" />
+        <AssociationConnector Association="TncNokToolingModel.FK_tm_leadtime_tm_type" ManuallyRouted="false" />
+        <AssociationConnector Association="TncNokToolingModel.FK_tm_user_tm_user_type" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,103 @@
+﻿@{
+    ViewBag.Title = "LeadTime";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#jTableLeadTime').jtable({
+            title: 'Standard lead time',
+            paging: true, //Enable paging
+            pageSize: 10, //Set page size (default: 10)
+            sorting: true, //Enable sorting
+            selecting: true, //Enable selecting
+            defaultSorting: 'plant, process, product, type', //Set default sorting
+            actions: {
+                listAction: '@Url.Action("LeadTimeList", "Master")',
+                @*deleteAction: '@Url.Action("DeleteLeadTime", "Master")',
+                updateAction: '@Url.Action("UpdateLeadTime", "Master")',
+                createAction: '@Url.Action("CreateLeadTime", "Master")'*@
+            },
+            fields: {
+                plant: { title: 'NOK Plant', create: true, edit: false, width: '12%', options: '@Url.Action("GetPlantList", "Master")' },
+                process: { title: 'Process', create: true, edit: false, width: '12%', options: '@Url.Action("GetDescList", "Master")' },
+                product: { title: 'Product', create: true, edit: false, width: '11%', options: '@Url.Action("GetProductList", "Master")' },
+                type: { title: 'Type', create: true, edit: false, width: '10%', options: '@Url.Action("GetTypeList", "Master")' },
+                etd: { title: 'ETD/TNC', create: true, edit: true, width: '8%' },
+                inspection: { title: 'Inspection before remedy', create: true, edit: true, width: '16%' },
+                making: { title: 'Making', create: true, edit: true, width: '8%' },
+                trial: { title: 'Trial', create: true, edit: true, width: '7%' },
+                shipping: { title: 'Shipping', create: true, edit: true, width: '8%' },
+                eta: { title: 'ETA/TNC', create: true, edit: true, width: '8%' }
+            }
+        });
+
+        //Load student list from server
+        $('#jTableLeadTime').jtable('load');
+
+        $('#btnSearch').click(function (e) {
+            e.preventDefault();
+            $('#jTableLeadTime').jtable('load', {
+                plant: $('#splant').val(),
+                process: $('#sdesc').val(),
+                product: $('#sprod').val(),
+                type: $('#stype').val()
+            });
+        });
+
+    });
+</script>
+
+<form id="form-search" name="form-search">
+    <table>
+        <thead>
+            <tr>
+                <th>NOK Plant</th>
+                <th>Process</th>
+                <th>Product</th>
+                <th>Type</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <select class="input-medium" id="splant" name="splant">
+                        <option value="">--Search--</option>
+                        @foreach (var item in ViewBag.PlantList)
+                        {
+                            <option value="@item.id">@item.name</option>
+                        }
+                    </select></td>
+                <td>
+                    <select class="input-medium" id="sdesc" name="sdesc">
+                        <option value="">--Search--</option>
+                        @foreach (var item in ViewBag.DescList)
+                        {
+                            <option value="@item.id">@item.name</option>
+                        }
+                    </select></td>
+                <td>
+                    <select class="input-medium" id="sprod" name="sprod">
+                        <option value="">--Search--</option>
+                        @foreach (var item in ViewBag.ProductList)
+                        {
+                            <option value="@item.id">@item.name</option>
+                        }
+                    </select></td>
+                <td>
+                    <select class="input-medium" id="stype" name="stype">
+                        <option value="">--Search--</option>
+                        @foreach (var item in ViewBag.TypeList)
+                        {
+                            <option value="@item.id">@item.name</option>
+                        }
+                    </select></td>
+                <td>
+                    <button type="submit" class="btn btn-primary" id="btnSearch"><i class="icon-search icon-white"></i> Search</button></td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+
+<div id="jTableLeadTime"></div>

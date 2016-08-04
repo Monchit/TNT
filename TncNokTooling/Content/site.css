@@ -1,0 +1,53 @@
+﻿body {
+    padding-top: 70px;
+    padding-bottom: 20px;
+}
+
+/*@media screen and (max-width: 480px) {
+    body {
+        padding-top: 140px;
+    }
+}*/
+
+.sidebar-nav {
+    padding: 9px 0;
+}
+
+@media (max-width: 980px) {
+    /* Enable use of floated navbar text */
+    .navbar-text.pull-right {
+        float: none;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .navbar-fixed-top {
+        top: -70px;
+        margin-bottom: 0px;
+    }
+
+    .navbar-fixed-top, .navbar-fixed-bottom {
+        position: relative;
+    }
+}
+
+/*fix jTable*/
+span.jtable-goto-page select, span.jtable-page-size-change select {
+    height: 25px;
+    width: 60px;
+    padding: 2px 2px;
+    margin-bottom: auto;
+}
+
+div.jtable-main-container table.jtable thead th {
+    text-align: center;
+}
+
+div.jtable-main-container > table.jtable > tbody > tr.jtable-data-row > td {
+    text-align: center;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+    padding: .2em .4em;
+}
+/*end fix jTable*/

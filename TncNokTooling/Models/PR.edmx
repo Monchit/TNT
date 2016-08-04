@@ -1,0 +1,288 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PRModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="PRModelStoreContainer">
+          <EntitySet Name="PR_TO_POEDI" EntityType="PRModel.Store.PR_TO_POEDI" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PR_TO_POEDI_TRAIN" EntityType="PRModel.Store.PR_TO_POEDI_TRAIN" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <EntityType Name="PR_TO_POEDI">
+          <Key>
+            <PropertyRef Name="pr_no" />
+            <PropertyRef Name="pr_line" />
+          </Key>
+          <Property Name="pr_no" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="pr_line" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="isTransfer" Type="nchar" Nullable="false" MaxLength="1" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="UploadDate" Type="datetime" />
+          <Property Name="PIC" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="vendor" Type="nvarchar" Nullable="false" MaxLength="4" />
+          <Property Name="item" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="description" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="QTY" Type="float" Nullable="false" />
+          <Property Name="unitPack" Type="nvarchar" Nullable="false" MaxLength="3" />
+          <Property Name="duedate" Type="date" Nullable="false" />
+          <Property Name="investmentNo" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="investmentName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="accountCode" Type="nvarchar" Nullable="false" MaxLength="6" />
+          <Property Name="costCode" Type="nvarchar" Nullable="false" MaxLength="4" />
+          <Property Name="costCodeNote" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="unitPrice" Type="float" Nullable="false" />
+          <Property Name="brand" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="quotation" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="ApprovedDate" Type="date" Nullable="false" />
+          <Property Name="ApprovedTime" Type="time" Nullable="false" />
+          <Property Name="IssueBy" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="IssueGroup" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="CostNote" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Model" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="WONo" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Purpose" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="vQuoNo" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Sparepart" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="MTC" Type="nvarchar" Nullable="false" MaxLength="4" />
+          <Property Name="PRUser" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="ProjectName" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Reason" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="PR_TO_POEDI_TRAIN">
+          <Key>
+            <PropertyRef Name="pr_no" />
+            <PropertyRef Name="pr_line" />
+          </Key>
+          <Property Name="pr_no" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="pr_line" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="isTransfer" Type="nchar" Nullable="false" MaxLength="1" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="UploadDate" Type="datetime" />
+          <Property Name="PIC" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="vendor" Type="nvarchar" Nullable="false" MaxLength="4" />
+          <Property Name="item" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="description" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="QTY" Type="float" Nullable="false" />
+          <Property Name="unitPack" Type="nvarchar" Nullable="false" MaxLength="3" />
+          <Property Name="duedate" Type="date" Nullable="false" />
+          <Property Name="investmentNo" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="investmentName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="accountCode" Type="nvarchar" Nullable="false" MaxLength="6" />
+          <Property Name="costCode" Type="nvarchar" Nullable="false" MaxLength="4" />
+          <Property Name="costCodeNote" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="unitPrice" Type="float" Nullable="false" />
+          <Property Name="brand" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="quotation" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="ApprovedDate" Type="date" Nullable="false" />
+          <Property Name="ApprovedTime" Type="time" Nullable="false" />
+          <Property Name="IssueBy" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="IssueGroup" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="CostNote" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Model" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="WONo" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Purpose" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="vQuoNo" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Sparepart" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="MTC" Type="nvarchar" Nullable="false" MaxLength="4" />
+          <Property Name="PRUser" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="ProjectName" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Reason" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PRModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PREntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="PR_TO_POEDI" EntityType="PRModel.PR_TO_POEDI" />
+          <EntitySet Name="PR_TO_POEDI_TRAIN" EntityType="PRModel.PR_TO_POEDI_TRAIN" />
+        </EntityContainer>
+        <EntityType Name="PR_TO_POEDI">
+          <Key>
+            <PropertyRef Name="pr_no" />
+            <PropertyRef Name="pr_line" />
+          </Key>
+          <Property Name="pr_no" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="pr_line" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="isTransfer" Type="String" Nullable="false" MaxLength="1" Unicode="true" FixedLength="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UploadDate" Type="DateTime" Precision="3" />
+          <Property Name="PIC" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="vendor" Type="String" Nullable="false" MaxLength="4" Unicode="true" FixedLength="false" />
+          <Property Name="item" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="QTY" Type="Double" Nullable="false" />
+          <Property Name="unitPack" Type="String" Nullable="false" MaxLength="3" Unicode="true" FixedLength="false" />
+          <Property Name="duedate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="investmentNo" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="investmentName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="accountCode" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="false" />
+          <Property Name="costCode" Type="String" Nullable="false" MaxLength="4" Unicode="true" FixedLength="false" />
+          <Property Name="costCodeNote" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="unitPrice" Type="Double" Nullable="false" />
+          <Property Name="brand" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="quotation" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="ApprovedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ApprovedTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="IssueBy" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="IssueGroup" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CostNote" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Model" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="WONo" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Purpose" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="vQuoNo" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Sparepart" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="MTC" Type="String" Nullable="false" MaxLength="4" Unicode="true" FixedLength="false" />
+          <Property Name="PRUser" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Reason" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="PR_TO_POEDI_TRAIN">
+          <Key>
+            <PropertyRef Name="pr_no" />
+            <PropertyRef Name="pr_line" />
+          </Key>
+          <Property Type="String" Name="pr_no" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="pr_line" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="isTransfer" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Type="DateTime" Name="CreateDate" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="UploadDate" Precision="3" />
+          <Property Type="String" Name="PIC" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="vendor" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="item" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Double" Name="QTY" Nullable="false" />
+          <Property Type="String" Name="unitPack" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="duedate" Nullable="false" Precision="0" />
+          <Property Type="String" Name="investmentNo" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="investmentName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="accountCode" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="costCode" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="costCodeNote" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Double" Name="unitPrice" Nullable="false" />
+          <Property Type="String" Name="brand" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="quotation" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="ApprovedDate" Nullable="false" Precision="0" />
+          <Property Type="Time" Name="ApprovedTime" Nullable="false" Precision="7" />
+          <Property Type="String" Name="IssueBy" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="IssueGroup" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CostNote" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Model" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="WONo" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Purpose" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="vQuoNo" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Sparepart" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="MTC" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PRUser" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ProjectName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Reason" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PRModelStoreContainer" CdmEntityContainer="PREntities">
+          <EntitySetMapping Name="PR_TO_POEDI">
+            <EntityTypeMapping TypeName="PRModel.PR_TO_POEDI">
+              <MappingFragment StoreEntitySet="PR_TO_POEDI">
+                <ScalarProperty Name="pr_no" ColumnName="pr_no" />
+                <ScalarProperty Name="pr_line" ColumnName="pr_line" />
+                <ScalarProperty Name="isTransfer" ColumnName="isTransfer" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
+                <ScalarProperty Name="PIC" ColumnName="PIC" />
+                <ScalarProperty Name="vendor" ColumnName="vendor" />
+                <ScalarProperty Name="item" ColumnName="item" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="QTY" ColumnName="QTY" />
+                <ScalarProperty Name="unitPack" ColumnName="unitPack" />
+                <ScalarProperty Name="duedate" ColumnName="duedate" />
+                <ScalarProperty Name="investmentNo" ColumnName="investmentNo" />
+                <ScalarProperty Name="investmentName" ColumnName="investmentName" />
+                <ScalarProperty Name="accountCode" ColumnName="accountCode" />
+                <ScalarProperty Name="costCode" ColumnName="costCode" />
+                <ScalarProperty Name="costCodeNote" ColumnName="costCodeNote" />
+                <ScalarProperty Name="unitPrice" ColumnName="unitPrice" />
+                <ScalarProperty Name="brand" ColumnName="brand" />
+                <ScalarProperty Name="quotation" ColumnName="quotation" />
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="ApprovedTime" ColumnName="ApprovedTime" />
+                <ScalarProperty Name="IssueBy" ColumnName="IssueBy" />
+                <ScalarProperty Name="IssueGroup" ColumnName="IssueGroup" />
+                <ScalarProperty Name="CostNote" ColumnName="CostNote" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="WONo" ColumnName="WONo" />
+                <ScalarProperty Name="Purpose" ColumnName="Purpose" />
+                <ScalarProperty Name="vQuoNo" ColumnName="vQuoNo" />
+                <ScalarProperty Name="Sparepart" ColumnName="Sparepart" />
+                <ScalarProperty Name="MTC" ColumnName="MTC" />
+                <ScalarProperty Name="PRUser" ColumnName="PRUser" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PR_TO_POEDI_TRAIN">
+            <EntityTypeMapping TypeName="PRModel.PR_TO_POEDI_TRAIN">
+              <MappingFragment StoreEntitySet="PR_TO_POEDI_TRAIN">
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="PRUser" ColumnName="PRUser" />
+                <ScalarProperty Name="MTC" ColumnName="MTC" />
+                <ScalarProperty Name="Sparepart" ColumnName="Sparepart" />
+                <ScalarProperty Name="vQuoNo" ColumnName="vQuoNo" />
+                <ScalarProperty Name="Purpose" ColumnName="Purpose" />
+                <ScalarProperty Name="WONo" ColumnName="WONo" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="CostNote" ColumnName="CostNote" />
+                <ScalarProperty Name="IssueGroup" ColumnName="IssueGroup" />
+                <ScalarProperty Name="IssueBy" ColumnName="IssueBy" />
+                <ScalarProperty Name="ApprovedTime" ColumnName="ApprovedTime" />
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="quotation" ColumnName="quotation" />
+                <ScalarProperty Name="brand" ColumnName="brand" />
+                <ScalarProperty Name="unitPrice" ColumnName="unitPrice" />
+                <ScalarProperty Name="costCodeNote" ColumnName="costCodeNote" />
+                <ScalarProperty Name="costCode" ColumnName="costCode" />
+                <ScalarProperty Name="accountCode" ColumnName="accountCode" />
+                <ScalarProperty Name="investmentName" ColumnName="investmentName" />
+                <ScalarProperty Name="investmentNo" ColumnName="investmentNo" />
+                <ScalarProperty Name="duedate" ColumnName="duedate" />
+                <ScalarProperty Name="unitPack" ColumnName="unitPack" />
+                <ScalarProperty Name="QTY" ColumnName="QTY" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="item" ColumnName="item" />
+                <ScalarProperty Name="vendor" ColumnName="vendor" />
+                <ScalarProperty Name="PIC" ColumnName="PIC" />
+                <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="isTransfer" ColumnName="isTransfer" />
+                <ScalarProperty Name="pr_line" ColumnName="pr_line" />
+                <ScalarProperty Name="pr_no" ColumnName="pr_no" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

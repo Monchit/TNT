@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PRModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="PRModelStoreContainer">
+    <EntitySet Name="PR_TO_POEDI" EntityType="PRModel.Store.PR_TO_POEDI" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PR_TO_POEDI_TRAIN" EntityType="PRModel.Store.PR_TO_POEDI_TRAIN" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="PR_TO_POEDI">
+    <Key>
+      <PropertyRef Name="pr_no" />
+      <PropertyRef Name="pr_line" />
+    </Key>
+    <Property Name="pr_no" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="pr_line" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="isTransfer" Type="nchar" Nullable="false" MaxLength="1" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+    <Property Name="UploadDate" Type="datetime" />
+    <Property Name="PIC" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="vendor" Type="nvarchar" Nullable="false" MaxLength="4" />
+    <Property Name="item" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="description" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="QTY" Type="float" Nullable="false" />
+    <Property Name="unitPack" Type="nvarchar" Nullable="false" MaxLength="3" />
+    <Property Name="duedate" Type="date" Nullable="false" />
+    <Property Name="investmentNo" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="investmentName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="accountCode" Type="nvarchar" Nullable="false" MaxLength="6" />
+    <Property Name="costCode" Type="nvarchar" Nullable="false" MaxLength="4" />
+    <Property Name="costCodeNote" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="unitPrice" Type="float" Nullable="false" />
+    <Property Name="brand" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="quotation" Type="nvarchar" Nullable="false" MaxLength="250" />
+    <Property Name="ApprovedDate" Type="date" Nullable="false" />
+    <Property Name="ApprovedTime" Type="time" Nullable="false" />
+    <Property Name="IssueBy" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="IssueGroup" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="CostNote" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Model" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="WONo" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Purpose" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="vQuoNo" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Sparepart" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="MTC" Type="nvarchar" Nullable="false" MaxLength="4" />
+    <Property Name="PRUser" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="ProjectName" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Reason" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="PR_TO_POEDI_TRAIN">
+    <Key>
+      <PropertyRef Name="pr_no" />
+      <PropertyRef Name="pr_line" />
+    </Key>
+    <Property Name="pr_no" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="pr_line" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="isTransfer" Type="nchar" Nullable="false" MaxLength="1" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+    <Property Name="UploadDate" Type="datetime" />
+    <Property Name="PIC" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="vendor" Type="nvarchar" Nullable="false" MaxLength="4" />
+    <Property Name="item" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="description" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="QTY" Type="float" Nullable="false" />
+    <Property Name="unitPack" Type="nvarchar" Nullable="false" MaxLength="3" />
+    <Property Name="duedate" Type="date" Nullable="false" />
+    <Property Name="investmentNo" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="investmentName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="accountCode" Type="nvarchar" Nullable="false" MaxLength="6" />
+    <Property Name="costCode" Type="nvarchar" Nullable="false" MaxLength="4" />
+    <Property Name="costCodeNote" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="unitPrice" Type="float" Nullable="false" />
+    <Property Name="brand" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="quotation" Type="nvarchar" Nullable="false" MaxLength="250" />
+    <Property Name="ApprovedDate" Type="date" Nullable="false" />
+    <Property Name="ApprovedTime" Type="time" Nullable="false" />
+    <Property Name="IssueBy" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="IssueGroup" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="CostNote" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Model" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="WONo" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Purpose" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="vQuoNo" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Sparepart" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="MTC" Type="nvarchar" Nullable="false" MaxLength="4" />
+    <Property Name="PRUser" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="ProjectName" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Reason" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+</Schema>

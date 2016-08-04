@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PRModelStoreContainer" CdmEntityContainer="PREntities">
+    <EntitySetMapping Name="PR_TO_POEDI">
+      <EntityTypeMapping TypeName="PRModel.PR_TO_POEDI">
+        <MappingFragment StoreEntitySet="PR_TO_POEDI">
+          <ScalarProperty Name="pr_no" ColumnName="pr_no" />
+          <ScalarProperty Name="pr_line" ColumnName="pr_line" />
+          <ScalarProperty Name="isTransfer" ColumnName="isTransfer" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
+          <ScalarProperty Name="PIC" ColumnName="PIC" />
+          <ScalarProperty Name="vendor" ColumnName="vendor" />
+          <ScalarProperty Name="item" ColumnName="item" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="QTY" ColumnName="QTY" />
+          <ScalarProperty Name="unitPack" ColumnName="unitPack" />
+          <ScalarProperty Name="duedate" ColumnName="duedate" />
+          <ScalarProperty Name="investmentNo" ColumnName="investmentNo" />
+          <ScalarProperty Name="investmentName" ColumnName="investmentName" />
+          <ScalarProperty Name="accountCode" ColumnName="accountCode" />
+          <ScalarProperty Name="costCode" ColumnName="costCode" />
+          <ScalarProperty Name="costCodeNote" ColumnName="costCodeNote" />
+          <ScalarProperty Name="unitPrice" ColumnName="unitPrice" />
+          <ScalarProperty Name="brand" ColumnName="brand" />
+          <ScalarProperty Name="quotation" ColumnName="quotation" />
+          <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+          <ScalarProperty Name="ApprovedTime" ColumnName="ApprovedTime" />
+          <ScalarProperty Name="IssueBy" ColumnName="IssueBy" />
+          <ScalarProperty Name="IssueGroup" ColumnName="IssueGroup" />
+          <ScalarProperty Name="CostNote" ColumnName="CostNote" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="WONo" ColumnName="WONo" />
+          <ScalarProperty Name="Purpose" ColumnName="Purpose" />
+          <ScalarProperty Name="vQuoNo" ColumnName="vQuoNo" />
+          <ScalarProperty Name="Sparepart" ColumnName="Sparepart" />
+          <ScalarProperty Name="MTC" ColumnName="MTC" />
+          <ScalarProperty Name="PRUser" ColumnName="PRUser" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PR_TO_POEDI_TRAIN">
+      <EntityTypeMapping TypeName="PRModel.PR_TO_POEDI_TRAIN">
+        <MappingFragment StoreEntitySet="PR_TO_POEDI_TRAIN">
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="PRUser" ColumnName="PRUser" />
+          <ScalarProperty Name="MTC" ColumnName="MTC" />
+          <ScalarProperty Name="Sparepart" ColumnName="Sparepart" />
+          <ScalarProperty Name="vQuoNo" ColumnName="vQuoNo" />
+          <ScalarProperty Name="Purpose" ColumnName="Purpose" />
+          <ScalarProperty Name="WONo" ColumnName="WONo" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="CostNote" ColumnName="CostNote" />
+          <ScalarProperty Name="IssueGroup" ColumnName="IssueGroup" />
+          <ScalarProperty Name="IssueBy" ColumnName="IssueBy" />
+          <ScalarProperty Name="ApprovedTime" ColumnName="ApprovedTime" />
+          <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+          <ScalarProperty Name="quotation" ColumnName="quotation" />
+          <ScalarProperty Name="brand" ColumnName="brand" />
+          <ScalarProperty Name="unitPrice" ColumnName="unitPrice" />
+          <ScalarProperty Name="costCodeNote" ColumnName="costCodeNote" />
+          <ScalarProperty Name="costCode" ColumnName="costCode" />
+          <ScalarProperty Name="accountCode" ColumnName="accountCode" />
+          <ScalarProperty Name="investmentName" ColumnName="investmentName" />
+          <ScalarProperty Name="investmentNo" ColumnName="investmentNo" />
+          <ScalarProperty Name="duedate" ColumnName="duedate" />
+          <ScalarProperty Name="unitPack" ColumnName="unitPack" />
+          <ScalarProperty Name="QTY" ColumnName="QTY" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="item" ColumnName="item" />
+          <ScalarProperty Name="vendor" ColumnName="vendor" />
+          <ScalarProperty Name="PIC" ColumnName="PIC" />
+          <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="isTransfer" ColumnName="isTransfer" />
+          <ScalarProperty Name="pr_line" ColumnName="pr_line" />
+          <ScalarProperty Name="pr_no" ColumnName="pr_no" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
