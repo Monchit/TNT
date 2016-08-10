@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Master File Type";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#jTableFileType').jtable({
+            title: 'Master File Type',
+            paging: true, //Enable paging
+            pageSize: 10, //Set page size (default: 10)
+            sorting: true, //Enable sorting
+            selecting: true, //Enable selecting
+            defaultSorting: 'id', //Set default sorting
+            actions: {
+                listAction: '@Url.Action("FileTypeList", "Admin")',
+                deleteAction: '@Url.Action("DeleteFileType", "Admin")',
+                updateAction: '@Url.Action("UpdateFileType", "Admin")',
+                createAction: '@Url.Action("CreateFileType", "Admin")'
+            },
+            fields: {
+                id: { title: 'ID', key: true, create: true, edit: false, width: '20%' },
+                name: { title: 'File Type Name', create: true, edit: true, width: '80%' }
+            }
+        });
+
+        //Load student list from server
+        $('#jTableFileType').jtable('load');
+
+    });
+</script>
+
+<h2>@ViewBag.Title</h2>
+
+<div id="jTableFileType"></div>

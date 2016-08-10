@@ -1,0 +1,70 @@
+﻿
+<script type="text/javascript">
+    $(document).ready(function () {
+        
+        $("#btnApv").click(function () {
+            var obj = new Object();
+            obj.pr_no = $("#hdpr").val();
+            obj.tulv = $("#hdulv").val();
+            obj.torg = $("#hdorg").val();
+            obj.status = $("#hdstt").val();
+            obj.rev = $("#hdrev").val();
+            obj.comment = $("#comment").val();
+            var remote = "@Url.Action("ApproveAction", "Home")";
+            $.post(remote, obj, function (data) {
+                location.reload();
+            });
+        });
+
+        $("#btnRej").click(function () {
+            if ($("#comment").val() != "") {
+                if (confirm("Are you sure to REJECT ?")) {
+                    var obj = new Object();
+                    obj.pr_no = $("#hdpr").val();
+                    obj.tulv = $("#hdulv").val();
+                    obj.torg = $("#hdorg").val();
+                    obj.status = $("#hdstt").val();
+                    obj.rev = $("#hdrev").val();
+                    obj.comment = $("#comment").val();
+                    var remote = "@Url.Action("RejectAction", "Home")";
+                    $.post(remote, obj, function (data) {
+                        location.reload();
+                    });
+                }
+            } else {
+                alert("Please fill comment.");
+            }
+        });
+    });
+</script>
+
+<form id="formAR" name="formAR" class="form-horizontal well">
+
+    <div class="control-group">
+      <label class="control-label" for="comment">Comment :</label>
+      <div class="controls">
+        <textarea rows="3" id="comment" name="comment" class="span8"></textarea>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="btnSubmit"></label>
+      <div class="controls">
+        @{
+            var pr = ViewData["pr_no"];
+            var ulv = ViewData["ulv"];
+            var org = ViewData["org"];
+            var status = ViewData["status"];
+            var rev = ViewData["rev"];
+        }
+        <input type="hidden" id="hdpr" name="hdpr" value="@pr" />
+        <input type="hidden" id="hdulv" name="hdulv" value="@ulv" />
+        <input type="hidden" id="hdorg" name="hdorg" value="@org" />
+        <input type="hidden" id="hdstt" name="hdstt" value="@status" />
+        <input type="hidden" id="hdrev" name="hdrev" value="@rev" />
+        <button id="btnApv" name="btnApv" type="button" class="btn btn-success">Approve</button>
+        <button id="btnRej" name="btnRej" type="button" class="btn btn-danger">Reject</button>
+          <a href="@Url.Action("MgrEditPR", "Home", new { pr_no = pr, ulv = ulv, org = org, status = status, rev = rev })" class="btn btn-warning"><i class="icon-wrench icon-white"></i> Edit PR</a>
+      </div>
+    </div>
+</form>

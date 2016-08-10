@@ -1,0 +1,10 @@
+﻿@model IEnumerable<TncNokTooling.Models.td_files>
+
+<h4>Attach files</h4>
+<dl>
+@foreach (var item in Model)
+{
+    <dt><a href="@Url.Content(item.file_path + item.file_name)" target="_blank">@item.file_name</a></dt>
+    <dd><small>Upload Date : @String.Format("{0:dd/MM/yyyy}", item.upl_dt) - File type : @item.tm_file_type.name</small></dd>
+}
+</dl>

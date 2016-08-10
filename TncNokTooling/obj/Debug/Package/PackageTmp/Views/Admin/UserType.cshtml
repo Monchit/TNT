@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Master User Type";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#jTableUserType').jtable({
+            title: 'Master User Type',
+            paging: true, //Enable paging
+            pageSize: 10, //Set page size (default: 10)
+            sorting: true, //Enable sorting
+            selecting: true, //Enable selecting
+            defaultSorting: 'id', //Set default sorting
+            actions: {
+                listAction: '@Url.Action("UserTypeList", "Admin")',
+                deleteAction: '@Url.Action("DeleteUserType", "Admin")',
+                updateAction: '@Url.Action("UpdateUserType", "Admin")',
+                createAction: '@Url.Action("CreateUserType", "Admin")'
+            },
+            fields: {
+                id: { title: 'ID', key: true, create: true, edit: false, width: '20%' },
+                name: { title: 'User Type Name', create: true, edit: true, width: '80%' }
+            }
+        });
+
+        //Load student list from server
+        $('#jTableUserType').jtable('load');
+
+    });
+</script>
+
+<h2>@ViewBag.Title</h2>
+
+<div id="jTableUserType"></div>

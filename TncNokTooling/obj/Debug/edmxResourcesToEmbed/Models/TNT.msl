@@ -216,5 +216,18 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="v_sys_user">
+      <EntityTypeMapping TypeName="TncNokToolingModel.v_sys_user">
+        <MappingFragment StoreEntitySet="v_sys_user">
+          <ScalarProperty Name="emp_status" ColumnName="emp_status" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="emp_lname" ColumnName="emp_lname" />
+          <ScalarProperty Name="emp_fname" ColumnName="emp_fname" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="utype_id" ColumnName="utype_id" />
+          <ScalarProperty Name="emp_code" ColumnName="emp_code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

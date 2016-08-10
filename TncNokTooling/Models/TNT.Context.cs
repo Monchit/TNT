@@ -43,5 +43,6 @@ namespace TncNokTooling.Models
         public DbSet<tm_user_type> tm_user_type { get; set; }
         public DbSet<v_tran> v_tran { get; set; }
         public DbSet<v_tran_show> v_tran_show { get; set; }
+        public DbSet<v_sys_user> v_sys_user { get; set; }
     }
 }

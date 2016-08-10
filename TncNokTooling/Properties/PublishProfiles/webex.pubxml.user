@@ -157,10 +157,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/18/2016 11:53:36</publishTime>
     </File>
     <File Include="bin/TncNokTooling.dll">
-      <publishTime>07/18/2016 16:30:56</publishTime>
+      <publishTime>08/10/2016 08:55:28</publishTime>
     </File>
     <File Include="bin/TncNokTooling.pdb">
-      <publishTime>07/18/2016 16:30:56</publishTime>
+      <publishTime>08/10/2016 08:55:28</publishTime>
     </File>
     <File Include="bin/WebCommonFunction.dll">
       <publishTime>05/16/2016 09:17:28</publishTime>
@@ -652,7 +652,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/14/2016 13:44:02</publishTime>
     </File>
     <File Include="Models/TNT.edmx.diagram">
-      <publishTime>07/08/2016 14:46:34</publishTime>
+      <publishTime>08/09/2016 11:18:20</publishTime>
     </File>
     <File Include="packages.config">
       <publishTime>05/19/2016 14:50:37</publishTime>
@@ -1416,6 +1416,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/_references.js">
       <publishTime>05/19/2016 14:50:15</publishTime>
     </File>
+    <File Include="Views/Account/Index.cshtml">
+      <publishTime>08/10/2016 08:50:00</publishTime>
+    </File>
     <File Include="Views/Account/Login.cshtml">
       <publishTime>06/06/2016 15:14:13</publishTime>
     </File>
@@ -1426,25 +1429,28 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/08/2016 14:41:29</publishTime>
     </File>
     <File Include="Views/Admin/Status.cshtml">
-      <publishTime>07/08/2016 14:00:03</publishTime>
+      <publishTime>08/09/2016 09:46:39</publishTime>
     </File>
     <File Include="Views/Admin/Users.cshtml">
-      <publishTime>07/08/2016 14:51:42</publishTime>
+      <publishTime>08/09/2016 12:25:03</publishTime>
     </File>
     <File Include="Views/Admin/UserType.cshtml">
       <publishTime>07/08/2016 14:13:20</publishTime>
     </File>
     <File Include="Views/Home/EditPR.cshtml">
-      <publishTime>06/16/2016 11:13:21</publishTime>
+      <publishTime>02/08/2016 15:39:16</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>06/29/2016 10:57:22</publishTime>
+      <publishTime>08/08/2016 17:36:48</publishTime>
     </File>
     <File Include="Views/Home/Issue.cshtml">
-      <publishTime>07/18/2016 16:33:57</publishTime>
+      <publishTime>08/08/2016 15:51:31</publishTime>
     </File>
     <File Include="Views/Home/IssuePR.cshtml">
       <publishTime>03/06/2016 12:25:11</publishTime>
+    </File>
+    <File Include="Views/Home/MgrEditPR.cshtml">
+      <publishTime>08/08/2016 15:29:25</publishTime>
     </File>
     <File Include="Views/Home/_FormApprove.cshtml">
       <publishTime>06/09/2016 11:58:28</publishTime>
@@ -1452,8 +1458,17 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Home/_FormApvRej.cshtml">
       <publishTime>06/15/2016 17:01:59</publishTime>
     </File>
+    <File Include="Views/Home/_FormApvRej1.cshtml">
+      <publishTime>05/08/2016 16:22:22</publishTime>
+    </File>
     <File Include="Views/Home/_FormApvRejCan.cshtml">
       <publishTime>06/09/2016 16:12:51</publishTime>
+    </File>
+    <File Include="Views/Home/_FormApvRejCan1.cshtml">
+      <publishTime>02/08/2016 15:49:22</publishTime>
+    </File>
+    <File Include="Views/Home/_FormReqMgr.cshtml">
+      <publishTime>05/08/2016 16:25:34</publishTime>
     </File>
     <File Include="Views/Home/_FormSendPR.cshtml">
       <publishTime>06/17/2016 11:28:11</publishTime>
@@ -1465,10 +1480,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/10/2016 14:46:05</publishTime>
     </File>
     <File Include="Views/Home/_TabPR.cshtml">
-      <publishTime>06/20/2016 13:42:33</publishTime>
+      <publishTime>04/08/2016 10:13:03</publishTime>
     </File>
     <File Include="Views/Home/_TabTNC.cshtml">
-      <publishTime>06/17/2016 09:30:51</publishTime>
+      <publishTime>02/08/2016 16:14:40</publishTime>
     </File>
     <File Include="Views/Master/LeadTime.cshtml">
       <publishTime>03/06/2016 14:39:44</publishTime>
@@ -1489,7 +1504,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/08/2016 14:47:29</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
-      <publishTime>05/19/2016 15:39:13</publishTime>
+      <publishTime>08/10/2016 08:51:11</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>05/18/2016 11:53:22</publishTime>
@@ -1498,7 +1513,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/18/2016 11:53:22</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/18/2016 16:30:58</publishTime>
+      <publishTime>08/10/2016 08:57:23</publishTime>
     </File>
   </ItemGroup>
 </Project>

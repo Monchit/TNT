@@ -16,10 +16,17 @@ namespace TncNokTooling.Controllers
         private TNC_ADMINEntities dbTNC = new TNC_ADMINEntities();
         private TncNokToolingEntities DBTNT = new TncNokToolingEntities();
 
-        [HttpGet]
-        public ActionResult Login()
+        //[HttpGet]
+        public ActionResult Index(string key = null)
         {
-            return View();
+            if (key != null)
+            {
+                return Login(key);
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [HttpPost]
@@ -59,7 +66,7 @@ namespace TncNokTooling.Controllers
                         Session["TNT_Name"] = chklogin.emp_fname + " " + chklogin.emp_lname;
                     }
                 }
-                
+
                 var chk_sys_user = (from a in DBTNT.tm_user
                                     where a.emp_code == chklogin.emp_code
                                     select a).FirstOrDefault();

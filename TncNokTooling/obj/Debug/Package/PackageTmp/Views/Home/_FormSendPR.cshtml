@@ -1,0 +1,26 @@
+﻿<form id="formSend" name="formSend" action="@Url.Action("SendPRAction")" method="post" class="form-horizontal well">
+
+    <!-- Select Basic -->
+    <div class="control-group">
+        <label class="control-label" for="action">Action :</label>
+        <div class="controls">
+            <select id="action" name="action" class="span3" data-validation="required">
+                <option value="APV">Approve</option>
+                <option value="REJ">Reject</option>
+            </select>
+            @{
+                var pr = ViewData["pr_no"];
+                var ulv = ViewData["ulv"];
+                var org = ViewData["org"];
+                var status = ViewData["status"];
+                var rev = ViewData["rev"];
+            }
+            <input type="hidden" id="hdpr" name="hdpr" value="@pr" />
+            <input type="hidden" id="hdulv" name="hdulv" value="@ulv" />
+            <input type="hidden" id="hdorg" name="hdorg" value="@org" />
+            <input type="hidden" id="hdstt" name="hdstt" value="@status" />
+            <input type="hidden" id="hdrev" name="hdrev" value="@rev" />
+            <button id="btnSubmit" name="btnSubmit" type="submit" class="btn btn-primary"><i class="icon-upload icon-white"></i> Send</button>
+        </div>
+    </div>
+</form>

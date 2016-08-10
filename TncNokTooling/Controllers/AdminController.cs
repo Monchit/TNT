@@ -33,6 +33,7 @@ namespace TncNokTooling.Controllers
                     {
                         s.id,
                         s.name,
+                        s.name2,
                         s.lv_min,
                         s.lv_max,
                         s.next
@@ -59,9 +60,10 @@ namespace TncNokTooling.Controllers
                     tm_status data = new tm_status();
                     data.id = id;
                     data.name = Request.Form["name"];
-                    //data.lv_min = 
-                    //data.lv_max = 
-                    //data.next = 
+                    data.name2 = Request.Form["name2"];
+                    data.lv_min = byte.Parse(Request.Form["lv_min"]);
+                    data.lv_max = byte.Parse(Request.Form["lv_max"]);
+                    data.next = byte.Parse(Request.Form["next"]);
 
                     DBTNT.tm_status.Add(data);
                 }
@@ -84,9 +86,10 @@ namespace TncNokTooling.Controllers
                 var id = byte.Parse(Request.Form["id"]);
                 var data = DBTNT.tm_status.Find(id);
                 data.name = Request.Form["name"];
-                //data.lv_min = 
-                //data.lv_max = 
-                //data.next = 
+                data.name2 = Request.Form["name2"];
+                data.lv_min = byte.Parse(Request.Form["lv_min"]);
+                data.lv_max = byte.Parse(Request.Form["lv_max"]);
+                data.next = byte.Parse(Request.Form["next"]);
                 DBTNT.SaveChanges();
 
                 return Json(new { Result = "OK" });
@@ -319,7 +322,7 @@ namespace TncNokTooling.Controllers
         {
             try
             {
-                var query = DBTNT.tm_user;
+                var query = DBTNT.v_sys_user;
 
                 //Get data from database
                 int TotalRecord = query.Count();
@@ -329,7 +332,9 @@ namespace TncNokTooling.Controllers
                     .Select(s => new
                     {
                         s.emp_code,
-                        s.utype_id
+                        s.emp_fname,
+                        s.emp_lname,
+                        s.name
                     }).OrderBy(jtSorting).Skip(jtStartIndex).Take(jtPageSize);
 
                 //Return result to jTable

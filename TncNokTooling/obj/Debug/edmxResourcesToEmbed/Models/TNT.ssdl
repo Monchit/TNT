@@ -17,6 +17,17 @@
     <EntitySet Name="tm_user" EntityType="TncNokToolingModel.Store.tm_user" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tm_user_lv" EntityType="TncNokToolingModel.Store.tm_user_lv" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tm_user_type" EntityType="TncNokToolingModel.Store.tm_user_type" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="v_sys_user" EntityType="TncNokToolingModel.Store.v_sys_user" store:Type="Views" store:Schema="dbo" store:Name="v_sys_user">
+      <DefiningQuery>SELECT 
+      [v_sys_user].[emp_code] AS [emp_code], 
+      [v_sys_user].[utype_id] AS [utype_id], 
+      [v_sys_user].[name] AS [name], 
+      [v_sys_user].[emp_fname] AS [emp_fname], 
+      [v_sys_user].[emp_lname] AS [emp_lname], 
+      [v_sys_user].[email] AS [email], 
+      [v_sys_user].[emp_status] AS [emp_status]
+      FROM [dbo].[v_sys_user] AS [v_sys_user]</DefiningQuery>
+    </EntitySet>
     <EntitySet Name="v_tran" EntityType="TncNokToolingModel.Store.v_tran" store:Type="Views" store:Schema="dbo" store:Name="v_tran">
       <DefiningQuery>SELECT 
       [v_tran].[pr_no] AS [pr_no], 
@@ -285,6 +296,23 @@
     </Key>
     <Property Name="id" Type="tinyint" Nullable="false" />
     <Property Name="name" Type="varchar" Nullable="false" MaxLength="20" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'TncNokTooling.dbo.v_sys_user' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="v_sys_user">
+    <Key>
+      <PropertyRef Name="emp_code" />
+      <PropertyRef Name="utype_id" />
+      <PropertyRef Name="name" />
+    </Key>
+    <Property Name="emp_code" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="utype_id" Type="tinyint" Nullable="false" />
+    <Property Name="name" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="emp_fname" Type="nvarchar" MaxLength="255" />
+    <Property Name="emp_lname" Type="nvarchar" MaxLength="255" />
+    <Property Name="email" Type="nvarchar" MaxLength="255" />
+    <Property Name="emp_status" Type="nchar" MaxLength="10" />
   </EntityType>
   <!--Errors Found During Generation:
       warning 6002: The table/view 'TncNokTooling.dbo.v_tran' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.

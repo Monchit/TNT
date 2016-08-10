@@ -1,0 +1,107 @@
+﻿@model TncNokTooling.Models.td_pr
+
+<style>
+    td.txtcenter {
+        text-align: center; 
+    }
+</style>
+
+<div class="row-fluid">
+    <div class="span2 text-right"><strong>PR No. :</strong></div>
+    <div class="span4">@Html.DisplayFor(m => m.pr_no)</div>
+    <div class="span2 text-right"><strong>PO No. :</strong></div>
+    <div class="span4">@Html.DisplayFor(m => m.po_no)</div>
+</div>
+
+<div class="row-fluid">
+    <div class="span2 text-right"><strong>Due Date :</strong></div>
+    <div class="span4">@String.Format("{0:dd/MM/yyyy}", Model.due_date)</div>
+    <div class="span2 text-right"><strong>Rank :</strong></div>
+    <div class="span4">@Html.DisplayFor(m => m.rank)</div>
+</div>
+
+<div class="row-fluid">
+    <div class="span2 text-right"><strong>Pur. condition :</strong></div>
+    <div class="span4">@Html.DisplayFor(m => m.condition)</div>
+    <div class="span2 text-right"><strong>Item code/Part no. :</strong></div>
+    <div class="span4">@Html.DisplayFor(m => m.item_code)</div>
+</div>
+
+<div class="row-fluid">
+    @if (Model.condition == "Urgent") {
+    <div class="span2 text-right"><strong>Reason for urgent :</strong></div>
+    <div class="span4">@Html.DisplayFor(m => m.reason)</div>
+    }else{
+    <div class="span2"></div>
+    <div class="span4"></div>
+    }
+    <div class="span2 text-right"><strong>Process :</strong></div>
+    <div class="span4">@Html.DisplayFor(m => m.tm_process.name)</div>
+</div>
+
+<div class="row-fluid">
+    <div class="span2 text-right"><strong>Issued by:</strong></div>
+    <div class="span4">@Html.DisplayFor(m => m.issue_name)</div>
+    <div class="span2 text-right"><strong>NOK Plant :</strong></div>
+    <div class="span4">@Html.DisplayFor(m => m.tm_nok_plant.name)</div>
+</div>
+
+<div class="row-fluid">
+    <div class="span2 text-right"><strong>Issued Date :</strong></div>
+    <div class="span4">@String.Format("{0:dd/MM/yyyy}", Model.issue_dt)</div>
+    <div class="span2 text-right"><strong>Product :</strong></div>
+    <div class="span4">@Html.DisplayFor(m => m.tm_product.name)</div>
+</div>
+
+<div class="row-fluid">
+    <div class="span2 text-right"><strong>Issued Group :</strong></div>
+    <div class="span4">@Html.DisplayFor(m => m.issue_group_name)</div>
+    <div class="span2 text-right"><strong>Type :</strong></div>
+    <div class="span4">@Html.DisplayFor(m => m.tm_type.name)</div>
+</div>
+
+<div class="row-fluid">
+    <div class="span2 text-right"><strong>Internal Phone :</strong></div>
+    <div class="span4">@Html.DisplayFor(m => m.ext)</div>
+    @if(Model.process == 1){
+    <div class="span2 text-right"><strong>Prior contact NOK :</strong></div>
+    <div class="span4">@Html.DisplayFor(m => m.nok_contact)</div>
+    }
+</div>
+
+<div class="row-fluid">
+    <div class="span2 text-right"><strong>Cost code :</strong></div>
+    <div class="span4">@Html.DisplayFor(m => m.cost_code)</div>
+    @if(Model.process == 3){
+    <div class="span2 text-right"><strong>Mold Problem :</strong></div>
+    <div class="span4">@Html.DisplayFor(m => m.problem)</div>
+    }
+</div>
+
+<div class="row-fluid">
+    <div class="span12">
+        <table class="table table-bordered table-condensed">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Description</th>
+                    <th>Q'ty</th>
+                    <th>Unit</th>
+                    <th>Sell</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.Tooling)
+                {
+                    <tr>
+                        <td class="txtcenter">@item.pr_line</td>
+                        <td>@item.description</td>
+                        <td class="txtcenter">@item.qty</td>
+                        <td class="txtcenter">@item.unit</td>
+                        <td class="txtcenter">@(item.sell ? "Yes" : "No")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

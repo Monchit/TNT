@@ -364,6 +364,9 @@
     <Compile Include="Models\V_Employee_Info.cs">
       <DependentUpon>TNC_Admin.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\v_sys_user.cs">
+      <DependentUpon>TNT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\v_tran.cs">
       <DependentUpon>TNT.tt</DependentUpon>
     </Compile>
@@ -899,6 +902,9 @@
     <Content Include="Views\Home\_FormSendPR.cshtml" />
     <Content Include="Views\Home\_FormApvRej1.cshtml" />
     <Content Include="Views\Home\_FormApvRejCan1.cshtml" />
+    <Content Include="Views\Home\MgrEditPR.cshtml" />
+    <Content Include="Views\Home\_FormReqMgr.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

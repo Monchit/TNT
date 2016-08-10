@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TncNokToolingModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TncNokToolingModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="TncNokToolingModelStoreContainer">
           <EntitySet Name="td_files" EntityType="TncNokToolingModel.Store.td_files" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="td_pr" EntityType="TncNokToolingModel.Store.td_pr" store:Type="Tables" Schema="dbo" />
@@ -22,6 +22,17 @@
           <EntitySet Name="tm_user" EntityType="TncNokToolingModel.Store.tm_user" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tm_user_lv" EntityType="TncNokToolingModel.Store.tm_user_lv" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tm_user_type" EntityType="TncNokToolingModel.Store.tm_user_type" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="v_sys_user" EntityType="TncNokToolingModel.Store.v_sys_user" store:Type="Views" store:Schema="dbo" store:Name="v_sys_user">
+            <DefiningQuery>SELECT 
+      [v_sys_user].[emp_code] AS [emp_code], 
+      [v_sys_user].[utype_id] AS [utype_id], 
+      [v_sys_user].[name] AS [name], 
+      [v_sys_user].[emp_fname] AS [emp_fname], 
+      [v_sys_user].[emp_lname] AS [emp_lname], 
+      [v_sys_user].[email] AS [email], 
+      [v_sys_user].[emp_status] AS [emp_status]
+      FROM [dbo].[v_sys_user] AS [v_sys_user]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="v_tran" EntityType="TncNokToolingModel.Store.v_tran" store:Type="Views" store:Schema="dbo" store:Name="v_tran">
             <DefiningQuery>SELECT 
       [v_tran].[pr_no] AS [pr_no], 
@@ -290,6 +301,23 @@
           </Key>
           <Property Name="id" Type="tinyint" Nullable="false" />
           <Property Name="name" Type="varchar" Nullable="false" MaxLength="20" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'TncNokTooling.dbo.v_sys_user' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="v_sys_user">
+          <Key>
+            <PropertyRef Name="emp_code" />
+            <PropertyRef Name="utype_id" />
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="emp_code" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="utype_id" Type="tinyint" Nullable="false" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="emp_fname" Type="nvarchar" MaxLength="255" />
+          <Property Name="emp_lname" Type="nvarchar" MaxLength="255" />
+          <Property Name="email" Type="nvarchar" MaxLength="255" />
+          <Property Name="emp_status" Type="nchar" MaxLength="10" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'TncNokTooling.dbo.v_tran' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -561,8 +589,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TncNokToolingModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -649,6 +676,7 @@
             <End Role="tm_user_type" EntitySet="tm_user_type" />
             <End Role="tm_user" EntitySet="tm_user" />
           </AssociationSet>
+          <EntitySet Name="v_sys_user" EntityType="TncNokToolingModel.v_sys_user" />
         </EntityContainer>
         <EntityType Name="td_files">
           <Key>
@@ -1117,6 +1145,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="v_sys_user">
+          <Key>
+            <PropertyRef Name="emp_code" />
+            <PropertyRef Name="utype_id" />
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Type="String" Name="emp_code" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="Byte" Name="utype_id" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="emp_fname" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="emp_lname" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="email" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="emp_status" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1335,6 +1377,19 @@
                 <ScalarProperty Name="org" ColumnName="org" />
                 <ScalarProperty Name="status_id" ColumnName="status_id" />
                 <ScalarProperty Name="act_id" ColumnName="act_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="v_sys_user">
+            <EntityTypeMapping TypeName="TncNokToolingModel.v_sys_user">
+              <MappingFragment StoreEntitySet="v_sys_user">
+                <ScalarProperty Name="emp_status" ColumnName="emp_status" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="emp_lname" ColumnName="emp_lname" />
+                <ScalarProperty Name="emp_fname" ColumnName="emp_fname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="utype_id" ColumnName="utype_id" />
+                <ScalarProperty Name="emp_code" ColumnName="emp_code" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

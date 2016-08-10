@@ -9,7 +9,7 @@ namespace TncNokTooling.Controllers
         {
             if (HttpContext.Current.Session["TNT_Auth"] == null)
             {
-                string loginpath = "~/Account/Login";
+                string loginpath = "~/Account/Index";
                 if (HttpContext.Current.Request.Url != null)
                 {
                     HttpContext.Current.Session["TNT_Redirect"] = HttpContext.Current.Request.Url;

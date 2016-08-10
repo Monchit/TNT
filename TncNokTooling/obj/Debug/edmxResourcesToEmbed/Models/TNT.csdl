@@ -83,6 +83,7 @@
       <End Role="tm_user_type" EntitySet="tm_user_type" />
       <End Role="tm_user" EntitySet="tm_user" />
     </AssociationSet>
+    <EntitySet Name="v_sys_user" EntityType="TncNokToolingModel.v_sys_user" />
   </EntityContainer>
   <EntityType Name="td_files">
     <Key>
@@ -551,4 +552,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="v_sys_user">
+    <Key>
+      <PropertyRef Name="emp_code" />
+      <PropertyRef Name="utype_id" />
+      <PropertyRef Name="name" />
+    </Key>
+    <Property Type="String" Name="emp_code" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="Byte" Name="utype_id" Nullable="false" />
+    <Property Type="String" Name="name" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="emp_fname" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="emp_lname" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="email" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="emp_status" MaxLength="10" FixedLength="true" Unicode="true" />
+  </EntityType>
 </Schema>
