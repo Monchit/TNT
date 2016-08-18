@@ -145,6 +145,8 @@
     <Property Name="unit" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
     <Property Name="sell" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="td_pr" Relationship="TncNokToolingModel.FK_td_tooling_td_pr1" FromRole="td_tooling" ToRole="td_pr" />
+    <Property Type="String" Name="kouza" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="status" MaxLength="5" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="td_tran">
     <Key>
@@ -300,6 +302,8 @@
       <PropertyRef Name="issue_group" />
       <PropertyRef Name="status_id" />
       <PropertyRef Name="ulv_id" />
+      <PropertyRef Name="process" />
+      <PropertyRef Name="nok_plant" />
     </Key>
     <Property Name="pr_no" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
     <Property Name="item_code" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
@@ -314,6 +318,8 @@
     <Property Name="status" Type="String" MaxLength="164" Unicode="false" FixedLength="false" />
     <Property Name="status_id" Type="Byte" Nullable="false" />
     <Property Name="ulv_id" Type="Byte" Nullable="false" />
+    <Property Type="Byte" Name="process" Nullable="false" />
+    <Property Type="Byte" Name="nok_plant" Nullable="false" />
   </EntityType>
   <EntityType Name="v_tran_show">
     <Key>
@@ -324,6 +330,7 @@
       <PropertyRef Name="ulv_id" />
       <PropertyRef Name="org" />
       <PropertyRef Name="status_id" />
+      <PropertyRef Name="rev" />
     </Key>
     <Property Name="pr_no" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
     <Property Name="status" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
@@ -337,6 +344,7 @@
     <Property Name="org" Type="Int32" Nullable="false" />
     <Property Name="status_id" Type="Byte" Nullable="false" />
     <Property Name="act_id" Type="String" MaxLength="5" Unicode="false" FixedLength="false" />
+    <Property Type="Byte" Name="rev" Nullable="false" />
   </EntityType>
   <Association Name="FK_td_files_td_pr1">
     <End Role="td_pr" Type="TncNokToolingModel.td_pr" Multiplicity="1">

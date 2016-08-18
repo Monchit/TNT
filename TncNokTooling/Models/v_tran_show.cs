@@ -26,5 +26,6 @@ namespace TncNokTooling.Models
         public int org { get; set; }
         public byte status_id { get; set; }
         public string act_id { get; set; }
+        public byte rev { get; set; }
     }
 }

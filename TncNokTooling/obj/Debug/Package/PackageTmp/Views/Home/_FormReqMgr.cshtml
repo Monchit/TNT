@@ -35,6 +35,26 @@
                 alert("Please fill comment.");
             }
         });
+
+        $("#btnRev").click(function () {
+            if ($("#comment").val() != "") {
+                if (confirm("Are you sure to REVISE ?")) {
+                    var obj = new Object();
+                    obj.pr_no = $("#hdpr").val();
+                    obj.tulv = $("#hdulv").val();
+                    obj.torg = $("#hdorg").val();
+                    obj.status = $("#hdstt").val();
+                    obj.rev = $("#hdrev").val();
+                    obj.comment = $("#comment").val();
+                    var remote = "@Url.Action("ReviseAction", "Home")";
+                    $.post(remote, obj, function (data) {
+                        location.reload();
+                    });
+                }
+            } else {
+                alert("Please fill comment.");
+            }
+        });
     });
 </script>
 
@@ -62,9 +82,10 @@
         <input type="hidden" id="hdorg" name="hdorg" value="@org" />
         <input type="hidden" id="hdstt" name="hdstt" value="@status" />
         <input type="hidden" id="hdrev" name="hdrev" value="@rev" />
-        <button id="btnApv" name="btnApv" type="button" class="btn btn-success">Approve</button>
-        <button id="btnRej" name="btnRej" type="button" class="btn btn-danger">Reject</button>
-          <a href="@Url.Action("MgrEditPR", "Home", new { pr_no = pr, ulv = ulv, org = org, status = status, rev = rev })" class="btn btn-warning"><i class="icon-wrench icon-white"></i> Edit PR</a>
+        <button id="btnApv" name="btnApv" type="button" class="btn btn-success"><i class="icon-ok icon-white"></i> Approve</button>
+        <button id="btnRej" name="btnRej" type="button" class="btn btn-danger"><i class="icon-remove icon-white"></i> Reject</button>
+        <button id="btnRev" name="btnRev" type="button" class="btn btn-warning"><i class="icon-repeat icon-white"></i> Revise</button>
+          <a href="@Url.Action("MgrEditPR", "Home", new { pr_no = pr, ulv = ulv, org = org, status = status, rev = rev })" class="btn btn-info"><i class="icon-wrench icon-white"></i> Edit PR</a>
       </div>
     </div>
 </form>

@@ -136,5 +136,19 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="sp_orgname_by_org_lv" FunctionName="TNC_ADMINModel.Store.sp_orgname_by_org_lv" />
+    <EntitySetMapping Name="tnc_costcentercode">
+      <EntityTypeMapping TypeName="TNC_ADMINModel.tnc_costcentercode">
+        <MappingFragment StoreEntitySet="tnc_costcentercode">
+          <ScalarProperty Name="sts_active" ColumnName="sts_active" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="cost_code" ColumnName="cost_code" />
+          <ScalarProperty Name="subgroup_id" ColumnName="subgroup_id" />
+          <ScalarProperty Name="group_id" ColumnName="group_id" />
+          <ScalarProperty Name="dept_id" ColumnName="dept_id" />
+          <ScalarProperty Name="plant_id" ColumnName="plant_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

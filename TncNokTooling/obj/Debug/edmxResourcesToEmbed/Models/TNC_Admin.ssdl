@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="TNC_ADMINModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="TNC_ADMINModelStoreContainer">
+    <EntitySet Name="tnc_costcentercode" EntityType="TNC_ADMINModel.Store.tnc_costcentercode" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tnc_dept_master" EntityType="TNC_ADMINModel.Store.tnc_dept_master" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tnc_group_master" EntityType="TNC_ADMINModel.Store.tnc_group_master" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tnc_plant_master" EntityType="TNC_ADMINModel.Store.tnc_plant_master" store:Type="Tables" Schema="dbo" />
@@ -96,6 +97,20 @@
       FROM [dbo].[View_Organization] AS [View_Organization]</DefiningQuery>
     </EntitySet>
   </EntityContainer>
+  <EntityType Name="tnc_costcentercode">
+    <Key>
+      <PropertyRef Name="subgroup_id" />
+      <PropertyRef Name="cost_code" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="plant_id" Type="int" />
+    <Property Name="dept_id" Type="int" />
+    <Property Name="group_id" Type="int" />
+    <Property Name="subgroup_id" Type="int" Nullable="false" />
+    <Property Name="cost_code" Type="nvarchar" Nullable="false" MaxLength="80" />
+    <Property Name="active" Type="bit" Nullable="false" />
+    <Property Name="sts_active" Type="bit" />
+  </EntityType>
   <EntityType Name="tnc_dept_master">
     <Key>
       <PropertyRef Name="id" />

@@ -96,11 +96,11 @@
 
                     if (valid) {
                         $.get("@Url.Action("GetLeadTime", "Home")", { process: $("#process").val(), plant: $("#nok_plant").val(), product: $("#product").val(), type: $("#type").val() }, function (data) {
-                            $("#due_dt").datepicker("setDate", data);
-                            $("#due_clone").datepicker("setDate", data);
-                        });
-                    }
+                        $("#due_dt").datepicker("setDate", data);
+                        $("#due_clone").datepicker("setDate", data);
+                    });
                 }
+            }
             });
 
             $("#btnAddFile").click(function () {
@@ -112,29 +112,43 @@
                 return false;
             });
 
+            $("#listSell").change(function () {
+                if ($(this).val() == "true") {
+                    $("#kouza").show();
+                } else {
+                    $("#kouza").hide();
+                }
+            });
+
             $('#btnAdd').click(function () {
                 if ($("#listDesc").val() == "") {
                     alert("Please fill in Description !!!");
                 } else if ($("#listQty").val() == "") {
                     alert("Please fill in Q'ty !!!");
+                } else if ($("#listSell").val() == "true" && $("#txtkouza").val().length < 5) {
+                    alert("Please fill in KOUZA 5 Digit !!!");
                 } else {
                     $("#tbtooling tbody").append("<tr>" +
                         "<td>" + $("#listDesc").val() + "</td>" +
                         "<td>" + $("#listQty").val() + "</td>" +
                         "<td>" + $("#listUnit").val() + "</td>" +
                         "<td>" + $("#listSell option:selected").text() + "</td>" +
+                        "<td>" + $("#txtkouza").val() + "</td>" +
                         "<td>" +
                         "<button type='button' class='delTd btn btn-small btn-danger'><i class='icon-trash icon-white'></i></button>" +
                         "<input type='hidden' name='hcDesc' value='" + $("#listDesc").val() + "' />" +
                         "<input type='hidden' name='hcQty' value='" + $("#listQty").val() + "' />" +
                         "<input type='hidden' name='hcUnit' value='" + $("#listUnit").val() + "' />" +
                         "<input type='hidden' name='hcSell' value='" + $("#listSell").val() + "' />" +
+                        "<input type='hidden' name='hcKouza' value='" + $("#txtkouza").val() + "' />" +
                         "</td>" +
                         "</tr>");
                     $("#listDesc").val("");
                     $("#listQty").val("");
                     $('#listUnit').get(0).selectedIndex = 0;
                     $('#listSell').get(0).selectedIndex = 0;
+                    $("#txtkouza").val("");
+                    $("#kouza").hide();
                     $('#countrow').val($('#tbtooling tbody').children('tr').length);
                 }
                 return false;
@@ -155,7 +169,9 @@
     </script>
 }
 
-<div class="well"><h2>New PR</h2></div>
+<div class="well">
+    <h2>New PR</h2>
+</div>
 
 <form class="form-horizontal" id="form_issue" name="form_issue" action="@Url.Action("CreatePR", "Home")" method="post" enctype="multipart/form-data">
 
@@ -179,7 +195,7 @@
                 <div class="controls">
                     <input id="due_dt" name="due_dt" type="text" class="input-medium datepicker" readonly="true"
                         data-validation="date" data-validation-format="dd-mm-yyyy">
-                    <input id="due_clone" name="due_clone" type="text" class="input-medium datepicker" disabled="disabled" style="display:none;">
+                    <input id="due_clone" name="due_clone" type="text" class="input-medium datepicker" disabled="disabled" style="display: none;">
                     <span id="lbcal" class="label label-info"></span>
                 </div>
             </div>
@@ -232,23 +248,26 @@
                 <div class="controls">
                     @*<input id="cost_code" name="cost_code" type="text" class="input-small" data-validation="number" data-validation-allowing="range[1000;9999]" maxlength="4">*@
                     <select class="input-xlarge" name="cost_code" id="cost_code" data-validation="required">
-                    <option value="">-- Select --</option>
-                    @foreach (var item in ViewBag.CostCode)
-                    {
-                        <option value="@item.cost_code">@item.cost_code - @item.LeafTitle</option>
-                    }
-                </select>
+                        <option value="">-- Select --</option>
+                        @foreach (var item in ViewBag.CostCode)
+                        {
+                            <option value="@item.cost_code">@item.cost_code - @item.LeafTitle</option>
+                        }
+                    </select>
                 </div>
             </div>
 
             <div class="control-group">
-              <label class="control-label" for="filebutton">Attach files <button id="btnAddFile" type="button" class="btn btn-small btn-success"><i class="icon-plus icon-white"></i></button> : </label>
-              <div class="controls" id="divAttach">
-                <div style="padding: 3px 0px 3px 0px;"><input type="file" name="atfiles" class="input-file" 
-                    data-validation="extension" data-validation-allowing="pdf" data-validation-optional="true"></div>
-              </div>
+                <label class="control-label" for="filebutton">Attach files
+                    <button id="btnAddFile" type="button" class="btn btn-small btn-success"><i class="icon-plus icon-white"></i></button>
+                    : </label>
+                <div class="controls" id="divAttach">
+                    <div style="padding: 3px 0px 3px 0px;">
+                        <input type="file" name="atfiles" class="input-file"
+                            data-validation="extension" data-validation-allowing="pdf" data-validation-optional="true">
+                    </div>
+                </div>
             </div>
-
         </div>
 
         <div class="span6">
@@ -416,6 +435,19 @@
                         <option value="false">No</option>
                         <option value="true">Yes</option>
                     </select>
+                </div>
+            </div>
+
+            <div class="control-group" id="kouza" style="display:none;">
+                <label class="control-label" for="txtkouza">KOUZA :</label>
+                <div class="controls">
+                    <input id="txtkouza" name="txtkouza" type="text" class="input-small allow_only_numbers" maxlength="5">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="btnAdd"></label>
+                <div class="controls">
                     <button type="button" id="btnAdd" name="btnAdd" class="btn btn-success">
                         <i class="icon-plus icon-white"></i> Add Tooling</button>
                 </div>
@@ -423,9 +455,10 @@
         </div>
         <div class="span7">
             <div class="text-right">
-                Row count : <input type="text" id="countrow" name="countrow" class="input-mini" readonly="true" data-validation="required" />
+                Rows :
+                <input type="text" id="countrow" name="countrow" class="input-mini" readonly="true" data-validation="required" />
             </div>
-            
+
             <table id="tbtooling" class="table table-bordered">
                 <thead>
                     <tr>
@@ -433,6 +466,7 @@
                         <th>Q'ty</th>
                         <th>Unit</th>
                         <th>Sell</th>
+                        <th>KOUZA</th>
                         <th>Delete</th>
                     </tr>
                 </thead>

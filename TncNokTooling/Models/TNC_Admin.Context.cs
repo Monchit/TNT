@@ -36,6 +36,7 @@ namespace TncNokTooling.Models
         public DbSet<tnc_user_level> tnc_user_level { get; set; }
         public DbSet<V_Employee_Info> V_Employee_Info { get; set; }
         public DbSet<View_Organization> View_Organization { get; set; }
+        public DbSet<tnc_costcentercode> tnc_costcentercode { get; set; }
     
         public virtual int sp_orgname_by_org_lv(Nullable<int> org, Nullable<byte> lv, ObjectParameter orgname)
         {

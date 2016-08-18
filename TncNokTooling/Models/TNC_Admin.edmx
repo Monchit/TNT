@@ -6,6 +6,7 @@
     <edmx:StorageModels>
     <Schema Namespace="TNC_ADMINModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="TNC_ADMINModelStoreContainer">
+          <EntitySet Name="tnc_costcentercode" EntityType="TNC_ADMINModel.Store.tnc_costcentercode" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tnc_dept_master" EntityType="TNC_ADMINModel.Store.tnc_dept_master" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tnc_group_master" EntityType="TNC_ADMINModel.Store.tnc_group_master" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tnc_plant_master" EntityType="TNC_ADMINModel.Store.tnc_plant_master" store:Type="Tables" Schema="dbo" />
@@ -101,6 +102,20 @@
       FROM [dbo].[View_Organization] AS [View_Organization]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
+        <EntityType Name="tnc_costcentercode">
+          <Key>
+            <PropertyRef Name="subgroup_id" />
+            <PropertyRef Name="cost_code" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="plant_id" Type="int" />
+          <Property Name="dept_id" Type="int" />
+          <Property Name="group_id" Type="int" />
+          <Property Name="subgroup_id" Type="int" Nullable="false" />
+          <Property Name="cost_code" Type="nvarchar" Nullable="false" MaxLength="80" />
+          <Property Name="active" Type="bit" Nullable="false" />
+          <Property Name="sts_active" Type="bit" />
+        </EntityType>
         <EntityType Name="tnc_dept_master">
           <Key>
             <PropertyRef Name="id" />
@@ -266,6 +281,7 @@
             <Parameter Name="lv" Mode="In" Type="Byte" />
             <Parameter Name="orgname" Mode="InOut" Type="String" />
           </FunctionImport>
+          <EntitySet Name="tnc_costcentercode" EntityType="TNC_ADMINModel.tnc_costcentercode" />
         </EntityContainer>
         <EntityType Name="tnc_dept_master">
           <Key>
@@ -396,6 +412,20 @@
           <Property Name="GroupMgr_email" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
           <Property Name="subgroup_id" Type="Int32" Nullable="false" />
           <Property Name="sub_group" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tnc_costcentercode">
+          <Key>
+            <PropertyRef Name="subgroup_id" />
+            <PropertyRef Name="cost_code" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="plant_id" />
+          <Property Type="Int32" Name="dept_id" />
+          <Property Type="Int32" Name="group_id" />
+          <Property Type="Int32" Name="subgroup_id" Nullable="false" />
+          <Property Type="String" Name="cost_code" Nullable="false" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+          <Property Type="Boolean" Name="sts_active" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -538,6 +568,20 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="sp_orgname_by_org_lv" FunctionName="TNC_ADMINModel.Store.sp_orgname_by_org_lv" />
+          <EntitySetMapping Name="tnc_costcentercode">
+            <EntityTypeMapping TypeName="TNC_ADMINModel.tnc_costcentercode">
+              <MappingFragment StoreEntitySet="tnc_costcentercode">
+                <ScalarProperty Name="sts_active" ColumnName="sts_active" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="cost_code" ColumnName="cost_code" />
+                <ScalarProperty Name="subgroup_id" ColumnName="subgroup_id" />
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+                <ScalarProperty Name="dept_id" ColumnName="dept_id" />
+                <ScalarProperty Name="plant_id" ColumnName="plant_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

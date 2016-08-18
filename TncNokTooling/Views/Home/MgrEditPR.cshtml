@@ -80,29 +80,43 @@
                 return false;
             });
 
+            $("#listSell").change(function () {
+                if ($(this).val() == "true") {
+                    $("#kouza").show();
+                } else {
+                    $("#kouza").hide();
+                }
+            });
+
             $('#btnAdd').click(function () {
                 if ($("#listDesc").val() == "") {
                     alert("Please fill in Description !!!");
                 } else if ($("#listQty").val() == "") {
                     alert("Please fill in Q'ty !!!");
+                } else if ($("#listSell").val() == "true" && $("#txtkouza").val().length < 5) {
+                    alert("Please fill in KOUZA 5 Digit !!!");
                 } else {
                     $("#tbtooling tbody").append("<tr>" +
                         "<td>" + $("#listDesc").val() + "</td>" +
                         "<td>" + $("#listQty").val() + "</td>" +
                         "<td>" + $("#listUnit").val() + "</td>" +
                         "<td>" + $("#listSell option:selected").text() + "</td>" +
+                        "<td>" + $("#txtkouza").val() + "</td>" +
                         "<td>" +
                         "<button type='button' class='delTd btn btn-small btn-danger'><i class='icon-trash icon-white'></i></button>" +
                         "<input type='hidden' name='hcDesc' value='" + $("#listDesc").val() + "' />" +
                         "<input type='hidden' name='hcQty' value='" + $("#listQty").val() + "' />" +
                         "<input type='hidden' name='hcUnit' value='" + $("#listUnit").val() + "' />" +
                         "<input type='hidden' name='hcSell' value='" + $("#listSell").val() + "' />" +
+                        "<input type='hidden' name='hcKouza' value='" + $("#txtkouza").val() + "' />" +
                         "</td>" +
                         "</tr>");
                     $("#listDesc").val("");
                     $("#listQty").val("");
                     $('#listUnit').get(0).selectedIndex = 0;
                     $('#listSell').get(0).selectedIndex = 0;
+                    $("#txtkouza").val("");
+                    $("#kouza").hide();
                     $('#countrow').val($('#tbtooling tbody').children('tr').length);
                 }
                 return false;
@@ -403,6 +417,19 @@
                         <option value="false">No</option>
                         <option value="true">Yes</option>
                     </select>
+                </div>
+            </div>
+
+            <div class="control-group" id="kouza" style="display:none;">
+                <label class="control-label" for="txtkouza">KOUZA :</label>
+                <div class="controls">
+                    <input id="txtkouza" name="txtkouza" type="text" class="input-small allow_only_numbers" maxlength="5">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="btnAdd"></label>
+                <div class="controls">
                     <button type="button" id="btnAdd" name="btnAdd" class="btn btn-success">
                         <i class="icon-plus icon-white"></i> Add Tooling</button>
                 </div>
@@ -421,6 +448,7 @@
                         <th>Q'ty</th>
                         <th>Unit</th>
                         <th>Sell</th>
+                        <th>KOUZA</th>
                         <th>Delete</th>
                     </tr>
                 </thead>
@@ -432,12 +460,13 @@
                         <td>@item.qty</td>
                         <td>@item.unit</td>
                         <td>@if (item.sell) { <text>Yes</text> } else { <text>No</text> }</td>
-                        <td><button type='button' class='delTd btn btn-small btn-danger' data-prno="@item.pr_no" data-prline="@item.pr_line"><i class='icon-trash icon-white'></i></button>
-                            <input type='hidden' name='hcDesc' value='@item.description' />
-                            <input type='hidden' name='hcQty' value='@item.qty' />
-                            <input type='hidden' name='hcUnit' value='@item.unit' />
-                            <input type='hidden' name='hcSell' value='@item.sell' />
-
+                        <td>@item.kouza</td>
+                        <td><button type="button" class="delTd btn btn-small btn-danger" data-prno="@item.pr_no" data-prline="@item.pr_line"><i class="icon-trash icon-white"></i></button>
+                            <input type="hidden" name="hcDesc" value="@item.description" />
+                            <input type="hidden" name="hcQty" value="@item.qty" />
+                            <input type="hidden" name="hcUnit" value="@item.unit" />
+                            <input type="hidden" name="hcSell" value="@if (item.sell) {<text>true</text>} else {<text>false</text>}" />
+                            <input type="hidden" name="hcKouza" value="@item.kouza" />
                         </td>
                     </tr>
                     }

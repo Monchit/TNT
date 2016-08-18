@@ -29,6 +29,18 @@ namespace TncNokTooling.Controllers
             }
         }
 
+        public ActionResult Index1(string key = null)
+        {
+            if (key != null)
+            {
+                return Login(key);
+            }
+            else
+            {
+                return View();
+            }
+        }
+
         [HttpPost]
         [AllowAnonymous]
         public ActionResult Login(string key = null)
@@ -100,7 +112,7 @@ namespace TncNokTooling.Controllers
             Session.Remove("TNT_ULv");
             Session.Remove("TNT_Org");
             TempData["noty_comp"] = "You've successfully logged out...";
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Index", "Account");
         }
     }
 }

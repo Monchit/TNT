@@ -14,6 +14,7 @@
       <Parameter Name="lv" Mode="In" Type="Byte" />
       <Parameter Name="orgname" Mode="InOut" Type="String" />
     </FunctionImport>
+    <EntitySet Name="tnc_costcentercode" EntityType="TNC_ADMINModel.tnc_costcentercode" />
   </EntityContainer>
   <EntityType Name="tnc_dept_master">
     <Key>
@@ -144,5 +145,19 @@
     <Property Name="GroupMgr_email" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
     <Property Name="subgroup_id" Type="Int32" Nullable="false" />
     <Property Name="sub_group" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="tnc_costcentercode">
+    <Key>
+      <PropertyRef Name="subgroup_id" />
+      <PropertyRef Name="cost_code" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="plant_id" />
+    <Property Type="Int32" Name="dept_id" />
+    <Property Type="Int32" Name="group_id" />
+    <Property Type="Int32" Name="subgroup_id" Nullable="false" />
+    <Property Type="String" Name="cost_code" Nullable="false" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Type="Boolean" Name="active" Nullable="false" />
+    <Property Type="Boolean" Name="sts_active" />
   </EntityType>
 </Schema>

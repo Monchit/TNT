@@ -44,6 +44,8 @@
     <EntitySetMapping Name="td_tooling">
       <EntityTypeMapping TypeName="TncNokToolingModel.td_tooling">
         <MappingFragment StoreEntitySet="td_tooling">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="kouza" ColumnName="kouza" />
           <ScalarProperty Name="pr_no" ColumnName="pr_no" />
           <ScalarProperty Name="pr_line" ColumnName="pr_line" />
           <ScalarProperty Name="description" ColumnName="description" />
@@ -182,6 +184,8 @@
     <EntitySetMapping Name="v_tran">
       <EntityTypeMapping TypeName="TncNokToolingModel.v_tran">
         <MappingFragment StoreEntitySet="v_tran">
+          <ScalarProperty Name="nok_plant" ColumnName="nok_plant" />
+          <ScalarProperty Name="process" ColumnName="process" />
           <ScalarProperty Name="pr_no" ColumnName="pr_no" />
           <ScalarProperty Name="item_code" ColumnName="item_code" />
           <ScalarProperty Name="condition" ColumnName="condition" />
@@ -201,6 +205,7 @@
     <EntitySetMapping Name="v_tran_show">
       <EntityTypeMapping TypeName="TncNokToolingModel.v_tran_show">
         <MappingFragment StoreEntitySet="v_tran_show">
+          <ScalarProperty Name="rev" ColumnName="rev" />
           <ScalarProperty Name="pr_no" ColumnName="pr_no" />
           <ScalarProperty Name="status" ColumnName="status" />
           <ScalarProperty Name="lv" ColumnName="lv" />

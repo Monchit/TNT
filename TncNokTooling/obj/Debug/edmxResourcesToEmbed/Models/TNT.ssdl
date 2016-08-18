@@ -42,7 +42,9 @@
       [v_tran].[po_no] AS [po_no], 
       [v_tran].[status] AS [status], 
       [v_tran].[status_id] AS [status_id], 
-      [v_tran].[ulv_id] AS [ulv_id]
+      [v_tran].[ulv_id] AS [ulv_id], 
+      [v_tran].[process] AS [process], 
+      [v_tran].[nok_plant] AS [nok_plant]
       FROM [dbo].[v_tran] AS [v_tran]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="v_tran_show" EntityType="TncNokToolingModel.Store.v_tran_show" store:Type="Views" store:Schema="dbo" store:Name="v_tran_show">
@@ -58,7 +60,8 @@
       [v_tran_show].[ulv_id] AS [ulv_id], 
       [v_tran_show].[org] AS [org], 
       [v_tran_show].[status_id] AS [status_id], 
-      [v_tran_show].[act_id] AS [act_id]
+      [v_tran_show].[act_id] AS [act_id], 
+      [v_tran_show].[rev] AS [rev]
       FROM [dbo].[v_tran_show] AS [v_tran_show]</DefiningQuery>
     </EntitySet>
     <AssociationSet Name="FK_td_files_td_pr1" Association="TncNokToolingModel.Store.FK_td_files_td_pr1">
@@ -176,6 +179,8 @@
     <Property Name="qty" Type="int" Nullable="false" />
     <Property Name="unit" Type="varchar" Nullable="false" MaxLength="10" />
     <Property Name="sell" Type="bit" Nullable="false" />
+    <Property Name="kouza" Type="varchar" MaxLength="5" />
+    <Property Name="status" Type="varchar" MaxLength="5" />
   </EntityType>
   <EntityType Name="td_tran">
     <Key>
@@ -329,6 +334,8 @@
       <PropertyRef Name="issue_group" />
       <PropertyRef Name="status_id" />
       <PropertyRef Name="ulv_id" />
+      <PropertyRef Name="process" />
+      <PropertyRef Name="nok_plant" />
     </Key>
     <Property Name="pr_no" Type="varchar" Nullable="false" MaxLength="10" />
     <Property Name="item_code" Type="varchar" Nullable="false" MaxLength="50" />
@@ -343,6 +350,8 @@
     <Property Name="status" Type="varchar" MaxLength="164" />
     <Property Name="status_id" Type="tinyint" Nullable="false" />
     <Property Name="ulv_id" Type="tinyint" Nullable="false" />
+    <Property Name="process" Type="tinyint" Nullable="false" />
+    <Property Name="nok_plant" Type="tinyint" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
       warning 6002: The table/view 'TncNokTooling.dbo.v_tran_show' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -356,6 +365,7 @@
       <PropertyRef Name="ulv_id" />
       <PropertyRef Name="org" />
       <PropertyRef Name="status_id" />
+      <PropertyRef Name="rev" />
     </Key>
     <Property Name="pr_no" Type="varchar" Nullable="false" MaxLength="10" />
     <Property Name="status" Type="varchar" Nullable="false" MaxLength="50" />
@@ -369,6 +379,7 @@
     <Property Name="org" Type="int" Nullable="false" />
     <Property Name="status_id" Type="tinyint" Nullable="false" />
     <Property Name="act_id" Type="varchar" MaxLength="5" />
+    <Property Name="rev" Type="tinyint" Nullable="false" />
   </EntityType>
   <Association Name="FK_td_files_td_pr1">
     <End Role="td_pr" Type="TncNokToolingModel.Store.td_pr" Multiplicity="1">

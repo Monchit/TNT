@@ -5,14 +5,15 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="b2deeebd3146455fbf3943b6259434f1" Name="Diagram1">
-        <EntityTypeShape EntityType="TNC_ADMINModel.tnc_dept_master" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TNC_ADMINModel.tnc_group_master" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TNC_ADMINModel.tnc_plant_master" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TNC_ADMINModel.tnc_position_master" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TNC_ADMINModel.tnc_user" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TNC_ADMINModel.tnc_user_level" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TNC_ADMINModel.V_Employee_Info" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TNC_ADMINModel.View_Organization" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TNC_ADMINModel.tnc_dept_master" Width="1.5" PointX="4.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TNC_ADMINModel.tnc_group_master" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TNC_ADMINModel.tnc_plant_master" Width="1.5" PointX="4.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TNC_ADMINModel.tnc_position_master" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TNC_ADMINModel.tnc_user" Width="1.5" PointX="6.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TNC_ADMINModel.tnc_user_level" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TNC_ADMINModel.V_Employee_Info" Width="1.5" PointX="10" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TNC_ADMINModel.View_Organization" Width="1.5" PointX="8.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TNC_ADMINModel.tnc_costcentercode" Width="1.5" PointX="1.25" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

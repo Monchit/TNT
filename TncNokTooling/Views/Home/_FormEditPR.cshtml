@@ -1,0 +1,11 @@
+﻿<div class="well">
+@{
+    var pr = ViewData["pr_no"];
+    var ulv = ViewData["ulv"];
+    var org = ViewData["org"];
+    var status = ViewData["status"];
+    var rev = ViewData["rev"];
+}
+    <a href="@Url.Action("MgrEditPR", "Home", new { pr_no = pr, ulv = ulv, org = org, status = status, rev = rev })" class="btn btn-info"><i class="icon-wrench icon-white"></i>Edit PR</a>
+
+</div>

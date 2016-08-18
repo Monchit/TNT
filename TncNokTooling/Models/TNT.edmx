@@ -47,7 +47,9 @@
       [v_tran].[po_no] AS [po_no], 
       [v_tran].[status] AS [status], 
       [v_tran].[status_id] AS [status_id], 
-      [v_tran].[ulv_id] AS [ulv_id]
+      [v_tran].[ulv_id] AS [ulv_id], 
+      [v_tran].[process] AS [process], 
+      [v_tran].[nok_plant] AS [nok_plant]
       FROM [dbo].[v_tran] AS [v_tran]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="v_tran_show" EntityType="TncNokToolingModel.Store.v_tran_show" store:Type="Views" store:Schema="dbo" store:Name="v_tran_show">
@@ -63,7 +65,8 @@
       [v_tran_show].[ulv_id] AS [ulv_id], 
       [v_tran_show].[org] AS [org], 
       [v_tran_show].[status_id] AS [status_id], 
-      [v_tran_show].[act_id] AS [act_id]
+      [v_tran_show].[act_id] AS [act_id], 
+      [v_tran_show].[rev] AS [rev]
       FROM [dbo].[v_tran_show] AS [v_tran_show]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_td_files_td_pr1" Association="TncNokToolingModel.Store.FK_td_files_td_pr1">
@@ -181,6 +184,8 @@
           <Property Name="qty" Type="int" Nullable="false" />
           <Property Name="unit" Type="varchar" Nullable="false" MaxLength="10" />
           <Property Name="sell" Type="bit" Nullable="false" />
+          <Property Name="kouza" Type="varchar" MaxLength="5" />
+          <Property Name="status" Type="varchar" MaxLength="5" />
         </EntityType>
         <EntityType Name="td_tran">
           <Key>
@@ -334,6 +339,8 @@
             <PropertyRef Name="issue_group" />
             <PropertyRef Name="status_id" />
             <PropertyRef Name="ulv_id" />
+            <PropertyRef Name="process" />
+            <PropertyRef Name="nok_plant" />
           </Key>
           <Property Name="pr_no" Type="varchar" Nullable="false" MaxLength="10" />
           <Property Name="item_code" Type="varchar" Nullable="false" MaxLength="50" />
@@ -348,6 +355,8 @@
           <Property Name="status" Type="varchar" MaxLength="164" />
           <Property Name="status_id" Type="tinyint" Nullable="false" />
           <Property Name="ulv_id" Type="tinyint" Nullable="false" />
+          <Property Name="process" Type="tinyint" Nullable="false" />
+          <Property Name="nok_plant" Type="tinyint" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'TncNokTooling.dbo.v_tran_show' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -361,6 +370,7 @@
             <PropertyRef Name="ulv_id" />
             <PropertyRef Name="org" />
             <PropertyRef Name="status_id" />
+            <PropertyRef Name="rev" />
           </Key>
           <Property Name="pr_no" Type="varchar" Nullable="false" MaxLength="10" />
           <Property Name="status" Type="varchar" Nullable="false" MaxLength="50" />
@@ -374,6 +384,7 @@
           <Property Name="org" Type="int" Nullable="false" />
           <Property Name="status_id" Type="tinyint" Nullable="false" />
           <Property Name="act_id" Type="varchar" MaxLength="5" />
+          <Property Name="rev" Type="tinyint" Nullable="false" />
         </EntityType>
         <Association Name="FK_td_files_td_pr1">
           <End Role="td_pr" Type="TncNokToolingModel.Store.td_pr" Multiplicity="1">
@@ -738,6 +749,8 @@
           <Property Name="unit" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
           <Property Name="sell" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="td_pr" Relationship="TncNokToolingModel.FK_td_tooling_td_pr1" FromRole="td_tooling" ToRole="td_pr" />
+          <Property Type="String" Name="kouza" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="status" MaxLength="5" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="td_tran">
           <Key>
@@ -893,6 +906,8 @@
             <PropertyRef Name="issue_group" />
             <PropertyRef Name="status_id" />
             <PropertyRef Name="ulv_id" />
+            <PropertyRef Name="process" />
+            <PropertyRef Name="nok_plant" />
           </Key>
           <Property Name="pr_no" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
           <Property Name="item_code" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
@@ -907,6 +922,8 @@
           <Property Name="status" Type="String" MaxLength="164" Unicode="false" FixedLength="false" />
           <Property Name="status_id" Type="Byte" Nullable="false" />
           <Property Name="ulv_id" Type="Byte" Nullable="false" />
+          <Property Type="Byte" Name="process" Nullable="false" />
+          <Property Type="Byte" Name="nok_plant" Nullable="false" />
         </EntityType>
         <EntityType Name="v_tran_show">
           <Key>
@@ -917,6 +934,7 @@
             <PropertyRef Name="ulv_id" />
             <PropertyRef Name="org" />
             <PropertyRef Name="status_id" />
+            <PropertyRef Name="rev" />
           </Key>
           <Property Name="pr_no" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
           <Property Name="status" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
@@ -930,6 +948,7 @@
           <Property Name="org" Type="Int32" Nullable="false" />
           <Property Name="status_id" Type="Byte" Nullable="false" />
           <Property Name="act_id" Type="String" MaxLength="5" Unicode="false" FixedLength="false" />
+          <Property Type="Byte" Name="rev" Nullable="false" />
         </EntityType>
         <Association Name="FK_td_files_td_pr1">
           <End Role="td_pr" Type="TncNokToolingModel.td_pr" Multiplicity="1">
@@ -1208,6 +1227,8 @@
           <EntitySetMapping Name="td_tooling">
             <EntityTypeMapping TypeName="TncNokToolingModel.td_tooling">
               <MappingFragment StoreEntitySet="td_tooling">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="kouza" ColumnName="kouza" />
                 <ScalarProperty Name="pr_no" ColumnName="pr_no" />
                 <ScalarProperty Name="pr_line" ColumnName="pr_line" />
                 <ScalarProperty Name="description" ColumnName="description" />
@@ -1346,6 +1367,8 @@
           <EntitySetMapping Name="v_tran">
             <EntityTypeMapping TypeName="TncNokToolingModel.v_tran">
               <MappingFragment StoreEntitySet="v_tran">
+                <ScalarProperty Name="nok_plant" ColumnName="nok_plant" />
+                <ScalarProperty Name="process" ColumnName="process" />
                 <ScalarProperty Name="pr_no" ColumnName="pr_no" />
                 <ScalarProperty Name="item_code" ColumnName="item_code" />
                 <ScalarProperty Name="condition" ColumnName="condition" />
@@ -1365,6 +1388,7 @@
           <EntitySetMapping Name="v_tran_show">
             <EntityTypeMapping TypeName="TncNokToolingModel.v_tran_show">
               <MappingFragment StoreEntitySet="v_tran_show">
+                <ScalarProperty Name="rev" ColumnName="rev" />
                 <ScalarProperty Name="pr_no" ColumnName="pr_no" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="lv" ColumnName="lv" />

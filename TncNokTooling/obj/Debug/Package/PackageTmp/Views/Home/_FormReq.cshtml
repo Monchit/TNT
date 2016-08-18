@@ -1,7 +1,6 @@
 ﻿
 <script type="text/javascript">
     $(document).ready(function () {
-        //$.validate({ form: '#formAR' });
         
         $("#btnApv").click(function () {
             var obj = new Object();
@@ -17,9 +16,9 @@
             });
         });
 
-        $("#btnRej").click(function () {
+        $("#btnCC").click(function () {
             if ($("#comment").val() != "") {
-                if (confirm("Are you sure to REJECT ?")) {
+                if (confirm("Are you sure to CANCEL ?")) {
                     var obj = new Object();
                     obj.pr_no = $("#hdpr").val();
                     obj.tulv = $("#hdulv").val();
@@ -27,7 +26,7 @@
                     obj.status = $("#hdstt").val();
                     obj.rev = $("#hdrev").val();
                     obj.comment = $("#comment").val();
-                    var remote = "@Url.Action("RejectAction", "Home")";
+                    var remote = "@Url.Action("CancelAction", "Home")";
                     $.post(remote, obj, function (data) {
                         location.reload();
                     });
@@ -37,7 +36,7 @@
             }
         });
 
-        $("#btnRev").click(function () {
+        @*$("#btnRev").click(function () {
             if ($("#comment").val() != "") {
                 if (confirm("Are you sure to REVISE ?")) {
                     var obj = new Object();
@@ -55,11 +54,11 @@
             } else {
                 alert("Please fill comment.");
             }
-        });
+        });*@
     });
 </script>
 
-<form id="formAR" name="formAR" class="form-horizontal well" @*action="@Url.Action("ApproveAction")" method="post"*@>
+<form id="formAR" name="formAR" class="form-horizontal well">
 
     <div class="control-group">
       <label class="control-label" for="comment">Comment :</label>
@@ -83,9 +82,11 @@
         <input type="hidden" id="hdorg" name="hdorg" value="@org" />
         <input type="hidden" id="hdstt" name="hdstt" value="@status" />
         <input type="hidden" id="hdrev" name="hdrev" value="@rev" />
-        <button id="btnApv" name="btnApv" type="button" class="btn btn-success"><i class="icon-ok icon-white"></i> Approve</button>
-        <button id="btnRej" name="btnRej" type="button" class="btn btn-danger"><i class="icon-remove icon-white"></i> Reject</button>
-        <button id="btnRev" name="btnRev" type="button" class="btn btn-warning"><i class="icon-repeat icon-white"></i> Revise</button>
+        <button id="btnApv" name="btnApv" type="button" class="btn btn-success"><i class="icon-ok icon-white"></i> OK</button>
+        <button id="btnCC" name="QE-DEF-0285 " type="button" class="btn btn-danger"><i class="icon-remove icon-white"></i> Cancel</button>
+@*        <button id="btnRej" name="btnRej" type="button" class="btn btn-danger"><i class="icon-remove icon-white"></i> Reject</button>
+        <button id="btnRev" name="btnRev" type="button" class="btn btn-warning"><i class="icon-repeat icon-white"></i> Revise</button>*@
+          <a href="@Url.Action("MgrEditPR", "Home", new { pr_no = pr, ulv = ulv, org = org, status = status, rev = rev })" class="btn btn-info"><i class="icon-wrench icon-white"></i> Edit PR</a>
       </div>
     </div>
 </form>
