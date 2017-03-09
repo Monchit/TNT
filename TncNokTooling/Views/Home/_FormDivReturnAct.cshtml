@@ -1,0 +1,37 @@
+﻿
+<form id="formDivReturnAct" name="formDivReturnAct" class="form-horizontal well">
+    <h4><u>Division Action with Order No. KU-0001</u></h4>
+
+    <div class="control-group">
+        <label class="control-label" for="chb_result">Result of Trial Mold :</label>
+        <div class="controls">
+            <label class="checkbox" for="chb_result-0">
+                <input type="checkbox" name="chb_result" id="chb_result-0" value="OK (Send OK Mold to NOK)">
+                OK (Send OK Mold to NOK)
+            </label>
+            <label class="checkbox" for="chb_result-1">
+                <input type="checkbox" name="chb_result" id="chb_result-1" value="NG (Send NG Mold to FKK)">
+                NG (Send NG Mold to FKK)
+            </label>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="nokpo">Complete Date** :</label>
+        <div class="controls">
+            <input type="text" id="comp_dt" name="comp_dt" class="span3" />
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="comment">Division Comment :</label>
+        <div class="controls">
+            <textarea rows="3" id="divcomment" name="divcomment" class="span8"></textarea>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="btnApv"></label>
+        <div class="controls">
+            <button id="btnApv" name="btnApv" type="button" class="btn btn-success"><i class="icon-ok icon-white"></i> Submit</button>
+            @*<button id="btnRej" name="btnRej" type="button" class="btn btn-danger"><i class="icon-remove icon-white"></i> Reject</button>*@
+        </div>
+    </div>
+</form>

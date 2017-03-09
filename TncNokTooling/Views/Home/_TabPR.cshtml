@@ -1,9 +1,43 @@
-﻿@model TncNokTooling.Models.td_pr
+﻿@using TncNokTooling.Models
+@model TncNokTooling.Models.td_pr
+@{
+    TncNokToolingEntities dbTnt = new TncNokToolingEntities();
+}
 
 <style>
     td.txtcenter {
-        text-align: center; 
+        text-align: center;
     }
+
+    .app-box {
+        border: 1px dotted #D4D0C8;
+        float: left;
+        /*padding: 3px;
+        margin-right: 5px;*/
+        text-align: center;
+        /*width: 120px;*/
+    }
+
+        .app-box div {
+            clear: both;
+        }
+
+        .app-box .level {
+            /* color: #008084; */
+            float: left;
+            width: 100%;
+            height: 18px;
+            /* background-color: #EFF3E4; */
+            border-bottom: 1px dotted #D4D0C8;
+            height: 18px;
+        }
+
+        .app-box .img {
+            float: left;
+            margin: 5px auto;
+            width: 100%;
+            height: 48px;
+        }
 </style>
 
 <div class="row-fluid">
@@ -28,12 +62,15 @@
 </div>
 
 <div class="row-fluid">
-    @if (Model.condition == "Urgent") {
-    <div class="span2 text-right"><strong>Reason for urgent :</strong></div>
-    <div class="span4">@Html.DisplayFor(m => m.reason)</div>
-    }else{
-    <div class="span2"></div>
-    <div class="span4"></div>
+    @if (Model.condition == "Urgent")
+    {
+        <div class="span2 text-right"><strong>Reason for urgent :</strong></div>
+        <div class="span4">@Html.DisplayFor(m => m.reason)</div>
+    }
+    else
+    {
+        <div class="span2"></div>
+        <div class="span4"></div>
     }
     <div class="span2 text-right"><strong>Process :</strong></div>
     <div class="span4">@Html.DisplayFor(m => m.tm_process.name)</div>
@@ -63,18 +100,20 @@
 <div class="row-fluid">
     <div class="span2 text-right"><strong>Internal Phone :</strong></div>
     <div class="span4">@Html.DisplayFor(m => m.ext)</div>
-    @if(Model.process == 1){
-    <div class="span2 text-right"><strong>Prior contact NOK :</strong></div>
-    <div class="span4">@Html.DisplayFor(m => m.nok_contact)</div>
+    @if (Model.process == 1)
+    {
+        <div class="span2 text-right"><strong>NOK Contact Person :</strong></div>
+        <div class="span4">@Html.DisplayFor(m => m.nok_contact)</div>
     }
 </div>
 
 <div class="row-fluid">
     <div class="span2 text-right"><strong>Cost code :</strong></div>
     <div class="span4">@Html.DisplayFor(m => m.cost_code)</div>
-    @if(Model.process == 3){
-    <div class="span2 text-right"><strong>Mold Problem :</strong></div>
-    <div class="span4">@Html.DisplayFor(m => m.problem)</div>
+    @if (Model.process == 3)
+    {
+        <div class="span2 text-right"><strong>Mold Problem :</strong></div>
+        <div class="span4">@Html.DisplayFor(m => m.problem)</div>
     }
 </div>
 
@@ -88,20 +127,90 @@
                     <th>Q'ty</th>
                     <th>Unit</th>
                     <th>Sell</th>
+                    <th>KOUZA</th>
+                    <th>Remark</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in ViewBag.Tooling)
+                @{
+                    var tooling = from a in dbTnt.td_tooling
+                             where a.pr_no == Model.pr_no
+                             select a;
+
+                    foreach (var item in tooling)
                 {
+                    if (item.status == "CANC") {<text>
+                    <tr style="background-color:#ff6666;">
+                        <td class="txtcenter">@item.pr_line</td>
+                        <td>@item.description</td>
+                        <td class="txtcenter">@item.qty</td>
+                        <td class="txtcenter">@item.unit</td>
+                        <td class="txtcenter">@(item.sell ? "Yes" : "No")</td>
+                        <td class="txtcenter">@item.kouza</td>
+                        <td></td>
+                    </tr>
+                    </text>}
+                    else {<text>
                     <tr>
                         <td class="txtcenter">@item.pr_line</td>
                         <td>@item.description</td>
                         <td class="txtcenter">@item.qty</td>
                         <td class="txtcenter">@item.unit</td>
                         <td class="txtcenter">@(item.sell ? "Yes" : "No")</td>
+                        <td class="txtcenter">@item.kouza</td>
+                        <td></td>
                     </tr>
+                    </text>}
+                           
+                    var td_inv = from a in dbTnt.td_eta_tnc
+                             where a.pr_no == item.pr_no && a.pr_line == item.pr_line
+                             select a;
+                if(td_inv != null){
+                    foreach (var inv in td_inv)
+                    {
+                        //receive_qty += inv.rec_qty.Value;
+                        <tr style="color:#0026ff;">
+                            <td></td>
+                            <td>Invoice no.: @inv.invoice_no</td>
+                            <td class="txtcenter">@inv.rec_qty</td>
+                            <td>ETA TNC: @String.Format("{0:dd/MM/yyyy}", inv.eta_tnc)</td>
+                            <td class="txtcenter"><a href="@Url.Content(inv.file_path)" target="_blank"><i class="icon-file"></i></a></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    }
+                }
+                }
                 }
             </tbody>
         </table>
     </div>
+</div>
+<hr />
+<div class="row-fluid">
+    @foreach (var item in ViewBag.ShowTran)
+    {
+        <div class="span3 app-box">
+            <div class="level">@item.name (@item.status)</div>
+            @if(item.act_id == "APV"){
+            <div class="img"><img src="~/Images/48check-icon.png" alt="" /></div>
+            <div class="action">@String.Format("{0:dd/MM/yyyy HH:mm}", item.act_dt)</div>
+            }
+            else if (item.act_id == "REJ")
+            {
+            <div class="img"><img src="~/Images/48no-icon.png" alt="" /></div>
+            <div class="action">@String.Format("{0:dd/MM/yyyy HH:mm}", item.act_dt)</div>
+            }
+            else if (item.act_id == "SKIP")
+            {
+            <div class="img"><img src="~/Images/48skip-icon.png" alt="" /></div>
+            <div class="action">@String.Format("{0:dd/MM/yyyy HH:mm}", item.act_dt)</div>
+            }
+            else
+            {
+            <div class="img"><img src="~/Images/waiting.gif" alt="" /></div>
+            }
+            <div class="mrg-name">@item.emp_fname @item.emp_lname</div>
+        </div>
+    }
 </div>

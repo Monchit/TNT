@@ -1,0 +1,190 @@
+﻿@{
+    ViewBag.Title = "NOK Search";
+}
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var obj = new Object();
+            $('#jTableList').jtable({
+                //title: 'Data Record',
+                paging: true,
+                pageSize: 10, //Set page size (default: 10)
+                sorting: true,
+                selecting: true, //Enable selecting
+                multiselect: false, //Allow multiple selecting
+                defaultSorting: 'po_no', //Set default sorting
+                actions: {
+                    listAction: '@Url.Action("NOKList", "Home")'
+                },
+                //recordsLoaded: function (event, data) {
+                //    $("table.jtable").children().eq(1).children().each(function () {
+                //        if ($(this).children().eq(8).text() == "Completed") {
+                //            $(this).addClass("rowComp");
+                //        }
+                //        else if ($(this).children().eq(8).text() == "Rejected") {
+                //            $(this).addClass("rowRej");
+                //        }
+                //    });
+                //},
+                fields: {
+                    pr_no: { list: false },
+                    plant: { title: 'Plant/Div', width: '8%' },
+                    item_code: { title: 'Item code', width: '9%' },
+                    po_no: { title: 'TNC PO No.', width: '7%' },
+                    issue_dt: { title: 'TNC Issue', width: '7%', type: 'date', displayFormat: 'dd-mm-yy' },
+                    due_date: { title: 'TNC Due', width: '7%', type: 'date', displayFormat: 'dd-mm-yy' },
+                    po_nok: { title: 'NOK PO No.', width: '8%' },
+                    nok_issue_dt: { title: 'NOK Issue', width: '8%', type: 'date', displayFormat: 'dd-mm-yy' },
+                    order_no: { title: 'Division order no.', width: '8%' },
+                    div_comp_dt: { title: 'Division Comp. Date', width: '8%', type: 'date', displayFormat: 'dd-mm-yy' },
+                    status: { title: 'Status', width: '20%' },
+                    status_id: { list: false }
+                },
+                //Register to selectionChanged event to hanlde events
+                selectionChanged: function () {
+                    //Get all selected rows
+                    var $selectedRows = $('#jTableList').jtable('selectedRows');
+                    if ($selectedRows.length > 0) {
+                        $selectedRows.each(function () {
+                            var record = $(this).data('record');
+
+                            obj.pr_no = record.pr_no;
+
+                            var remote = "@Url.Action("_TabComment")";
+                            $.get(remote, obj, function (data) {
+                                $("#_TabComment").html(data);
+                                return false;
+                            });
+
+                            var attremote = "@Url.Action("_TabFiles")";
+                            $.get(attremote, obj, function (data) {
+                                $("#_TabFiles").html(data);
+                                return false;
+                            });
+
+                            var appremote = "@Url.Action("_TabNOKAppr")";
+                            $.get(appremote, obj, function (data) {
+                                $("#divOperation").html(data);
+                                return false;
+                            });
+
+                            var editremote = "@Url.Action("_TabNOKEdit")";
+                            $.get(editremote, obj, function (data) {
+                                $("#divNokEdit").html(data);
+                                return false;
+                            });
+                        });
+                    }
+                }
+            });
+            //Re-load records when user click 'load records' button.
+            $('#btn_search').click(function (e) {
+                e.preventDefault();
+                $('#jTableList').jtable('load', {
+                    id: $('#txt_pr').val(),
+                    po_no: $('#txt_po').val(),
+                    item: $('#txt_item').val(),
+                    process: $('#sel_process').val(),
+                    requester: $('#txt_req').val(),
+                    req_group: $('#sel_req_group').val(),
+                    status: $('#sel_status').val(),
+                    condition: $('#sel_condition').val()
+                });
+            });
+        });
+    </script>
+}
+
+<div class="accordion" id="acc_search">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#acc_search" href="#col_search"><strong>Search</strong></a>
+        </div>
+        <div id="col_search" class="accordion-body collapse in">
+            <div class="accordion-inner">
+                <form class="form-horizontal row-fluid">
+                    <div class="span5">
+                        <!-- Text input-->
+                        <div class="control-group">
+                            <label class="control-label" for="txt_plant">Plant/Division :</label>
+                            <div class="controls">
+                                <input id="txt_plant" name="txt_plant" type="text" placeholder="Plant/Division" class="input-large">
+                            </div>
+                        </div>
+      
+                        <!-- Text input-->
+                        <div class="control-group">
+                            <label class="control-label" for="txt_item">Item code :</label>
+                            <div class="controls">
+                                <input id="txt_item" name="txt_item" type="text" placeholder="Item code" class="input-large">
+                            </div>
+                        </div>
+                  
+                        <!-- Text input-->
+                        <div class="control-group">
+                            <label class="control-label" for="txt_po">TNC PO No. :</label>
+                            <div class="controls">
+                                <input id="txt_po" name="txt_po" type="text" placeholder="PO No." class="input-large">
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="control-group">
+                            <label class="control-label" for="txt_po_nok">NOK PO No. :</label>
+                            <div class="controls">
+                                <input id="txt_po_nok" name="txt_po_nok" type="text" placeholder="NOK PO No." class="input-large">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="span6">                
+                        
+                        <div class="control-group">
+                            <label class="control-label" for="txt_order">Order No. :</label>
+                            <div class="controls">
+                                <input id="txt_order" name="txt_order" type="text" placeholder="Order No." class="input-large">
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label" for="txt_maker">Maker Name :</label>
+                            <div class="controls">
+                                <input id="txt_maker" name="txt_maker" type="text" placeholder="Maker Name" class="input-large">
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label" for="sel_status">Status :</label>
+                            <div class="controls">
+                                <select id="sel_status" name="sel_status" class="input-large">
+                                    <option value="">-- All --</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="span1">
+                        <button id="btn_search" name="btn_search" class="btn btn-primary" type="submit">
+                            <i class="icon-search icon-white"></i> Search</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="jTableList"></div>
+<br />
+
+<div class="row-fluid">
+    <div class="span9" id="_TabComment">
+
+    </div>
+    <div class="span3" id="_TabFiles">
+
+    </div>
+</div>
+<div class="row-fluid">
+    <div id="divOperation" class="span9"></div>
+    <div id="divNokEdit" class="span3"></div>
+</div>

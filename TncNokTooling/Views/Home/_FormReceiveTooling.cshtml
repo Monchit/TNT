@@ -1,1 +1,133 @@
-﻿
+﻿@using TncNokTooling.Models
+@model IEnumerable<TncNokTooling.Models.td_tooling>
+@{
+    TncNokToolingEntities dbTnt = new TncNokToolingEntities();
+}
+<style>
+    td.txtcenter {
+        text-align: center;
+    }
+
+    td.txtright {
+        text-align: right;
+    }
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        //$(".datepicker").datepicker({
+        //    dateFormat: 'dd-mm-yy',
+        //    changeMonth: true,
+        //    changeYear: true,
+        //    showButtonPanel: true
+        //});
+
+        $(document).off('click', '.addinv').on('click', '.addinv', function () {
+            var line = $(this).attr("data-line");
+            $('<tr><td><input type="hidden" name="prline" value="' + line + '" /></td><td colspan="4">Invoice no.: <input type="text" name="invno" class="input-medium" /> ETA TNC: <input type="text" name="eta" class="input-small datepicker" /> Q\'ty: <input type="text" name="recqty" class="input-mini" /> <input type="file" name="invfile" /></td><td class="txtright"><button type="button" class="btn btn-small btn-danger delinv"><i class="icon-remove icon-white"></i></button></td></tr>').insertAfter($(this).closest('tr'));
+
+            //$(this).closest('tr').next().prev().after();
+            //$(this).parent().parent().parent().next('<tr><td></td><td colspan="4"></td><td></td></tr>');
+        });
+
+        $(document).on('focus', '.datepicker', function () {
+            $(this).datepicker({ dateFormat: 'dd-mm-yy' });
+        });
+
+        $(document).on('click', '.delinv', function () {
+            if (confirm("Are you sure to Delete ?")) {
+                $(this).closest('tr').remove();
+            }
+        });
+
+        $(document).off('click', '.delinvdb').on('click', '.delinvdb', function () {
+            if (confirm("Are you sure to Delete ?")) {
+                var obj = new Object();
+                obj.pr_no = $("#hdpr").val();
+                obj.pr_line = $(this).attr("data-prline");
+                obj.inv_no = $(this).attr("data-inv");
+                var tr = $(this).closest('tr');
+                var remote = "@Url.Action("DeleteInv", "Home")";
+                $.post(remote, obj, function (data) {
+                    tr.remove();
+                });
+            }
+        });
+
+        $("#btnComp").click(function () {
+            var obj = new Object();
+            obj.pr_no = $("#hdpr").val();
+            obj.tulv = $("#hdulv").val();
+            obj.torg = $("#hdorg").val();
+            obj.status = $("#hdstt").val();
+            obj.rev = $("#hdrev").val();
+            var remote = "@Url.Action("CompleteInv", "Home")";
+            $.post(remote, obj, function (data) {
+                location.reload();
+            });
+        });
+    });
+</script>
+
+<form id="formInv" name="formInv" action="@Url.Action("UpdateInv", "Home")" method="post" enctype="multipart/form-data">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Description</th>
+                <th>Q'ty</th>
+                <th>Unit</th>
+                <th>Sell</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @{
+            //var request_qty = 0;
+            //var receive_qty = 0;  
+            foreach (var item in Model)
+            {
+                //request_qty += item.qty;
+                <tr>
+                    <td class="txtcenter">@item.pr_line</td>
+                    <td>@item.description</td>
+                    <td class="txtcenter">@item.qty</td>
+                    <td class="txtcenter">@item.unit</td>
+                    <td class="txtcenter">@(item.sell ? "Yes" : "No")</td>
+                    <td class="txtright">
+                        <button type="button" class="btn btn-small btn-primary addinv" data-line="@item.pr_line"><i class="icon-plus icon-white"></i></button>
+                    </td>
+                </tr>
+                
+                var td_inv = from a in dbTnt.td_eta_tnc
+                             where a.pr_no == item.pr_no && a.pr_line == item.pr_line
+                             select a;
+                if(td_inv != null){
+                    foreach (var inv in td_inv)
+                    {
+                        //receive_qty += inv.rec_qty.Value;
+                        <tr style="color:#0026ff;">
+                            <td></td>
+                            <td>Invoice no.: @inv.invoice_no</td>
+                            <td class="txtcenter">@inv.rec_qty</td>
+                            <td>ETA TNC: @String.Format("{0:dd/MM/yyyy}", inv.eta_tnc)</td>
+                            <td class="txtcenter"><a href="@Url.Content(inv.file_path)" target="_blank"><i class="icon-file"></i></a></td>
+                            <td class="txtright"><button type="button" class="btn btn-small btn-danger delinvdb" data-prline="@inv.pr_line" data-inv="@inv.invoice_no"><i class="icon-remove icon-white"></i></button></td>
+                        </tr>
+                    }
+                }
+            }
+        }
+        </tbody>
+    </table>
+    <div class="text-right">
+        <input type="hidden" id="hdpr" name="hdpr" value="@ViewBag.PRNO" />
+        <input type="hidden" id="hdulv" name="hdulv" value="@ViewBag.ULV" />
+        <input type="hidden" id="hdorg" name="hdorg" value="@ViewBag.ORG" />
+        <input type="hidden" id="hdstt" name="hdstt" value="@ViewBag.STATUS" />
+        <input type="hidden" id="hdrev" name="hdrev" value="@ViewBag.REV" />
+        <button id="btnSave" name="btnSave" type="submit" class="btn btn-info"><i class="icon-download-alt icon-white"></i> Save</button>
+        <button id="btnComp" name="btnComp" type="button" class="btn btn-success"><i class="icon-ok icon-white"></i> Complete</button>
+    </div>
+</form>

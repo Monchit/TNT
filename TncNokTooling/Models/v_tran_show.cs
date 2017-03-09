@@ -16,7 +16,6 @@ namespace TncNokTooling.Models
     {
         public string pr_no { get; set; }
         public string status { get; set; }
-        public string lv { get; set; }
         public string action { get; set; }
         public string emp_fname { get; set; }
         public string emp_lname { get; set; }
@@ -27,5 +26,6 @@ namespace TncNokTooling.Models
         public byte status_id { get; set; }
         public string act_id { get; set; }
         public byte rev { get; set; }
+        public string name { get; set; }
     }
 }

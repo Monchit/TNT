@@ -193,6 +193,8 @@
     <Compile Include="Controllers\ActiveMenu.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\Chk_Authen.cs" />
+    <Compile Include="Controllers\Chk_NOK.cs" />
+    <Compile Include="Controllers\Chk_TNC.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -250,6 +252,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RunCenter.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\td_eta_tnc.cs">
+      <DependentUpon>TNT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\td_files.cs">
       <DependentUpon>TNT.tt</DependentUpon>
     </Compile>
@@ -302,6 +307,9 @@
       <DependentUpon>TNT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tm_user_lv.cs">
+      <DependentUpon>TNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tm_user_nok.cs">
       <DependentUpon>TNT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tm_user_type.cs">
@@ -389,6 +397,7 @@
     <Content Include="Content\css\select2.css" />
     <Content Include="Content\css\select2.png" />
     <Content Include="Content\css\select2x2.png" />
+    <Content Include="Content\grayscale.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -511,6 +520,19 @@
     <Content Include="Content\themes\eggplant\minified\jquery.ui.tooltip.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Images\48Accept-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\48check-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\48no-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\48skip-icon.png" />
+    <Content Include="Images\waiting.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="img\glyphicons-halflings-white.png" />
     <Content Include="img\glyphicons-halflings.png" />
     <Content Include="Scripts\bootstrap.js" />
@@ -834,7 +856,9 @@
     <Content Include="Scripts\Select2-locales\select2_locale_zh-TW.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\select2.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -857,7 +881,7 @@
     <Content Include="Images\orderedList8.png" />
     <Content Include="Images\orderedList9.png" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Index1.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -912,6 +936,22 @@
     <Content Include="Views\Home\_FormReceiveTooling.cshtml" />
     <Content Include="Views\Home\_FormSendPO.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Home\TNCNOKMenu.cshtml" />
+    <Content Include="Views\Home\TNCSearch.cshtml" />
+    <Content Include="Views\Home\NOKSearch.cshtml" />
+    <Content Include="Views\Home\ViewPRDetail.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\_TabNOK.cshtml" />
+    <Content Include="Views\Home\_TabComment.cshtml" />
+    <Content Include="Views\Home\_TabNOKAppr.cshtml" />
+    <Content Include="Views\Home\_FormNokAct.cshtml" />
+    <Content Include="Views\Home\_FormDivAct.cshtml" />
+    <Content Include="Views\Home\_FormMakerAct.cshtml" />
+    <Content Include="Views\Home\_FormNokEdit.cshtml" />
+    <Content Include="Views\Home\_TabNOKEdit.cshtml" />
+    <Content Include="Views\Home\_FormDivReturnAct.cshtml" />
+    <Content Include="Views\Home\_FormNokReturnAct.cshtml" />
+    <Content Include="Views\Home\_FormTncReturnAct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

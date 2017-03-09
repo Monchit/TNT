@@ -54,20 +54,11 @@
     });
 </script>
 
+<h3 class="text-info">WELCOME to TNC/NOK Tooling Web<br /><span style="font-size:.8em;">Real-Time Progressive</span></h3>
+
 <div class="row-fluid">
-    <div class="span3">
-        <form id="formLogin1" name="formLogin1" class="form-signin" action="@Url.Action("Login", "Account")" method="post">
-            <h3 class="form-signin-heading">Please Log in !!!</h3>
-            <label>Username : </label>
-            <input id="username" name="username" type="text" class="input-block-level" placeholder="Username" data-validation="length alphanumeric" data-validation-length="3-20">
-            <label>Password : </label>
-            <input id="password" name="password" type="password" class="input-block-level" placeholder="Password" data-validation="required">
-            <button class="btn btn-large btn-block btn-info" type="submit">Log in</button><br />
-            <a class="label btn-block" href="mailto:monchit@nok.co.th"><i class="icon-envelope icon-white"></i>Contact: Monchit Wa. (IT)</a>
-            <a class="label label-info btn-block" href="mailto:jaruporn@nok.co.th"><i class="icon-envelope icon-white"></i>Contact: Jaruporn (Import-Export)</a>
-        </form>
-    </div>
-    <div class="span9">
+    <div class="span9 alert alert-info">
+        <div class="text-center" style="font-size:1.5em;font-weight:bold;padding:0 0 5px 0;">PATTERN of Overseas Tooling PR online Approval.</div>
         <table class="table table-bordered table-condensed">
             <thead>
                 <tr>
@@ -142,5 +133,18 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+
+    <div class="span3">
+        <form id="formLogin1" name="formLogin1" class="form-signin" action="@Url.Action("Login", "Account")" method="post">
+            <h3 class="form-signin-heading">Please Log in !!!</h3>
+            <label>Username : </label>
+            <input id="username" name="username" type="text" class="input-block-level" placeholder="Username" data-validation="length alphanumeric" data-validation-length="3-20">
+            <label>Password : </label>
+            <input id="password" name="password" type="password" class="input-block-level" placeholder="Password" data-validation="required">
+            <button class="btn btn-large btn-block btn-info" type="submit">Log in</button><br />
+            <a class="label btn-block" href="mailto:monchit@nok.co.th"><i class="icon-envelope icon-white"></i>Contact: Monchit Wa. (IT)</a>
+            <a class="label label-info btn-block" href="mailto:jaruporn@nok.co.th"><i class="icon-envelope icon-white"></i>Contact: Jaruporn (Import-Export)</a>
+        </form>
     </div>
 </div>

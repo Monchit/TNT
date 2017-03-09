@@ -27,5 +27,6 @@ namespace GetPOFixed
     
         public DbSet<td_pr> td_pr { get; set; }
         public DbSet<td_tran> td_tran { get; set; }
+        public DbSet<v_tran> v_tran { get; set; }
     }
 }

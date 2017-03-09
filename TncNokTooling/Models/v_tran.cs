@@ -29,5 +29,7 @@ namespace TncNokTooling.Models
         public byte ulv_id { get; set; }
         public byte process { get; set; }
         public byte nok_plant { get; set; }
+        public int org { get; set; }
+        public string requester { get; set; }
     }
 }

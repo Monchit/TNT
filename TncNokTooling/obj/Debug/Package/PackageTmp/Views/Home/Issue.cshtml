@@ -2,6 +2,12 @@
     ViewBag.Title = "Issue PR";
 }
 
+<style>
+    .text_red {
+        color:red;
+    }
+</style>
+
 @section scripts {
     <script type="text/javascript">
         $(document).ready(function () {
@@ -179,7 +185,7 @@
         <div class="span6">
             <!-- Select Basic -->
             <div class="control-group">
-                <label class="control-label" for="condition">Purchase Condition** :</label>
+                <label class="control-label" for="condition">Purchase Condition<span class="text_red">**</span> :</label>
                 <div class="controls">
                     <select id="condition" name="condition" class="input-medium" data-validation="required">
                         <option value="">--</option>
@@ -191,7 +197,7 @@
 
             <!-- Text input-->
             <div class="control-group">
-                <label class="control-label" for="due_dt">Due Date** :</label>
+                <label class="control-label" for="due_dt">Due Date<span class="text_red">**</span> :</label>
                 <div class="controls">
                     <input id="due_dt" name="due_dt" type="text" class="input-medium datepicker" readonly="true"
                         data-validation="date" data-validation-format="dd-mm-yyyy">
@@ -202,7 +208,7 @@
 
             <!-- Textarea -->
             <div class="control-group" id="urgent" style="display: none;">
-                <label class="control-label" for="reason">Reason** :</label>
+                <label class="control-label" for="reason">Reason<span class="text_red">**</span> :</label>
                 <div class="controls">
                     <textarea id="reason" name="reason"></textarea>
                 </div>
@@ -244,7 +250,7 @@
 
             <!-- Text input-->
             <div class="control-group">
-                <label class="control-label" for="cost_code">Cost code** :</label>
+                <label class="control-label" for="cost_code">Cost code<span class="text_red">**</span> :</label>
                 <div class="controls">
                     @*<input id="cost_code" name="cost_code" type="text" class="input-small" data-validation="number" data-validation-allowing="range[1000;9999]" maxlength="4">*@
                     <select class="input-xlarge" name="cost_code" id="cost_code" data-validation="required">
@@ -287,7 +293,7 @@
 
             <!-- Text input-->
             <div class="control-group">
-                <label class="control-label" for="item_code">Item code/Part no.** :</label>
+                <label class="control-label" for="item_code">Item code/Part no.<span class="text_red">**</span> :</label>
                 <div class="controls">
                     <input id="item_code" name="item_code" type="text" class="input-large" data-validation="required">
                     @*data-validation="custom" data-validation-regexp="^([0-9A-Z. \-'_]+)$"*@
@@ -296,7 +302,7 @@
 
             <!-- Select Basic -->
             <div class="control-group">
-                <label class="control-label" for="process">Process** :</label>
+                <label class="control-label" for="process">Process<span class="text_red">**</span> :</label>
                 <div class="controls">
                     <select id="process" name="process" class="input-large leadtime" data-validation="required">
                         <option value="">-- Select --</option>
@@ -310,7 +316,7 @@
 
             <!-- Select Basic -->
             <div class="control-group">
-                <label class="control-label" for="nok_plant">NOK Plant** :</label>
+                <label class="control-label" for="nok_plant">NOK Plant<span class="text_red">**</span> :</label>
                 <div class="controls">
                     <select id="nok_plant" name="nok_plant" class="input-large leadtime" data-validation="required">
                         <option value="">-- Select --</option>
@@ -324,7 +330,7 @@
 
             <!-- Select Basic -->
             <div class="control-group">
-                <label class="control-label" for="product">Product** :</label>
+                <label class="control-label" for="product">Product<span class="text_red">**</span> :</label>
                 <div class="controls">
                     <select id="product" name="product" class="input-large leadtime" data-validation="required">
                         <option value="">-- Select --</option>
@@ -338,7 +344,7 @@
 
             <!-- Select Basic -->
             <div class="control-group">
-                <label class="control-label" for="type">Type** :</label>
+                <label class="control-label" for="type">Type<span class="text_red">**</span> :</label>
                 <div class="controls">
                     <select id="type" name="type" class="input-large leadtime" data-validation="required">
                         <option value="">-- Select --</option>
@@ -353,7 +359,7 @@
             <div id="remedy" style="display: none;">
                 <!-- Text input-->
                 <div class="control-group">
-                    <label class="control-label" for="problem">Mold Problem** :</label>
+                    <label class="control-label" for="problem">Mold Problem<span class="text_red">**</span> :</label>
                     <div class="controls">
                         <textarea id="problem" name="problem" class="input-large"></textarea>
                     </div>
@@ -362,34 +368,34 @@
 
             <div id="nok" style="display: none;">
                 <div class="control-group">
-                    <label class="control-label" for="contact">Prior contact to NOK** :</label>
+                    <label class="control-label" for="contact">NOK Contact Person<span class="text_red">**</span> :</label>
                     <div class="controls">
                         <input id="contact" name="contact" type="text" class="input-large">
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label" for="fmail">File Mail** :</label>
+                    <label class="control-label" for="fmail">File Mail<span class="text_red">**</span> :</label>
                     <div class="controls">
                         <input id="fmail" name="fmail" type="file" data-validation-allowing="pdf">
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label" for="fwr">File WR** :</label>
+                    <label class="control-label" for="fwr">File WR<span class="text_red">**</span> :</label>
                     <div class="controls">
                         <input id="fwr" name="fwr" type="file" data-validation-allowing="pdf">
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label" for="fmom">File MOM** :</label>
+                    <label class="control-label" for="fmom">File MOM<span class="text_red">**</span> :</label>
                     <div class="controls">
                         <input id="fmom" name="fmom" type="file" data-validation-allowing="pdf">
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label" for="fdraw">File Drawing** :</label>
+                    <label class="control-label" for="fdraw">File Drawing :</label>
                     <div class="controls">
-                        <input id="fdraw" name="fdraw" type="file" data-validation-allowing="pdf">
+                        <input id="fdraw" name="fdraw" type="file" data-validation-allowing="pdf" data-validation-optional="true">
                     </div>
                 </div>
             </div>

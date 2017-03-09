@@ -8,6 +8,7 @@
         <EntityTypeShape EntityType="TncNokToolingModel.td_pr" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="TncNokToolingModel.td_tran" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
         <AssociationConnector Association="TncNokToolingModel.FK_td_tran_td_pr1" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TncNokToolingModel.v_tran" Width="1.5" PointX="5" PointY="1.125" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

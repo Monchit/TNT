@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="686c1bb28e43444285f61f6c6497e0ac" Name="Diagram1">
+        <EntityTypeShape EntityType="TncNokToolingModel.td_pr" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TncNokToolingModel.td_tran" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
+        <AssociationConnector Association="TncNokToolingModel.FK_td_tran_td_pr1" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TncNokToolingModel.tm_user" Width="1.5" PointX="0.06198240819479451" PointY="25.503483769252657" />
+        <EntityTypeShape EntityType="TncNokToolingModel.tm_user_lv" Width="1.5" PointX="6" PointY="4.625" />
+        <AssociationConnector Association="TncNokToolingModel.FK_td_tran_tm_user_lv" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

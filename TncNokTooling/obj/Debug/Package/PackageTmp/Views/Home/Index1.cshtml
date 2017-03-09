@@ -1,0 +1,231 @@
+﻿@{
+    ViewBag.Title = "Search";
+}
+
+<style type="text/css">
+.rowComp {
+    background-color:#d6fbca !important;
+    color:#4b803b !important;
+}
+.rowRej {
+    background-color: #fda0a0 !important;
+    color:#e52020 !important;
+}
+</style>
+
+@section scripts {
+    <script type="text/javascript">
+        function getParameterByName(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+        function DisableTab(status) {
+            //0 and 11 always show
+            for (var i = 0; i < 11; i++) {
+                $("#tabstrip li:eq(" + i + ")").show();
+            }
+            switch (status) {
+                case 1: $("#tabstrip li:eq(2)").hide();
+                case 2: $("#tabstrip li:eq(3)").hide();
+                case 3:
+                case 4:
+                case 5: $("#tabstrip li:eq(4)").hide();
+                case 6: $("#tabstrip li:eq(5)").hide();
+                case 7:
+                case 8:
+                case 9:
+                case 10:
+                case 11:
+                case 12:
+                case 13: $("#tabstrip li:eq(6)").hide();
+            }
+        }
+
+        $(document).ready(function () {
+            var obj = new Object();
+            $('#jTablePR').jtable({
+                //title: 'Data Record',
+                paging: true,
+                pageSize: 10, //Set page size (default: 10)
+                sorting: true,
+                selecting: true, //Enable selecting
+                multiselect: false, //Allow multiple selecting
+                defaultSorting: 'pr_no', //Set default sorting
+                actions: {
+                    listAction: '@Url.Action("PRList", "Home")'
+                },
+                recordsLoaded: function (event, data) {
+                    $("table.jtable").children().eq(1).children().each(function () {
+                        if ($(this).children().eq(8).text() == "Completed") {
+                            $(this).addClass("rowComp");
+                        }
+                        else if ($(this).children().eq(8).text() == "Rejected") {
+                            $(this).addClass("rowRej");
+                        }
+                    });
+                },
+                fields: {
+                    pr_no: { title: 'PR No.', width: '9%' },
+                    item_code: { title: 'Item code', width: '18%' },
+                    po_no: { title: 'PO No.', width: '9%' },
+                    condition: { title: 'Condition', width: '7%' },
+                    rank: { title: 'Rank', width: '4%' },
+                    group_name: { title: 'Request Group' },
+                    issue_dt: { title: 'Issue Date', width: '8%', type: 'date', displayFormat: 'dd-mm-yy' },
+                    due_date: { title: 'Due Date', width: '8%', type: 'date', displayFormat: 'dd-mm-yy' },
+                    //act_dt: { title: 'Waiting since', width: '10%', type: 'date', displayFormat: 'dd-mm-yy' },
+                    status: { title: 'Status', width: '25%' },
+                    status_id: { list:false },
+                    //ulv_id: { title: 'User Lv.', width: '10%', options: '@Url.Action("GetUserLvList", "Home")' }
+                },
+                //Register to selectionChanged event to hanlde events
+                selectionChanged: function () {
+                    //Get all selected rows
+                    var $selectedRows = $('#jTablePR').jtable('selectedRows');
+                    if ($selectedRows.length > 0) {
+                        $selectedRows.each(function () {
+                            var record = $(this).data('record');
+
+                            obj.pr_no = record.pr_no;
+
+                            DisableTab(record.status_id);
+                            $("#allTab").show();
+                            $('#tabstrip a:first').tab('show');
+
+                            var remote = "@Url.Action("_TabPR")";
+                            $.get(remote, obj, function (data) {
+                                $("#_TabPR").html(data);
+                                return false;
+                            });
+
+                            var attremote = "@Url.Action("_TabFiles")";
+                            $.get(attremote, obj, function (data) {
+                                $("#_TabFiles").html(data);
+                                return false;
+                            });
+
+                            var appremote = "@Url.Action("_TabApprove")";
+                            $.get(appremote, obj, function (data) {
+                                $("#divOperation").html(data);
+                                return false;
+                            });
+                        });
+                    }
+                }
+            });
+
+            $("#allTab").hide();
+
+            $("#txt_pr").val(getParameterByName('tid'));
+            $('#jTablePR').jtable('load', { id: $('#txt_pr').val(), mode: 1 });
+
+            //Re-load records when user click 'load records' button.
+            $('#btn_search').click(function (e) {
+                e.preventDefault();
+                $('#jTablePR').jtable('load', {
+                    id: $('#txt_pr').val(),
+                    po_no: $('#txt_po').val(),
+                    item: $('#txt_item').val(),
+                    process: $('#txt_process').val()
+                });
+            });
+
+            $('#tabstrip a').click(function (e) {
+                e.preventDefault();
+                var tabID = $(this).attr("href").substr(1);
+                var path = "@Url.Action("tabID", "Home")";
+                path = path.replace("tabID", tabID);
+                $.ajax({
+                    url: path,
+                    data: obj,
+                    cache: false,
+                    type: "get",
+                    dataType: "html",
+                    success: function (result) {
+                        $("#" + tabID).html(result);
+                    }
+                });
+                $(this).tab('show');
+            });
+        });
+    </script>
+}
+
+<div class="accordion" id="acc_search">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#acc_search" href="#col_search"><strong>Search</strong></a>
+        </div>
+        <div id="col_search" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <form class="form-horizontal row-fluid">
+                    <div class="span5">
+                        <!-- Text input-->
+                        <div class="control-group">
+                            <label class="control-label" for="txt_pr">PR No. :</label>
+                            <div class="controls">
+                                <input id="txt_pr" name="txt_pr" type="text" placeholder="PR No." class="input-large">
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="control-group">
+                            <label class="control-label" for="txt_item">Item code :</label>
+                            <div class="controls">
+                                <input id="txt_item" name="txt_item" type="text" placeholder="Item code" class="input-large">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="span5">                
+                        <!-- Text input-->
+                        <div class="control-group">
+                            <label class="control-label" for="txt_po">PO No. :</label>
+                            <div class="controls">
+                                <input id="txt_po" name="txt_po" type="text" placeholder="PO No." class="input-large">
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label" for="txt_process">Process Type :</label>
+                            <div class="controls">
+                                <select id="txt_process" name="txt_process" class="input-large">
+                                    <option value="">-- Select --</option>
+                                    @foreach (var item in ViewBag.ProcessList)
+                                    {
+                                        <option value="@item.id">@item.name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="span2"><button id="btn_search" name="btn_search" class="btn btn-primary" type="submit"><i class="icon-search icon-white"></i> Search</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="jTablePR"></div>
+
+<br />
+<div id="allTab" class="row-fluid">
+    <div class="span9">
+        <!-- Tab Buttons -->
+        <ul id="tabstrip" class="nav nav-tabs" role="tablist">
+            <li><a href="#_TabPR">PR Detail</a></li>
+            <li><a href="#_TabTNC">TNC Approve</a></li>
+        </ul>
+
+        <!-- Tab Content Containers -->
+        <div class="tab-content" id="tabContent">
+            <div class="tab-pane" id="_TabPR"></div>
+            <div class="tab-pane" id="_TabTNC"></div>
+        </div>
+    </div>
+    <div class="span3" id="_TabFiles"></div>
+</div>
+<div class="row-fluid"><div id="divOperation" class="span9"></div></div>

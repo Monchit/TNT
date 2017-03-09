@@ -1,0 +1,8 @@
+C:\Users\monchit.TNC\Documents\Visual Studio 2012\Projects\TncNokTooling\EmailRemind\bin\Debug\EmailRemind.exe.config
+C:\Users\monchit.TNC\Documents\Visual Studio 2012\Projects\TncNokTooling\EmailRemind\bin\Debug\EmailRemind.exe
+C:\Users\monchit.TNC\Documents\Visual Studio 2012\Projects\TncNokTooling\EmailRemind\bin\Debug\EmailRemind.pdb
+C:\Users\monchit.TNC\Documents\Visual Studio 2012\Projects\TncNokTooling\EmailRemind\bin\Debug\EntityFramework.dll
+C:\Users\monchit.TNC\Documents\Visual Studio 2012\Projects\TncNokTooling\EmailRemind\bin\Debug\EntityFramework.xml
+C:\Users\monchit.TNC\Documents\Visual Studio 2012\Projects\TncNokTooling\EmailRemind\obj\Debug\EmailRemind.csprojResolveAssemblyReference.cache
+C:\Users\monchit.TNC\Documents\Visual Studio 2012\Projects\TncNokTooling\EmailRemind\obj\Debug\EmailRemind.exe
+C:\Users\monchit.TNC\Documents\Visual Studio 2012\Projects\TncNokTooling\EmailRemind\obj\Debug\EmailRemind.pdb

@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TncNokTooling", "TncNokTool
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetPOFixed", "GetPOFixed\GetPOFixed.csproj", "{A485B8F0-F492-4A98-9C48-CCF086ACBABE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailRemind", "EmailRemind\EmailRemind.csproj", "{6A5FBBE1-4B5B-4324-8A87-A4A4948530AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{A485B8F0-F492-4A98-9C48-CCF086ACBABE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A485B8F0-F492-4A98-9C48-CCF086ACBABE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A485B8F0-F492-4A98-9C48-CCF086ACBABE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A5FBBE1-4B5B-4324-8A87-A4A4948530AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A5FBBE1-4B5B-4324-8A87-A4A4948530AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A5FBBE1-4B5B-4324-8A87-A4A4948530AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A5FBBE1-4B5B-4324-8A87-A4A4948530AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

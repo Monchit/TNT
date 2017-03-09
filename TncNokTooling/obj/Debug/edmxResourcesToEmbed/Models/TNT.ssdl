@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="TncNokToolingModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="TncNokToolingModelStoreContainer">
+    <EntitySet Name="td_eta_tnc" EntityType="TncNokToolingModel.Store.td_eta_tnc" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="td_files" EntityType="TncNokToolingModel.Store.td_files" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="td_pr" EntityType="TncNokToolingModel.Store.td_pr" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="td_tooling" EntityType="TncNokToolingModel.Store.td_tooling" store:Type="Tables" Schema="dbo" />
@@ -16,6 +17,7 @@
     <EntitySet Name="tm_type" EntityType="TncNokToolingModel.Store.tm_type" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tm_user" EntityType="TncNokToolingModel.Store.tm_user" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tm_user_lv" EntityType="TncNokToolingModel.Store.tm_user_lv" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tm_user_nok" EntityType="TncNokToolingModel.Store.tm_user_nok" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tm_user_type" EntityType="TncNokToolingModel.Store.tm_user_type" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="v_sys_user" EntityType="TncNokToolingModel.Store.v_sys_user" store:Type="Views" store:Schema="dbo" store:Name="v_sys_user">
       <DefiningQuery>SELECT 
@@ -44,14 +46,15 @@
       [v_tran].[status_id] AS [status_id], 
       [v_tran].[ulv_id] AS [ulv_id], 
       [v_tran].[process] AS [process], 
-      [v_tran].[nok_plant] AS [nok_plant]
+      [v_tran].[nok_plant] AS [nok_plant], 
+      [v_tran].[org] AS [org], 
+      [v_tran].[requester] AS [requester]
       FROM [dbo].[v_tran] AS [v_tran]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="v_tran_show" EntityType="TncNokToolingModel.Store.v_tran_show" store:Type="Views" store:Schema="dbo" store:Name="v_tran_show">
       <DefiningQuery>SELECT 
       [v_tran_show].[pr_no] AS [pr_no], 
       [v_tran_show].[status] AS [status], 
-      [v_tran_show].[lv] AS [lv], 
       [v_tran_show].[action] AS [action], 
       [v_tran_show].[emp_fname] AS [emp_fname], 
       [v_tran_show].[emp_lname] AS [emp_lname], 
@@ -61,9 +64,14 @@
       [v_tran_show].[org] AS [org], 
       [v_tran_show].[status_id] AS [status_id], 
       [v_tran_show].[act_id] AS [act_id], 
-      [v_tran_show].[rev] AS [rev]
+      [v_tran_show].[rev] AS [rev], 
+      [v_tran_show].[name] AS [name]
       FROM [dbo].[v_tran_show] AS [v_tran_show]</DefiningQuery>
     </EntitySet>
+    <AssociationSet Name="FK_td_eta_tnc_td_tooling" Association="TncNokToolingModel.Store.FK_td_eta_tnc_td_tooling">
+      <End Role="td_tooling" EntitySet="td_tooling" />
+      <End Role="td_eta_tnc" EntitySet="td_eta_tnc" />
+    </AssociationSet>
     <AssociationSet Name="FK_td_files_td_pr1" Association="TncNokToolingModel.Store.FK_td_files_td_pr1">
       <End Role="td_pr" EntitySet="td_pr" />
       <End Role="td_files" EntitySet="td_files" />
@@ -129,6 +137,19 @@
       <End Role="tm_user" EntitySet="tm_user" />
     </AssociationSet>
   </EntityContainer>
+  <EntityType Name="td_eta_tnc">
+    <Key>
+      <PropertyRef Name="pr_no" />
+      <PropertyRef Name="pr_line" />
+      <PropertyRef Name="invoice_no" />
+    </Key>
+    <Property Name="pr_no" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="pr_line" Type="smallint" Nullable="false" />
+    <Property Name="invoice_no" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="rec_qty" Type="int" Nullable="false" />
+    <Property Name="eta_tnc" Type="date" Nullable="false" />
+    <Property Name="file_path" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
   <EntityType Name="td_files">
     <Key>
       <PropertyRef Name="pr_no" />
@@ -156,7 +177,7 @@
     <Property Name="issue_plant" Type="int" />
     <Property Name="ext" Type="varchar" MaxLength="4" />
     <Property Name="rank" Type="char" Nullable="false" MaxLength="1" />
-    <Property Name="cost_code" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="cost_code" Type="varchar" Nullable="false" MaxLength="80" />
     <Property Name="item_code" Type="varchar" Nullable="false" MaxLength="50" />
     <Property Name="problem" Type="varchar(max)" />
     <Property Name="process" Type="tinyint" Nullable="false" />
@@ -167,6 +188,12 @@
     <Property Name="issue_name" Type="varchar" Nullable="false" MaxLength="50" />
     <Property Name="po_no" Type="varchar" MaxLength="50" />
     <Property Name="issue_group_name" Type="varchar" MaxLength="50" />
+    <Property Name="po_nok" Type="varchar" MaxLength="50" />
+    <Property Name="order_no" Type="varchar" MaxLength="50" />
+    <Property Name="plant" Type="varchar" MaxLength="50" />
+    <Property Name="maker" Type="varchar" MaxLength="50" />
+    <Property Name="maker_comp_dt" Type="date" />
+    <Property Name="div_comp_dt" Type="date" />
   </EntityType>
   <EntityType Name="td_tooling">
     <Key>
@@ -295,6 +322,18 @@
     <Property Name="min" Type="tinyint" />
     <Property Name="max" Type="tinyint" />
   </EntityType>
+  <EntityType Name="tm_user_nok">
+    <Key>
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Name="username" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="utype" Type="tinyint" Nullable="false" />
+    <Property Name="email" Type="nvarchar" MaxLength="50" />
+    <Property Name="fname" Type="nvarchar" MaxLength="50" />
+    <Property Name="lname" Type="nvarchar" MaxLength="50" />
+    <Property Name="ulv" Type="tinyint" />
+  </EntityType>
   <EntityType Name="tm_user_type">
     <Key>
       <PropertyRef Name="id" />
@@ -336,6 +375,7 @@
       <PropertyRef Name="ulv_id" />
       <PropertyRef Name="process" />
       <PropertyRef Name="nok_plant" />
+      <PropertyRef Name="org" />
     </Key>
     <Property Name="pr_no" Type="varchar" Nullable="false" MaxLength="10" />
     <Property Name="item_code" Type="varchar" Nullable="false" MaxLength="50" />
@@ -352,6 +392,8 @@
     <Property Name="ulv_id" Type="tinyint" Nullable="false" />
     <Property Name="process" Type="tinyint" Nullable="false" />
     <Property Name="nok_plant" Type="tinyint" Nullable="false" />
+    <Property Name="org" Type="int" Nullable="false" />
+    <Property Name="requester" Type="nvarchar" MaxLength="511" />
   </EntityType>
   <!--Errors Found During Generation:
       warning 6002: The table/view 'TncNokTooling.dbo.v_tran_show' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -360,7 +402,6 @@
     <Key>
       <PropertyRef Name="pr_no" />
       <PropertyRef Name="status" />
-      <PropertyRef Name="lv" />
       <PropertyRef Name="act_dt" />
       <PropertyRef Name="ulv_id" />
       <PropertyRef Name="org" />
@@ -369,7 +410,6 @@
     </Key>
     <Property Name="pr_no" Type="varchar" Nullable="false" MaxLength="10" />
     <Property Name="status" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="lv" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="action" Type="varchar" MaxLength="50" />
     <Property Name="emp_fname" Type="nvarchar" MaxLength="255" />
     <Property Name="emp_lname" Type="nvarchar" MaxLength="255" />
@@ -380,7 +420,24 @@
     <Property Name="status_id" Type="tinyint" Nullable="false" />
     <Property Name="act_id" Type="varchar" MaxLength="5" />
     <Property Name="rev" Type="tinyint" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
   </EntityType>
+  <Association Name="FK_td_eta_tnc_td_tooling">
+    <End Role="td_tooling" Type="TncNokToolingModel.Store.td_tooling" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="td_eta_tnc" Type="TncNokToolingModel.Store.td_eta_tnc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="td_tooling">
+        <PropertyRef Name="pr_no" />
+        <PropertyRef Name="pr_line" />
+      </Principal>
+      <Dependent Role="td_eta_tnc">
+        <PropertyRef Name="pr_no" />
+        <PropertyRef Name="pr_line" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_td_files_td_pr1">
     <End Role="td_pr" Type="TncNokToolingModel.Store.td_pr" Multiplicity="1">
       <OnDelete Action="Cascade" />

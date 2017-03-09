@@ -44,5 +44,28 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="v_tran">
+      <EntityTypeMapping TypeName="TncNokToolingModel.v_tran">
+        <MappingFragment StoreEntitySet="v_tran">
+          <ScalarProperty Name="requester" ColumnName="requester" />
+          <ScalarProperty Name="org" ColumnName="org" />
+          <ScalarProperty Name="nok_plant" ColumnName="nok_plant" />
+          <ScalarProperty Name="process" ColumnName="process" />
+          <ScalarProperty Name="ulv_id" ColumnName="ulv_id" />
+          <ScalarProperty Name="status_id" ColumnName="status_id" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="po_no" ColumnName="po_no" />
+          <ScalarProperty Name="issue_group" ColumnName="issue_group" />
+          <ScalarProperty Name="group_name" ColumnName="group_name" />
+          <ScalarProperty Name="act_dt" ColumnName="act_dt" />
+          <ScalarProperty Name="issue_dt" ColumnName="issue_dt" />
+          <ScalarProperty Name="rank" ColumnName="rank" />
+          <ScalarProperty Name="due_date" ColumnName="due_date" />
+          <ScalarProperty Name="condition" ColumnName="condition" />
+          <ScalarProperty Name="item_code" ColumnName="item_code" />
+          <ScalarProperty Name="pr_no" ColumnName="pr_no" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

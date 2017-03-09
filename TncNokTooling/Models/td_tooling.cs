@@ -14,6 +14,11 @@ namespace TncNokTooling.Models
     
     public partial class td_tooling
     {
+        public td_tooling()
+        {
+            this.td_eta_tnc = new HashSet<td_eta_tnc>();
+        }
+    
         public string pr_no { get; set; }
         public short pr_line { get; set; }
         public string description { get; set; }
@@ -24,5 +29,6 @@ namespace TncNokTooling.Models
         public string status { get; set; }
     
         public virtual td_pr td_pr { get; set; }
+        public virtual ICollection<td_eta_tnc> td_eta_tnc { get; set; }
     }
 }

@@ -1,0 +1,17 @@
+﻿html{
+    /*Black-White*/
+    filter: gray;
+    filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); /* IE */
+    -webkit-filter: grayscale(1); /* Chrome, Safari */
+    filter: grayscale(1); /* Firefox */
+    /*-webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: gray;
+    filter: grayscale(100%);*/
+}
+img {
+-webkit-filter: grayscale(100%); 
+filter: grayscale(100%);
+}

@@ -96,6 +96,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TNT.edmx</DependentUpon>
     </Compile>
+    <Compile Include="v_tran.cs">
+      <DependentUpon>TNT.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

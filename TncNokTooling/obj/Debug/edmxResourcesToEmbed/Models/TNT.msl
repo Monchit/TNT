@@ -16,6 +16,12 @@
     <EntitySetMapping Name="td_pr">
       <EntityTypeMapping TypeName="TncNokToolingModel.td_pr">
         <MappingFragment StoreEntitySet="td_pr">
+          <ScalarProperty Name="div_comp_dt" ColumnName="div_comp_dt" />
+          <ScalarProperty Name="maker_comp_dt" ColumnName="maker_comp_dt" />
+          <ScalarProperty Name="maker" ColumnName="maker" />
+          <ScalarProperty Name="plant" ColumnName="plant" />
+          <ScalarProperty Name="order_no" ColumnName="order_no" />
+          <ScalarProperty Name="po_nok" ColumnName="po_nok" />
           <ScalarProperty Name="pr_no" ColumnName="pr_no" />
           <ScalarProperty Name="condition" ColumnName="condition" />
           <ScalarProperty Name="due_date" ColumnName="due_date" />
@@ -184,6 +190,8 @@
     <EntitySetMapping Name="v_tran">
       <EntityTypeMapping TypeName="TncNokToolingModel.v_tran">
         <MappingFragment StoreEntitySet="v_tran">
+          <ScalarProperty Name="requester" ColumnName="requester" />
+          <ScalarProperty Name="org" ColumnName="org" />
           <ScalarProperty Name="nok_plant" ColumnName="nok_plant" />
           <ScalarProperty Name="process" ColumnName="process" />
           <ScalarProperty Name="pr_no" ColumnName="pr_no" />
@@ -202,25 +210,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="v_tran_show">
-      <EntityTypeMapping TypeName="TncNokToolingModel.v_tran_show">
-        <MappingFragment StoreEntitySet="v_tran_show">
-          <ScalarProperty Name="rev" ColumnName="rev" />
-          <ScalarProperty Name="pr_no" ColumnName="pr_no" />
-          <ScalarProperty Name="status" ColumnName="status" />
-          <ScalarProperty Name="lv" ColumnName="lv" />
-          <ScalarProperty Name="action" ColumnName="action" />
-          <ScalarProperty Name="emp_fname" ColumnName="emp_fname" />
-          <ScalarProperty Name="emp_lname" ColumnName="emp_lname" />
-          <ScalarProperty Name="act_dt" ColumnName="act_dt" />
-          <ScalarProperty Name="comment" ColumnName="comment" />
-          <ScalarProperty Name="ulv_id" ColumnName="ulv_id" />
-          <ScalarProperty Name="org" ColumnName="org" />
-          <ScalarProperty Name="status_id" ColumnName="status_id" />
-          <ScalarProperty Name="act_id" ColumnName="act_id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="v_sys_user">
       <EntityTypeMapping TypeName="TncNokToolingModel.v_sys_user">
         <MappingFragment StoreEntitySet="v_sys_user">
@@ -231,6 +220,50 @@
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="utype_id" ColumnName="utype_id" />
           <ScalarProperty Name="emp_code" ColumnName="emp_code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="v_tran_show">
+      <EntityTypeMapping TypeName="TncNokToolingModel.v_tran_show">
+        <MappingFragment StoreEntitySet="v_tran_show">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="rev" ColumnName="rev" />
+          <ScalarProperty Name="act_id" ColumnName="act_id" />
+          <ScalarProperty Name="status_id" ColumnName="status_id" />
+          <ScalarProperty Name="org" ColumnName="org" />
+          <ScalarProperty Name="ulv_id" ColumnName="ulv_id" />
+          <ScalarProperty Name="comment" ColumnName="comment" />
+          <ScalarProperty Name="act_dt" ColumnName="act_dt" />
+          <ScalarProperty Name="emp_lname" ColumnName="emp_lname" />
+          <ScalarProperty Name="emp_fname" ColumnName="emp_fname" />
+          <ScalarProperty Name="action" ColumnName="action" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="pr_no" ColumnName="pr_no" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tm_user_nok">
+      <EntityTypeMapping TypeName="TncNokToolingModel.tm_user_nok">
+        <MappingFragment StoreEntitySet="tm_user_nok">
+          <ScalarProperty Name="ulv" ColumnName="ulv" />
+          <ScalarProperty Name="lname" ColumnName="lname" />
+          <ScalarProperty Name="fname" ColumnName="fname" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="utype" ColumnName="utype" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="username" ColumnName="username" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="td_eta_tnc">
+      <EntityTypeMapping TypeName="TncNokToolingModel.td_eta_tnc">
+        <MappingFragment StoreEntitySet="td_eta_tnc">
+          <ScalarProperty Name="file_path" ColumnName="file_path" />
+          <ScalarProperty Name="eta_tnc" ColumnName="eta_tnc" />
+          <ScalarProperty Name="rec_qty" ColumnName="rec_qty" />
+          <ScalarProperty Name="invoice_no" ColumnName="invoice_no" />
+          <ScalarProperty Name="pr_line" ColumnName="pr_line" />
+          <ScalarProperty Name="pr_no" ColumnName="pr_no" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

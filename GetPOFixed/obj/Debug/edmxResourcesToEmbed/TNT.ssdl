@@ -3,6 +3,27 @@
   <EntityContainer Name="TncNokToolingModelStoreContainer">
     <EntitySet Name="td_pr" EntityType="TncNokToolingModel.Store.td_pr" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="td_tran" EntityType="TncNokToolingModel.Store.td_tran" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="v_tran" EntityType="TncNokToolingModel.Store.v_tran" store:Type="Views" store:Schema="dbo" store:Name="v_tran">
+      <DefiningQuery>SELECT 
+      [v_tran].[pr_no] AS [pr_no], 
+      [v_tran].[item_code] AS [item_code], 
+      [v_tran].[condition] AS [condition], 
+      [v_tran].[due_date] AS [due_date], 
+      [v_tran].[rank] AS [rank], 
+      [v_tran].[issue_dt] AS [issue_dt], 
+      [v_tran].[act_dt] AS [act_dt], 
+      [v_tran].[group_name] AS [group_name], 
+      [v_tran].[issue_group] AS [issue_group], 
+      [v_tran].[po_no] AS [po_no], 
+      [v_tran].[status] AS [status], 
+      [v_tran].[status_id] AS [status_id], 
+      [v_tran].[ulv_id] AS [ulv_id], 
+      [v_tran].[process] AS [process], 
+      [v_tran].[nok_plant] AS [nok_plant], 
+      [v_tran].[org] AS [org], 
+      [v_tran].[requester] AS [requester]
+      FROM [dbo].[v_tran] AS [v_tran]</DefiningQuery>
+    </EntitySet>
     <AssociationSet Name="FK_td_tran_td_pr1" Association="TncNokToolingModel.Store.FK_td_tran_td_pr1">
       <End Role="td_pr" EntitySet="td_pr" />
       <End Role="td_tran" EntitySet="td_tran" />
@@ -52,6 +73,43 @@
     <Property Name="act_id" Type="varchar" MaxLength="5" />
     <Property Name="act_dt" Type="datetime" Nullable="false" />
     <Property Name="comment" Type="nvarchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'TncNokTooling.dbo.v_tran' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="v_tran">
+    <Key>
+      <PropertyRef Name="pr_no" />
+      <PropertyRef Name="item_code" />
+      <PropertyRef Name="condition" />
+      <PropertyRef Name="due_date" />
+      <PropertyRef Name="rank" />
+      <PropertyRef Name="issue_dt" />
+      <PropertyRef Name="act_dt" />
+      <PropertyRef Name="issue_group" />
+      <PropertyRef Name="status_id" />
+      <PropertyRef Name="ulv_id" />
+      <PropertyRef Name="process" />
+      <PropertyRef Name="nok_plant" />
+      <PropertyRef Name="org" />
+    </Key>
+    <Property Name="pr_no" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="item_code" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="condition" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="due_date" Type="date" Nullable="false" />
+    <Property Name="rank" Type="char" Nullable="false" MaxLength="1" />
+    <Property Name="issue_dt" Type="datetime" Nullable="false" />
+    <Property Name="act_dt" Type="datetime" Nullable="false" />
+    <Property Name="group_name" Type="nvarchar" MaxLength="255" />
+    <Property Name="issue_group" Type="int" Nullable="false" />
+    <Property Name="po_no" Type="varchar" MaxLength="50" />
+    <Property Name="status" Type="varchar" MaxLength="164" />
+    <Property Name="status_id" Type="tinyint" Nullable="false" />
+    <Property Name="ulv_id" Type="tinyint" Nullable="false" />
+    <Property Name="process" Type="tinyint" Nullable="false" />
+    <Property Name="nok_plant" Type="tinyint" Nullable="false" />
+    <Property Name="org" Type="int" Nullable="false" />
+    <Property Name="requester" Type="nvarchar" MaxLength="511" />
   </EntityType>
   <Association Name="FK_td_tran_td_pr1">
     <End Role="td_pr" Type="TncNokToolingModel.Store.td_pr" Multiplicity="1">

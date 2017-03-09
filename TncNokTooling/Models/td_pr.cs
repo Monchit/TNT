@@ -43,6 +43,12 @@ namespace TncNokTooling.Models
         public string issue_name { get; set; }
         public string po_no { get; set; }
         public string issue_group_name { get; set; }
+        public string po_nok { get; set; }
+        public string order_no { get; set; }
+        public string plant { get; set; }
+        public string maker { get; set; }
+        public Nullable<System.DateTime> maker_comp_dt { get; set; }
+        public Nullable<System.DateTime> div_comp_dt { get; set; }
     
         public virtual ICollection<td_files> td_files { get; set; }
         public virtual tm_nok_plant tm_nok_plant { get; set; }

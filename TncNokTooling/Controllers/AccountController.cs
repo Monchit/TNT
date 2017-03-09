@@ -48,7 +48,7 @@ namespace TncNokTooling.Controllers
             string username = key == null ? Request.Form["username"].ToString() : "";
             string password = key == null ? Request.Form["password"].ToString() : "";
 
-            var chklogin = secure.Login(username, password, false);//set false to true for Real
+            var chklogin = secure.Login(username, password, true);//set false to true for Real
 
             if (key != null)
             {
@@ -86,6 +86,7 @@ namespace TncNokTooling.Controllers
                 Session["TNT_UType"] = chk_sys_user != null ? chk_sys_user.tm_user_type.id : 0;
 
                 TempData["noty_comp"] = "Welcome to TNC/NOK Tooling System !!!";
+
                 if (Session["TNT_Redirect"] != null)
                 {
                     string url = Session["TNT_Redirect"].ToString();
@@ -94,13 +95,18 @@ namespace TncNokTooling.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("TNCSearch", "Home");
                 }
             }
             else
             {
-                TempData["noty_warn"] = "Username and/or Password is incorrect !!!";
-                return RedirectToAction("Login", "Account");
+                //var nok_user = 
+                //if(){
+                //return RedirectToAction("NOKSearch", "Home");
+                //}else{
+                    TempData["noty_warn"] = "Username and/or Password is incorrect !!!";
+                    return RedirectToAction("Index", "Account");
+                //}
             }
         }
 

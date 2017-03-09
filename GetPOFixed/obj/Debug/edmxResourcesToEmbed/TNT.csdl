@@ -7,6 +7,7 @@
       <End Role="td_pr" EntitySet="td_pr" />
       <End Role="td_tran" EntitySet="td_tran" />
     </AssociationSet>
+    <EntitySet Name="v_tran" EntityType="TncNokToolingModel.v_tran" />
   </EntityContainer>
   <EntityType Name="td_pr">
     <Key>
@@ -69,4 +70,38 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="v_tran">
+    <Key>
+      <PropertyRef Name="pr_no" />
+      <PropertyRef Name="item_code" />
+      <PropertyRef Name="condition" />
+      <PropertyRef Name="due_date" />
+      <PropertyRef Name="rank" />
+      <PropertyRef Name="issue_dt" />
+      <PropertyRef Name="act_dt" />
+      <PropertyRef Name="issue_group" />
+      <PropertyRef Name="status_id" />
+      <PropertyRef Name="ulv_id" />
+      <PropertyRef Name="process" />
+      <PropertyRef Name="nok_plant" />
+      <PropertyRef Name="org" />
+    </Key>
+    <Property Type="String" Name="pr_no" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="item_code" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="condition" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="due_date" Nullable="false" Precision="0" />
+    <Property Type="String" Name="rank" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Type="DateTime" Name="issue_dt" Nullable="false" Precision="3" />
+    <Property Type="DateTime" Name="act_dt" Nullable="false" Precision="3" />
+    <Property Type="String" Name="group_name" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="issue_group" Nullable="false" />
+    <Property Type="String" Name="po_no" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="status" MaxLength="164" FixedLength="false" Unicode="false" />
+    <Property Type="Byte" Name="status_id" Nullable="false" />
+    <Property Type="Byte" Name="ulv_id" Nullable="false" />
+    <Property Type="Byte" Name="process" Nullable="false" />
+    <Property Type="Byte" Name="nok_plant" Nullable="false" />
+    <Property Type="Int32" Name="org" Nullable="false" />
+    <Property Type="String" Name="requester" MaxLength="511" FixedLength="false" Unicode="true" />
+  </EntityType>
 </Schema>
