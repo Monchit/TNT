@@ -16,6 +16,7 @@
     <EntitySetMapping Name="td_pr">
       <EntityTypeMapping TypeName="TncNokToolingModel.td_pr">
         <MappingFragment StoreEntitySet="td_pr">
+          <ScalarProperty Name="site_id" ColumnName="site_id" />
           <ScalarProperty Name="div_comp_dt" ColumnName="div_comp_dt" />
           <ScalarProperty Name="maker_comp_dt" ColumnName="maker_comp_dt" />
           <ScalarProperty Name="maker" ColumnName="maker" />
@@ -164,6 +165,7 @@
     <EntitySetMapping Name="tm_user">
       <EntityTypeMapping TypeName="TncNokToolingModel.tm_user">
         <MappingFragment StoreEntitySet="tm_user">
+          <ScalarProperty Name="site_id" ColumnName="site_id" />
           <ScalarProperty Name="emp_code" ColumnName="emp_code" />
           <ScalarProperty Name="utype_id" ColumnName="utype_id" />
         </MappingFragment>
@@ -264,6 +266,14 @@
           <ScalarProperty Name="invoice_no" ColumnName="invoice_no" />
           <ScalarProperty Name="pr_line" ColumnName="pr_line" />
           <ScalarProperty Name="pr_no" ColumnName="pr_no" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tm_site">
+      <EntityTypeMapping TypeName="TncNokToolingModel.tm_site">
+        <MappingFragment StoreEntitySet="tm_site">
+          <ScalarProperty Name="site_name" ColumnName="site_name" />
+          <ScalarProperty Name="site_id" ColumnName="site_id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

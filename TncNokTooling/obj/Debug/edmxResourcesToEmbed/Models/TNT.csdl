@@ -90,6 +90,15 @@
       <End Role="td_tooling" EntitySet="td_tooling" />
       <End Role="td_eta_tnc" EntitySet="td_eta_tnc" />
     </AssociationSet>
+    <EntitySet Name="tm_site" EntityType="TncNokToolingModel.tm_site" />
+    <AssociationSet Name="FK_td_pr_tm_site" Association="TncNokToolingModel.FK_td_pr_tm_site">
+      <End Role="tm_site" EntitySet="tm_site" />
+      <End Role="td_pr" EntitySet="td_pr" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tm_user_tm_site" Association="TncNokToolingModel.FK_tm_user_tm_site">
+      <End Role="tm_site" EntitySet="tm_site" />
+      <End Role="tm_user" EntitySet="tm_user" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="td_files">
     <Key>
@@ -144,6 +153,8 @@
     <Property Type="String" Name="maker" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Type="DateTime" Name="maker_comp_dt" Precision="0" />
     <Property Type="DateTime" Name="div_comp_dt" Precision="0" />
+    <Property Type="Byte" Name="site_id" />
+    <NavigationProperty Name="tm_site" Relationship="TncNokToolingModel.FK_td_pr_tm_site" FromRole="td_pr" ToRole="tm_site" />
   </EntityType>
   <EntityType Name="td_tooling">
     <Key>
@@ -284,6 +295,8 @@
     <Property Name="emp_code" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
     <Property Name="utype_id" Type="Byte" Nullable="false" />
     <NavigationProperty Name="tm_user_type" Relationship="TncNokToolingModel.FK_tm_user_tm_user_type" FromRole="tm_user" ToRole="tm_user_type" />
+    <Property Type="Byte" Name="site_id" />
+    <NavigationProperty Name="tm_site" Relationship="TncNokToolingModel.FK_tm_user_tm_site" FromRole="tm_user" ToRole="tm_site" />
   </EntityType>
   <EntityType Name="tm_user_lv">
     <Key>
@@ -628,6 +641,41 @@
       <Dependent Role="td_eta_tnc">
         <PropertyRef Name="pr_no" />
         <PropertyRef Name="pr_line" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="tm_site">
+    <Key>
+      <PropertyRef Name="site_id" />
+    </Key>
+    <Property Type="Byte" Name="site_id" Nullable="false" />
+    <Property Type="String" Name="site_name" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="td_pr" Relationship="TncNokToolingModel.FK_td_pr_tm_site" FromRole="tm_site" ToRole="td_pr" />
+    <NavigationProperty Name="tm_user" Relationship="TncNokToolingModel.FK_tm_user_tm_site" FromRole="tm_site" ToRole="tm_user" />
+  </EntityType>
+  <Association Name="FK_td_pr_tm_site">
+    <End Type="TncNokToolingModel.tm_site" Role="tm_site" Multiplicity="0..1" />
+    <End Type="TncNokToolingModel.td_pr" Role="td_pr" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tm_site">
+        <PropertyRef Name="site_id" />
+      </Principal>
+      <Dependent Role="td_pr">
+        <PropertyRef Name="site_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tm_user_tm_site">
+    <End Type="TncNokToolingModel.tm_site" Role="tm_site" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="TncNokToolingModel.tm_user" Role="tm_user" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tm_site">
+        <PropertyRef Name="site_id" />
+      </Principal>
+      <Dependent Role="tm_user">
+        <PropertyRef Name="site_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

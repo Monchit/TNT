@@ -13,6 +13,7 @@
     <EntitySet Name="tm_nok_plant" EntityType="TncNokToolingModel.Store.tm_nok_plant" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tm_process" EntityType="TncNokToolingModel.Store.tm_process" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tm_product" EntityType="TncNokToolingModel.Store.tm_product" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tm_site" EntityType="TncNokToolingModel.Store.tm_site" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tm_status" EntityType="TncNokToolingModel.Store.tm_status" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tm_type" EntityType="TncNokToolingModel.Store.tm_type" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tm_user" EntityType="TncNokToolingModel.Store.tm_user" store:Type="Tables" Schema="dbo" />
@@ -92,6 +93,10 @@
       <End Role="tm_product" EntitySet="tm_product" />
       <End Role="td_pr" EntitySet="td_pr" />
     </AssociationSet>
+    <AssociationSet Name="FK_td_pr_tm_site" Association="TncNokToolingModel.Store.FK_td_pr_tm_site">
+      <End Role="tm_site" EntitySet="tm_site" />
+      <End Role="td_pr" EntitySet="td_pr" />
+    </AssociationSet>
     <AssociationSet Name="FK_td_pr_tm_type" Association="TncNokToolingModel.Store.FK_td_pr_tm_type">
       <End Role="tm_type" EntitySet="tm_type" />
       <End Role="td_pr" EntitySet="td_pr" />
@@ -131,6 +136,10 @@
     <AssociationSet Name="FK_tm_leadtime_tm_type" Association="TncNokToolingModel.Store.FK_tm_leadtime_tm_type">
       <End Role="tm_type" EntitySet="tm_type" />
       <End Role="tm_leadtime" EntitySet="tm_leadtime" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tm_user_tm_site" Association="TncNokToolingModel.Store.FK_tm_user_tm_site">
+      <End Role="tm_site" EntitySet="tm_site" />
+      <End Role="tm_user" EntitySet="tm_user" />
     </AssociationSet>
     <AssociationSet Name="FK_tm_user_tm_user_type" Association="TncNokToolingModel.Store.FK_tm_user_tm_user_type">
       <End Role="tm_user_type" EntitySet="tm_user_type" />
@@ -194,6 +203,7 @@
     <Property Name="maker" Type="varchar" MaxLength="50" />
     <Property Name="maker_comp_dt" Type="date" />
     <Property Name="div_comp_dt" Type="date" />
+    <Property Name="site_id" Type="tinyint" />
   </EntityType>
   <EntityType Name="td_tooling">
     <Key>
@@ -288,6 +298,13 @@
     <Property Name="id" Type="tinyint" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="name" Type="varchar" Nullable="false" MaxLength="50" />
   </EntityType>
+  <EntityType Name="tm_site">
+    <Key>
+      <PropertyRef Name="site_id" />
+    </Key>
+    <Property Name="site_id" Type="tinyint" Nullable="false" />
+    <Property Name="site_name" Type="varchar" Nullable="false" MaxLength="20" />
+  </EntityType>
   <EntityType Name="tm_status">
     <Key>
       <PropertyRef Name="id" />
@@ -312,6 +329,7 @@
     </Key>
     <Property Name="emp_code" Type="varchar" Nullable="false" MaxLength="10" />
     <Property Name="utype_id" Type="tinyint" Nullable="false" />
+    <Property Name="site_id" Type="tinyint" />
   </EntityType>
   <EntityType Name="tm_user_lv">
     <Key>
@@ -502,6 +520,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_td_pr_tm_site">
+    <End Role="tm_site" Type="TncNokToolingModel.Store.tm_site" Multiplicity="0..1" />
+    <End Role="td_pr" Type="TncNokToolingModel.Store.td_pr" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tm_site">
+        <PropertyRef Name="site_id" />
+      </Principal>
+      <Dependent Role="td_pr">
+        <PropertyRef Name="site_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_td_pr_tm_type">
     <End Role="tm_type" Type="TncNokToolingModel.Store.tm_type" Multiplicity="1" />
     <End Role="td_pr" Type="TncNokToolingModel.Store.td_pr" Multiplicity="*" />
@@ -635,6 +665,20 @@
       </Principal>
       <Dependent Role="tm_leadtime">
         <PropertyRef Name="type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tm_user_tm_site">
+    <End Role="tm_site" Type="TncNokToolingModel.Store.tm_site" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tm_user" Type="TncNokToolingModel.Store.tm_user" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tm_site">
+        <PropertyRef Name="site_id" />
+      </Principal>
+      <Dependent Role="tm_user">
+        <PropertyRef Name="site_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
