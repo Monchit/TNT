@@ -16,7 +16,9 @@ namespace TncNokTooling.Models
     {
         public string emp_code { get; set; }
         public byte utype_id { get; set; }
+        public Nullable<byte> site_id { get; set; }
     
         public virtual tm_user_type tm_user_type { get; set; }
+        public virtual tm_site tm_site { get; set; }
     }
 }

@@ -297,6 +297,9 @@
     <Compile Include="Models\TM_ResetCountPoint.cs">
       <DependentUpon>RunCenter.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tm_site.cs">
+      <DependentUpon>TNT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tm_status.cs">
       <DependentUpon>TNT.tt</DependentUpon>
     </Compile>

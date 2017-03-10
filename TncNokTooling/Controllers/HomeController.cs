@@ -148,6 +148,7 @@ namespace TncNokTooling.Controllers
             ViewBag.ProductList = dbTnt.tm_product;
             ViewBag.TypeList = dbTnt.tm_type;
             ViewBag.CostCode = dbTNC.View_Organization.Where(w => w.active == true).OrderBy(o => o.cost_code);
+            ViewBag.Site = dbTnt.tm_site;
 
             return View();
         }
@@ -398,7 +399,6 @@ namespace TncNokTooling.Controllers
             {
                 TNCRunNumber run = new TNCRunNumber();
                 TNCConversion convert = new TNCConversion();
-                //TNCOrganization tnc_org = new TNCOrganization();
 
                 int org = int.Parse(Session["TNT_Org"].ToString());
 
@@ -438,6 +438,7 @@ namespace TncNokTooling.Controllers
                 }
                 pr.issue_name = Request.Form["issue_by"];
                 pr.issue_group_name = Request.Form["group_name"];
+                pr.site_id = byte.Parse(Request.Form["site"]);
 
                 dbTnt.td_pr.Add(pr);
 

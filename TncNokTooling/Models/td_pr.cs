@@ -49,6 +49,7 @@ namespace TncNokTooling.Models
         public string maker { get; set; }
         public Nullable<System.DateTime> maker_comp_dt { get; set; }
         public Nullable<System.DateTime> div_comp_dt { get; set; }
+        public Nullable<byte> site_id { get; set; }
     
         public virtual ICollection<td_files> td_files { get; set; }
         public virtual tm_nok_plant tm_nok_plant { get; set; }
@@ -57,5 +58,6 @@ namespace TncNokTooling.Models
         public virtual tm_type tm_type { get; set; }
         public virtual ICollection<td_tooling> td_tooling { get; set; }
         public virtual ICollection<td_tran> td_tran { get; set; }
+        public virtual tm_site tm_site { get; set; }
     }
 }
