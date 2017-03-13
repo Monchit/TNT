@@ -183,7 +183,7 @@
 
     <div class="row-fluid">
         <div class="span6">
-            <!-- Select Basic -->
+
             <div class="control-group">
                 <label class="control-label" for="condition">Purchase Condition<span class="text_red">**</span> :</label>
                 <div class="controls">
@@ -195,7 +195,6 @@
                 </div>
             </div>
 
-            <!-- Text input-->
             <div class="control-group">
                 <label class="control-label" for="due_dt">Due Date<span class="text_red">**</span> :</label>
                 <div class="controls">
@@ -206,7 +205,6 @@
                 </div>
             </div>
 
-            <!-- Textarea -->
             <div class="control-group" id="urgent" style="display: none;">
                 <label class="control-label" for="reason">Reason<span class="text_red">**</span> :</label>
                 <div class="controls">
@@ -214,7 +212,6 @@
                 </div>
             </div>
 
-            <!-- Text input-->
             <div class="control-group">
                 <label class="control-label" for="issue_by">Issue by :</label>
                 <div class="controls">
@@ -222,7 +219,6 @@
                 </div>
             </div>
 
-            <!-- Text input-->
             <div class="control-group">
                 <label class="control-label" for="issue_dt">Issue Date :</label>
                 <div class="controls">
@@ -230,7 +226,6 @@
                 </div>
             </div>
 
-            <!-- Text input-->
             <div class="control-group">
                 <label class="control-label" for="group">Issue Group :</label>
                 <div class="controls">
@@ -240,7 +235,6 @@
                 </div>
             </div>
 
-            <!-- Text input-->
             <div class="control-group">
                 <label class="control-label" for="ext">Internal Phone :</label>
                 <div class="controls">
@@ -248,11 +242,9 @@
                 </div>
             </div>
 
-            <!-- Text input-->
             <div class="control-group">
                 <label class="control-label" for="cost_code">Cost code<span class="text_red">**</span> :</label>
                 <div class="controls">
-                    @*<input id="cost_code" name="cost_code" type="text" class="input-small" data-validation="number" data-validation-allowing="range[1000;9999]" maxlength="4">*@
                     <select class="input-xlarge" name="cost_code" id="cost_code" data-validation="required">
                         <option value="">-- Select --</option>
                         @foreach (var item in ViewBag.CostCode)
@@ -277,11 +269,23 @@
         </div>
 
         <div class="span6">
-            <!-- Select Basic -->
+            <div class="control-group">
+                <label class="control-label" for="site">Site<span class="text_red">**</span> : </label>
+                <div class="controls">
+                    <select id="site" name="site" class="input-medium" data-validation="required">
+                        <option value="">-- Select --</option>
+                        @foreach (var item in ViewBag.Site)
+                        {
+                            <option value="@item.site_id">@item.site_name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            
             <div class="control-group">
                 <label class="control-label" for="rank">Rank :</label>
                 <div class="controls">
-                    <select id="rank" name="rank" class="input-small">
+                    <select id="rank" name="rank" class="input-medium">
                         <option>-</option>
                         <option>A</option>
                         <option>B</option>
@@ -291,16 +295,13 @@
                 </div>
             </div>
 
-            <!-- Text input-->
             <div class="control-group">
-                <label class="control-label" for="item_code">Item code/Part no.<span class="text_red">**</span> :</label>
+                <label class="control-label" for="item_code">Item code/Part no.<span class="text_red">**</span> : </label>
                 <div class="controls">
                     <input id="item_code" name="item_code" type="text" class="input-large" data-validation="required">
-                    @*data-validation="custom" data-validation-regexp="^([0-9A-Z. \-'_]+)$"*@
                 </div>
             </div>
-
-            <!-- Select Basic -->
+            
             <div class="control-group">
                 <label class="control-label" for="process">Process<span class="text_red">**</span> :</label>
                 <div class="controls">
@@ -313,8 +314,7 @@
                     </select>
                 </div>
             </div>
-
-            <!-- Select Basic -->
+            
             <div class="control-group">
                 <label class="control-label" for="nok_plant">NOK Plant<span class="text_red">**</span> :</label>
                 <div class="controls">
@@ -327,8 +327,7 @@
                     </select>
                 </div>
             </div>
-
-            <!-- Select Basic -->
+            
             <div class="control-group">
                 <label class="control-label" for="product">Product<span class="text_red">**</span> :</label>
                 <div class="controls">
@@ -341,8 +340,7 @@
                     </select>
                 </div>
             </div>
-
-            <!-- Select Basic -->
+            
             <div class="control-group">
                 <label class="control-label" for="type">Type<span class="text_red">**</span> :</label>
                 <div class="controls">
@@ -357,7 +355,6 @@
             </div>
 
             <div id="remedy" style="display: none;">
-                <!-- Text input-->
                 <div class="control-group">
                     <label class="control-label" for="problem">Mold Problem<span class="text_red">**</span> :</label>
                     <div class="controls">
@@ -406,23 +403,20 @@
 
     <div class="row-fluid">
         <div class="span5">
-            <!-- Text input-->
             <div class="control-group">
                 <label class="control-label" for="listDesc">Description :</label>
                 <div class="controls">
                     <input id="listDesc" name="listDesc" type="text" class="input-large">
                 </div>
             </div>
-
-            <!-- Text input-->
+            
             <div class="control-group">
                 <label class="control-label" for="listQty">Q'ty :</label>
                 <div class="controls">
                     <input id="listQty" name="listQty" type="text" class="input-small allow_only_numbers">
                 </div>
             </div>
-
-            <!-- Text input-->
+            
             <div class="control-group">
                 <label class="control-label" for="listUnit">Unit :</label>
                 <div class="controls">
@@ -477,6 +471,7 @@
                     </tr>
                 </thead>
                 <tbody>
+
                 </tbody>
             </table>
         </div>

@@ -114,27 +114,6 @@
                 }
             });
 
-            //$("#txt_iss_fr").datepicker({
-            //    dateFormat: 'dd/mm/yy',
-            //    changeMonth: true,
-            //    changeYear: true,
-            //    numberOfMonths: 1,
-            //    maxDate: "0",
-            //    onClose: function (selectedDate) {
-            //        $("#txt_iss_to").datepicker("option", "minDate", selectedDate);
-            //    }
-            //});
-            //$("#txt_iss_to").datepicker({
-            //    dateFormat: 'dd/mm/yy',
-            //    changeMonth: true,
-            //    changeYear: true,
-            //    numberOfMonths: 1,
-            //    maxDate: "0",
-            //    onClose: function (selectedDate) {
-            //        $("#txt_iss_fr").datepicker("option", "maxDate", selectedDate);
-            //    }
-            //});
-
             $("#allTab").hide();
 
             //$("#txt_pr").val(getParameterByName('tid'));
@@ -193,23 +172,21 @@
             <div class="accordion-inner">
                 <form class="form-horizontal row-fluid">
                     <div class="span5">
-                        <!-- Text input-->
+
                         <div class="control-group">
                             <label class="control-label" for="txt_pr">PR No. :</label>
                             <div class="controls">
                                 <input id="txt_pr" name="txt_pr" type="text" placeholder="PR No." class="input-large">
                             </div>
                         </div>
-      
-                        <!-- Text input-->
+
                         <div class="control-group">
                             <label class="control-label" for="txt_item">Item code :</label>
                             <div class="controls">
                                 <input id="txt_item" name="txt_item" type="text" placeholder="Item code" class="input-large">
                             </div>
                         </div>
-                  
-                        <!-- Text input-->
+
                         <div class="control-group">
                             <label class="control-label" for="txt_po">PO No. :</label>
                             <div class="controls">
@@ -229,7 +206,7 @@
                         </div>
                     </div>
 
-                    <div class="span6">                
+                    <div class="span5">                
                         <div class="control-group">
                             <label class="control-label" for="sel_process">Process Type :</label>
                             <div class="controls">
@@ -243,7 +220,6 @@
                             </div>
                         </div>
                         
-                        <!-- Text input-->
                         <div class="control-group">
                             <label class="control-label" for="txt_req">Issued by :</label>
                             <div class="controls">
@@ -261,8 +237,6 @@
                                         <option value="@item.id">@item.group_name</option>
                                     }
                                 </select>
-                                @*<input id="txt_iss_fr" name="txt_iss_fr" type="text" class="input-small">-
-                                <input id="txt_iss_to" name="txt_iss_to" type="text" class="input-small">*@
                             </div>
                         </div>
 
@@ -280,11 +254,11 @@
                         </div>
                     </div>
 
-                    <div class="span1">
-                        <button id="btn_search" name="btn_search" class="btn btn-primary" type="submit">
+                    <div class="span2">
+                        <button id="btn_search" name="btn_search" class="btn btn-large btn-block btn-primary" type="submit">
                             <i class="icon-search icon-white"></i> Search</button>
                         
-                        <button id="btn_wait" name="btn_wait" class="btn btn-info" type="button">
+                        <button id="btn_wait" name="btn_wait" class="btn btn-large btn-block btn-info" type="button">
                             <i class="icon-refresh icon-white"></i> Wait</button>
                     </div>
                 </form>

@@ -43,6 +43,9 @@
         <EntityTypeShape EntityType="TncNokToolingModel.tm_user_nok" Width="1.5" PointX="0.75" PointY="10.625" />
         <EntityTypeShape EntityType="TncNokToolingModel.td_eta_tnc" Width="1.5" PointX="6.5" PointY="12.75" />
         <AssociationConnector Association="TncNokToolingModel.FK_td_eta_tnc_td_tooling" />
+        <EntityTypeShape EntityType="TncNokToolingModel.tm_site" Width="1.5" PointX="2.625" PointY="12.125" />
+        <AssociationConnector Association="TncNokToolingModel.FK_td_pr_tm_site" />
+        <AssociationConnector Association="TncNokToolingModel.FK_tm_user_tm_site" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
