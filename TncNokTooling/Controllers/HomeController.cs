@@ -1169,7 +1169,7 @@ namespace TncNokTooling.Controllers
         [OutputCache(Duration = 0, NoStore = true)]
         public ActionResult _TabFiles(string pr_no)
         {
-            var get_files = dbTnt.td_files.Where(w => w.pr_no == pr_no && w.file_type != 4).OrderBy(o => o.file_type);
+            var get_files = dbTnt.td_files.Where(w => w.pr_no == pr_no).OrderBy(o => o.file_type);// && w.file_type != 4
             return PartialView(get_files);
         }
 
@@ -1399,6 +1399,17 @@ namespace TncNokTooling.Controllers
         {
             using (var prdb = new PREntities())
             {
+                var get_pr = dbTnt.td_pr.Find(pr_no);
+                string imex = "T206263";//Default Import-Export
+                if (get_pr != null)
+                {
+                    var get_sys_user = dbTnt.tm_user.Where(w => w.site_id == get_pr.site_id && w.utype_id == 17).FirstOrDefault();
+                    if (get_sys_user != null)
+                    {
+                        imex = "T" + get_sys_user.emp_code;
+                    }
+                }
+
                 var query = from a in dbTnt.td_tooling
                             where a.pr_no == pr_no && a.sell == false
                             select a;
