@@ -192,6 +192,7 @@
     <EntitySetMapping Name="v_tran">
       <EntityTypeMapping TypeName="TncNokToolingModel.v_tran">
         <MappingFragment StoreEntitySet="v_tran">
+          <ScalarProperty Name="site_name" ColumnName="site_name" />
           <ScalarProperty Name="requester" ColumnName="requester" />
           <ScalarProperty Name="org" ColumnName="org" />
           <ScalarProperty Name="nok_plant" ColumnName="nok_plant" />

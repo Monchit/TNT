@@ -21,7 +21,7 @@
         <EntityTypeShape EntityType="TncNokToolingModel.tm_user" Width="1.5" PointX="10.25" PointY="2.875" IsExpanded="true" />
         <EntityTypeShape EntityType="TncNokToolingModel.tm_user_lv" Width="1.5" PointX="4.5" PointY="2.875" IsExpanded="true" />
         <EntityTypeShape EntityType="TncNokToolingModel.tm_user_type" Width="1.5" PointX="8.375" PointY="2.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TncNokToolingModel.v_tran" Width="1.5" PointX="10.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TncNokToolingModel.v_tran" Width="1.5" PointX="10.25" PointY="5.25" IsExpanded="true" />
         <AssociationConnector Association="TncNokToolingModel.FK_td_files_td_pr1" ManuallyRouted="false" />
         <AssociationConnector Association="TncNokToolingModel.FK_td_files_tm_file_type" ManuallyRouted="false" />
         <AssociationConnector Association="TncNokToolingModel.FK_td_pr_tm_nok_plant" ManuallyRouted="false" />
@@ -38,7 +38,7 @@
         <AssociationConnector Association="TncNokToolingModel.FK_tm_leadtime_tm_product" ManuallyRouted="false" />
         <AssociationConnector Association="TncNokToolingModel.FK_tm_leadtime_tm_type" ManuallyRouted="false" />
         <AssociationConnector Association="TncNokToolingModel.FK_tm_user_tm_user_type" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="TncNokToolingModel.v_sys_user" Width="1.5" PointX="10.25" PointY="8.875" />
+        <EntityTypeShape EntityType="TncNokToolingModel.v_sys_user" Width="1.5" PointX="10.25" PointY="9.875" />
         <EntityTypeShape EntityType="TncNokToolingModel.v_tran_show" Width="1.5" PointX="8.375" PointY="4.5" />
         <EntityTypeShape EntityType="TncNokToolingModel.tm_user_nok" Width="1.5" PointX="0.75" PointY="10.625" />
         <EntityTypeShape EntityType="TncNokToolingModel.td_eta_tnc" Width="1.5" PointX="6.5" PointY="12.75" />

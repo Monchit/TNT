@@ -67,16 +67,17 @@
                     });
                 },
                 fields: {
-                    pr_no: { title: 'PR No.', width: '9%' },
-                    item_code: { title: 'Item code', width: '18%' },
-                    po_no: { title: 'PO No.', width: '9%' },
-                    condition: { title: 'Condition', width: '7%' },
+                    pr_no: { title: 'PR No.', width: '8%' },
+                    item_code: { title: 'Item code', width: '15%' },
+                    po_no: { title: 'PO No.', width: '7%' },
+                    condition: { title: 'Condition', width: '6%' },
                     rank: { title: 'Rank', width: '4%' },
-                    group_name: { title: 'Issue Group' },
-                    issue_dt: { title: 'Issue Date', width: '8%', type: 'date', displayFormat: 'dd-mm-yy' },
-                    due_date: { title: 'Due Date', width: '8%', type: 'date', displayFormat: 'dd-mm-yy' },
-                    status: { title: 'Status', width: '25%' },
-                    status_id: { list:false }
+                    group_name: { title: 'Issue Group', width: '14%' },
+                    issue_dt: { title: 'Issue Date', width: '7%', type: 'date', displayFormat: 'dd-mm-yy' },
+                    due_date: { title: 'Due Date', width: '7%', type: 'date', displayFormat: 'dd-mm-yy' },
+                    status: { title: 'Status', width: '24%' },
+                    status_id: { list: false },
+                    site_name: { title: 'Site', width: '8%' }
                 },
                 //Register to selectionChanged event to hanlde events
                 selectionChanged: function () {
@@ -133,6 +134,7 @@
                     status: $('#sel_status').val(),
                     condition: $('#sel_condition').val()
                 });
+                $("#col_search").removeClass("in");
             });
 
             $('#btn_wait').click(function (e) {
@@ -140,6 +142,7 @@
                 $('#jTablePR').jtable('load', {
                     mode: 1
                 });
+                $("#col_search").removeClass("in");
             });
 
             $('#tabstrip a').click(function (e) {

@@ -340,7 +340,8 @@ namespace TncNokTooling.Controllers
                         s.status,
                         s.status_id,
                         //s.ulv_id,
-                        s.group_name
+                        s.group_name,
+                        s.site_name
                     }).OrderBy(jtSorting).Skip(jtStartIndex).Take(jtPageSize);
 
                 //Return result to jTable

@@ -183,6 +183,6 @@ C:\Users\monchit\Documents\Visual Studio 2012\Projects\TncNokTooling\TncNokTooli
 C:\Users\monchit\Documents\Visual Studio 2012\Projects\TncNokTooling\TncNokTooling\bin\ru\System.Spatial.resources.dll
 C:\Users\monchit\Documents\Visual Studio 2012\Projects\TncNokTooling\TncNokTooling\bin\zh-Hans\System.Spatial.resources.dll
 C:\Users\monchit\Documents\Visual Studio 2012\Projects\TncNokTooling\TncNokTooling\bin\zh-Hant\System.Spatial.resources.dll
-C:\Users\monchit\Documents\Visual Studio 2012\Projects\TncNokTooling\TncNokTooling\obj\Debug\TncNokTooling.csprojResolveAssemblyReference.cache
 C:\Users\monchit\Documents\Visual Studio 2012\Projects\TncNokTooling\TncNokTooling\obj\Debug\TncNokTooling.dll
 C:\Users\monchit\Documents\Visual Studio 2012\Projects\TncNokTooling\TncNokTooling\obj\Debug\TncNokTooling.pdb
+C:\Users\monchit\Documents\Visual Studio 2012\Projects\TncNokTooling\TncNokTooling\obj\Debug\TncNokTooling.csprojResolveAssemblyReference.cache

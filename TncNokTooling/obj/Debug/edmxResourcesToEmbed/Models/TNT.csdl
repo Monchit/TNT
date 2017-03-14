@@ -331,6 +331,7 @@
       <PropertyRef Name="process" />
       <PropertyRef Name="nok_plant" />
       <PropertyRef Name="org" />
+      <PropertyRef Name="site_name" />
     </Key>
     <Property Name="pr_no" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
     <Property Name="item_code" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
@@ -349,6 +350,7 @@
     <Property Type="Byte" Name="nok_plant" Nullable="false" />
     <Property Type="Int32" Name="org" Nullable="false" />
     <Property Type="String" Name="requester" MaxLength="511" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="site_name" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
   </EntityType>
   <Association Name="FK_td_files_td_pr1">
     <End Role="td_pr" Type="TncNokToolingModel.td_pr" Multiplicity="1">

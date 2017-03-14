@@ -49,7 +49,8 @@
       [v_tran].[process] AS [process], 
       [v_tran].[nok_plant] AS [nok_plant], 
       [v_tran].[org] AS [org], 
-      [v_tran].[requester] AS [requester]
+      [v_tran].[requester] AS [requester], 
+      [v_tran].[site_name] AS [site_name]
       FROM [dbo].[v_tran] AS [v_tran]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="v_tran_show" EntityType="TncNokToolingModel.Store.v_tran_show" store:Type="Views" store:Schema="dbo" store:Name="v_tran_show">
@@ -394,6 +395,7 @@
       <PropertyRef Name="process" />
       <PropertyRef Name="nok_plant" />
       <PropertyRef Name="org" />
+      <PropertyRef Name="site_name" />
     </Key>
     <Property Name="pr_no" Type="varchar" Nullable="false" MaxLength="10" />
     <Property Name="item_code" Type="varchar" Nullable="false" MaxLength="50" />
@@ -412,6 +414,7 @@
     <Property Name="nok_plant" Type="tinyint" Nullable="false" />
     <Property Name="org" Type="int" Nullable="false" />
     <Property Name="requester" Type="nvarchar" MaxLength="511" />
+    <Property Name="site_name" Type="varchar" Nullable="false" MaxLength="20" />
   </EntityType>
   <!--Errors Found During Generation:
       warning 6002: The table/view 'TncNokTooling.dbo.v_tran_show' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.

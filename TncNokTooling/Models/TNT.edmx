@@ -54,7 +54,8 @@
       [v_tran].[process] AS [process], 
       [v_tran].[nok_plant] AS [nok_plant], 
       [v_tran].[org] AS [org], 
-      [v_tran].[requester] AS [requester]
+      [v_tran].[requester] AS [requester], 
+      [v_tran].[site_name] AS [site_name]
       FROM [dbo].[v_tran] AS [v_tran]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="v_tran_show" EntityType="TncNokToolingModel.Store.v_tran_show" store:Type="Views" store:Schema="dbo" store:Name="v_tran_show">
@@ -399,6 +400,7 @@
             <PropertyRef Name="process" />
             <PropertyRef Name="nok_plant" />
             <PropertyRef Name="org" />
+            <PropertyRef Name="site_name" />
           </Key>
           <Property Name="pr_no" Type="varchar" Nullable="false" MaxLength="10" />
           <Property Name="item_code" Type="varchar" Nullable="false" MaxLength="50" />
@@ -417,6 +419,7 @@
           <Property Name="nok_plant" Type="tinyint" Nullable="false" />
           <Property Name="org" Type="int" Nullable="false" />
           <Property Name="requester" Type="nvarchar" MaxLength="511" />
+          <Property Name="site_name" Type="varchar" Nullable="false" MaxLength="20" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'TncNokTooling.dbo.v_tran_show' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -1036,6 +1039,7 @@
             <PropertyRef Name="process" />
             <PropertyRef Name="nok_plant" />
             <PropertyRef Name="org" />
+            <PropertyRef Name="site_name" />
           </Key>
           <Property Name="pr_no" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
           <Property Name="item_code" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
@@ -1054,6 +1058,7 @@
           <Property Type="Byte" Name="nok_plant" Nullable="false" />
           <Property Type="Int32" Name="org" Nullable="false" />
           <Property Type="String" Name="requester" MaxLength="511" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="site_name" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_td_files_td_pr1">
           <End Role="td_pr" Type="TncNokToolingModel.td_pr" Multiplicity="1">
@@ -1581,6 +1586,7 @@
           <EntitySetMapping Name="v_tran">
             <EntityTypeMapping TypeName="TncNokToolingModel.v_tran">
               <MappingFragment StoreEntitySet="v_tran">
+                <ScalarProperty Name="site_name" ColumnName="site_name" />
                 <ScalarProperty Name="requester" ColumnName="requester" />
                 <ScalarProperty Name="org" ColumnName="org" />
                 <ScalarProperty Name="nok_plant" ColumnName="nok_plant" />
