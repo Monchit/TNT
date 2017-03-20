@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Linq.Dynamic;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using TncNokTooling.Models;
@@ -401,6 +404,132 @@ namespace TncNokTooling.Controllers
                 DBTNT.SaveChanges();
 
                 return Json(new { Result = "OK" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Result = "ERROR", Message = ex.Message });
+            }
+        }
+
+        //--------------------------------------------//
+
+        public ActionResult UserNOK()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult UserNOKList(int jtStartIndex = 0, int jtPageSize = 0, string jtSorting = null)
+        {
+            try
+            {
+                var query = DBTNT.tm_user_nok;
+
+                //Get data from database
+                int TotalRecord = query.Count();
+
+                // Paging
+                var output = query
+                    .Select(s => new
+                    {
+                        s.username,
+                        s.password,//password = Decrypt(s.password),
+                        s.fname,
+                        s.lname,
+                        s.utype,
+                        s.email
+                    }).OrderBy(jtSorting).Skip(jtStartIndex).Take(jtPageSize);
+
+                //Return result to jTable
+                return Json(new { Result = "OK", Records = output, TotalRecordCount = TotalRecord });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Result = "ERROR", Message = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult CreateUserNOK()
+        {
+            try
+            {
+                var id = Request.Form["username"];
+                var dbData = DBTNT.tm_user_nok.Find(id);
+                if (dbData == null)
+                {
+                    tm_user_nok data = new tm_user_nok();
+                    data.username = id;
+                    data.fname = Request.Form["fname"];
+                    data.lname = Request.Form["lname"];
+                    var keyNew = EncryptDecrypt.GeneratePassword(10);
+                    data.password = EncryptDecrypt.EncodePassword(Request.Form["password"], keyNew);
+                    data.vcode = keyNew;
+                    data.email = Request.Form["email"];
+                    //data.ulv = byte.Parse(Request.Form[""]);
+                    data.utype = byte.Parse(Request.Form["utype"]);
+
+                    DBTNT.tm_user_nok.Add(data);
+                }
+
+                DBTNT.SaveChanges();
+
+                return Json(new { Result = "OK", Record = DBTNT.tm_user_nok.OrderByDescending(o => o.username).FirstOrDefault() });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Result = "ERROR", Message = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult UpdateUserNOK()
+        {
+            try
+            {
+                var id = Request.Form["username"];
+                var data = DBTNT.tm_user_nok.Find(id);
+                data.fname = Request.Form["fname"];
+                data.lname = Request.Form["lname"];
+                //data.password = Encode(Request.Form["password"]);
+                data.email = Request.Form["email"];
+                data.utype = byte.Parse(Request.Form["utype"]);
+                DBTNT.SaveChanges();
+
+                return Json(new { Result = "OK" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Result = "ERROR", Message = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult DeleteUserNOK()
+        {
+            try
+            {
+                var id = Request.Form["username"];
+                var data = DBTNT.tm_user_nok.Find(id);
+                DBTNT.tm_user_nok.Remove(data);
+                DBTNT.SaveChanges();
+
+                return Json(new { Result = "OK" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Result = "ERROR", Message = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GetUtypeList()
+        {
+            try
+            {
+                var result = DBTNT.tm_user_type.Where(w => w.id > 20)
+                    .Select(r => new { DisplayText = r.name, Value = r.id });
+                return Json(new { Result = "OK", Options = result });
             }
             catch (Exception ex)
             {

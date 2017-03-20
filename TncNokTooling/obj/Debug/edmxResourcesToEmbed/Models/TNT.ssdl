@@ -352,6 +352,7 @@
     <Property Name="fname" Type="nvarchar" MaxLength="50" />
     <Property Name="lname" Type="nvarchar" MaxLength="50" />
     <Property Name="ulv" Type="tinyint" />
+    <Property Name="vcode" Type="varchar" MaxLength="20" />
   </EntityType>
   <EntityType Name="tm_user_type">
     <Key>

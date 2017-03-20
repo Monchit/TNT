@@ -195,6 +195,7 @@
     <Compile Include="Controllers\Chk_Authen.cs" />
     <Compile Include="Controllers\Chk_NOK.cs" />
     <Compile Include="Controllers\Chk_TNC.cs" />
+    <Compile Include="Controllers\EncryptDecrypt.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -955,6 +956,9 @@
     <Content Include="Views\Home\_FormDivReturnAct.cshtml" />
     <Content Include="Views\Home\_FormNokReturnAct.cshtml" />
     <Content Include="Views\Home\_FormTncReturnAct.cshtml" />
+    <Content Include="Views\Admin\UserNOK.cshtml" />
+    <Content Include="Views\Home\ChgPwdNok.cshtml" />
+    <Content Include="Views\Home\UploadNOK.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

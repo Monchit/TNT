@@ -248,6 +248,7 @@
     <EntitySetMapping Name="tm_user_nok">
       <EntityTypeMapping TypeName="TncNokToolingModel.tm_user_nok">
         <MappingFragment StoreEntitySet="tm_user_nok">
+          <ScalarProperty Name="vcode" ColumnName="vcode" />
           <ScalarProperty Name="ulv" ColumnName="ulv" />
           <ScalarProperty Name="lname" ColumnName="lname" />
           <ScalarProperty Name="fname" ColumnName="fname" />

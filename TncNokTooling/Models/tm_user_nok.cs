@@ -21,5 +21,6 @@ namespace TncNokTooling.Models
         public string fname { get; set; }
         public string lname { get; set; }
         public Nullable<byte> ulv { get; set; }
+        public string vcode { get; set; }
     }
 }

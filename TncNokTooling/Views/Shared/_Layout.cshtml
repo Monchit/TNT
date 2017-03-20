@@ -104,6 +104,7 @@
                                             goto case 11;
                                         case 11: <text>
                                         @Html.MenuLink("User", "Users", "Admin")
+                                        @Html.MenuLink("User NOK", "UserNOK", "Admin")
                                             </text>
                                             goto case 12;
                                         case 12: <text><li class="divider"></li></text>
@@ -121,7 +122,9 @@
                             }
                             else if (user_type > 20)//NOK
                             {
-                                @Html.MenuLink("Search", "NOKSearch", "Home")
+                                @*@Html.MenuLink("Search", "NOKSearch", "Home")*@
+                                @Html.MenuLink("Upload","UploadNOK","Home")
+                                @Html.MenuLink("Change Password","ChgPwdNok","Home")
                             }
                         }
                         <li class="dropdown">

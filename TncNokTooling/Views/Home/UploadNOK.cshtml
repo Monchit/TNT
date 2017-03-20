@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Upload";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<form class="form-horizontal" id="formUpload" name="formUpload" action="@Url.Action("UploadNokData", "Home")" method="post" enctype="multipart/form-data">
+    <div class="control-group">
+        <label class="control-label" for="filebutton">File Format : </label>
+        <div class="controls">
+            <a href="" class="btn btn-success">Download</a>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="uplfile">File Upload : </label>
+        <div class="controls">
+                <input type="file" id="uplfile" name="uplfile" class="input-file" data-validation="extension" data-validation-allowing="xls,xlsx" data-validation-optional="true">
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </div>
+    </div>
+</form>

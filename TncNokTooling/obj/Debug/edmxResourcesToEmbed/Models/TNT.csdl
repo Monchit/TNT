@@ -615,6 +615,7 @@
     <Property Type="String" Name="fname" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="lname" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Type="Byte" Name="ulv" />
+    <Property Type="String" Name="vcode" MaxLength="20" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="td_eta_tnc">
     <Key>

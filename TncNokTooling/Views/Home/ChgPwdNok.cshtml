@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Change Password";
+}
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.validate({
+                modules: 'security',
+                form: '#chgpwd'
+            });
+        });
+    </script>
+}
+
+<h2>@ViewBag.Title</h2>
+
+<form class="form-horizontal" id="chgpwd" name="chgpwd" action="@Url.Action("ChangePassNOK", "Home")" method="post">
+    <div class="control-group">
+        <label class="control-label" for="inputEmail">Old Password : </label>
+        <div class="controls">
+            <input type="password" id="old_pwd" name="old_pwd" placeholder="Old Password" data-validation="required">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="inputEmail">New Password : </label>
+        <div class="controls">
+            <input type="password" id="pass_confirmation" name="pass_confirmation" placeholder="New Password" data-validation="required">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="inputEmail">Confirm Password : </label>
+        <div class="controls">
+            <input type="password" id="pass" name="pass" placeholder="Confirm Password" data-validation="confirmation">
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn btn-primary">Change Password</button>
+        </div>
+    </div>
+</form>

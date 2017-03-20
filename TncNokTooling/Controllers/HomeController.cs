@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Linq.Dynamic;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using TncNokTooling.Models;
@@ -86,23 +88,75 @@ namespace TncNokTooling.Controllers
                 }
             }
             else
-            {
-                var nok_user = dbTnt.tm_user_nok.Where(w => w.username == username && w.password == password).FirstOrDefault();
-                if (nok_user != null)
+            { 
+                var get_user = dbTnt.tm_user_nok.Where(w => w.username == username).FirstOrDefault();
+                if (get_user != null)
                 {
-                    Session["TNT_Auth"] = username;
-                    Session["TNT_ULv"] = 1;
-                    Session["TNT_Name"] = username;
-                    Session["TNT_UType"] = nok_user.utype;
+                    var hashCode = get_user.vcode;
+                    var encodingPasswordString = EncryptDecrypt.EncodePassword(password, hashCode);
 
-                    return RedirectToAction("NOKSearch", "Home");
+                    var query = dbTnt.tm_user_nok
+                        .Where(w => w.username == username && w.password.Equals(encodingPasswordString))
+                        .FirstOrDefault();
+
+                    if (query != null)
+                    {
+                        Session["TNT_Auth"] = username;
+                        Session["TNT_ULv"] = 1;
+                        Session["TNT_Name"] = username;
+                        Session["TNT_UType"] = query.utype;
+
+                        return RedirectToAction("UploadNOK", "Home");
+                    }
+                    else
+                    {
+                        TempData["noty_warn"] = "Password is incorrect !!!";
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 else
                 {
-                    TempData["noty_warn"] = "Username and/or Password is incorrect !!!";
+                    TempData["noty_warn"] = "Username is incorrect !!!";
                     return RedirectToAction("Index", "Home");
                 }
             }
+        }
+
+        [Chk_Authen]
+        public ActionResult ChgPwdNok()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ChangePassNOK()
+        {
+            var emp = Session["TNT_Auth"].ToString();
+            var get_user = dbTnt.tm_user_nok.Find(emp);
+            if (get_user != null)
+            {
+                var hashCode = get_user.vcode;
+                var encodingPasswordString = EncryptDecrypt.EncodePassword(Request.Form["old_pwd"], hashCode);
+
+                var query = dbTnt.tm_user_nok
+                    .Where(w => w.username == emp && w.password.Equals(encodingPasswordString))
+                    .FirstOrDefault();
+
+                if (query != null)
+                {
+                    var keyNew = EncryptDecrypt.GeneratePassword(10);
+                    get_user.password = EncryptDecrypt.EncodePassword(Request.Form["pass_confirmation"], keyNew);
+                    get_user.vcode = keyNew;
+                    dbTnt.SaveChanges();
+                    //Change password success
+                }
+                //else
+                //{
+                //    Not change password
+                //}
+            }
+
+            return RedirectToAction("NOKSearch", "Home");
         }
 
         public ActionResult Logout()
@@ -129,6 +183,18 @@ namespace TncNokTooling.Controllers
         public ActionResult NOKSearch()
         {
             ViewBag.ProcessList = dbTnt.tm_process;
+            return View();
+        }
+
+        [Chk_Authen]
+        public ActionResult UploadNOK()
+        {
+            return View();
+        }
+
+        //[HttpPost]
+        public ActionResult UploadNokData()
+        {
             return View();
         }
 
