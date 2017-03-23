@@ -3,6 +3,7 @@
   <EntityContainer Name="TncNokToolingModelStoreContainer">
     <EntitySet Name="td_eta_tnc" EntityType="TncNokToolingModel.Store.td_eta_tnc" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="td_files" EntityType="TncNokToolingModel.Store.td_files" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="td_import" EntityType="TncNokToolingModel.Store.td_import" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="td_pr" EntityType="TncNokToolingModel.Store.td_pr" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="td_tooling" EntityType="TncNokToolingModel.Store.td_tooling" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="td_tran" EntityType="TncNokToolingModel.Store.td_tran" store:Type="Tables" Schema="dbo" />
@@ -171,6 +172,25 @@
     <Property Name="file_path" Type="nvarchar(max)" Nullable="false" />
     <Property Name="upl_dt" Type="datetime" Nullable="false" />
     <Property Name="upl_by" Type="nvarchar" Nullable="false" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="td_import">
+    <Key>
+      <PropertyRef Name="po_no" />
+      <PropertyRef Name="po_added" />
+    </Key>
+    <Property Name="delivery_status" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="po_no" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="po_added" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="plant" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="product" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="order_name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="spec" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="order_status" Type="nvarchar" MaxLength="50" />
+    <Property Name="order_qty" Type="int" />
+    <Property Name="insp_qty" Type="int" />
+    <Property Name="ship_qty" Type="int" />
+    <Property Name="destination" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="due_date" Type="date" />
   </EntityType>
   <EntityType Name="td_pr">
     <Key>

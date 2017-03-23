@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Linq.Dynamic;
@@ -148,12 +149,12 @@ namespace TncNokTooling.Controllers
                     get_user.password = EncryptDecrypt.EncodePassword(Request.Form["pass_confirmation"], keyNew);
                     get_user.vcode = keyNew;
                     dbTnt.SaveChanges();
-                    //Change password success
+                    TempData["noty_comp"] = "Change Password Completed.";
                 }
-                //else
-                //{
-                //    Not change password
-                //}
+                else
+                {
+                    TempData["noty_warn"] = "User or Password incorrect";
+                }
             }
 
             return RedirectToAction("NOKSearch", "Home");
@@ -192,10 +193,78 @@ namespace TncNokTooling.Controllers
             return View();
         }
 
-        //[HttpPost]
-        public ActionResult UploadNokData()
+        [HttpPost]
+        public ActionResult UploadNokData(HttpPostedFileBase uplfile)
         {
-            return View();
+            TNCFileDirectory dir = new TNCFileDirectory();
+            TNCUtility util = new TNCUtility();
+
+            try
+            {
+                var savedDir = dir.SaveFile(uplfile, "Temp/" + DateTime.Now.ToString("yyyyMMdd", new CultureInfo("en-US")));
+                var reader = util.ReadExcel(savedDir);
+
+                foreach (var item in reader)
+                {
+                    string word = item[1].ToString();
+                    int q = word.IndexOf('Q');
+                    int t = word.IndexOf('T');
+                    int w_len = word.Length;
+                    string po, added = string.Empty;
+                    int x = -10;
+                    if (q != -1 && t != -1)//have t and q
+                    {
+                        if (q < t) x = q;
+                        else x = t;
+                    }
+                    else if (q != -1 && t == -1)
+                    {
+                        x = q;
+                    }
+                    else if (q == -1 && t != -1)
+                    {
+                        x = t;
+                    }
+
+                    if (x != -10)
+                    {
+                        po = word.Substring(x, 7);
+                        added = word.Substring(x + 7, w_len - (x + 7));
+                        //string format = "dd/MM/yyyy";
+
+                        td_import imp = new td_import();
+                        imp.delivery_status = item[0].ToString();
+                        imp.po_no = po;
+                        imp.po_added = added;
+                        imp.plant = item[2].ToString();
+                        imp.product = item[3].ToString();
+                        imp.order_name = item[4].ToString();
+                        imp.spec = item[5].ToString();
+                        imp.order_status = item[6].ToString();
+                        imp.order_qty = string.IsNullOrEmpty(item[7].ToString()) ? 0 : int.Parse(item[7].ToString());
+                        imp.insp_qty = string.IsNullOrEmpty(item[8].ToString()) ? 0 : int.Parse(item[8].ToString());
+                        imp.ship_qty = string.IsNullOrEmpty(item[9].ToString()) ? 0 : int.Parse(item[9].ToString());
+                        imp.destination = item[10].ToString();
+                        imp.due_date = DateTime.Parse(item[11].ToString());
+                            //DateTime.ParseExact(item[11].ToString(), format, CultureInfo.InvariantCulture);
+
+                        dbTnt.td_import.Add(imp);
+                    }
+                }
+
+                ((System.Data.Entity.Infrastructure.IObjectContextAdapter)dbTnt).ObjectContext.ExecuteStoreCommand("TRUNCATE TABLE td_import");
+                //DELETE FROM td_import WHERE flag = 1
+
+                dbTnt.SaveChanges();
+                TempData["noty_comp"] = "Upload Completed.";
+                return RedirectToAction("UploadNOK", "Home");
+            }
+            catch (Exception)
+            {
+                throw;
+                //TempData["noty_warn"] = "Error : " + ex;
+                //return RedirectToAction("UploadNOK", "Home");
+            }
         }
 
         [Chk_Authen]
@@ -1254,8 +1323,28 @@ namespace TncNokTooling.Controllers
         [OutputCache(Duration = 0, NoStore = true)]
         public ActionResult _TabNOK(string pr_no)
         {
-            //var get_tran = dbTnt.
-            return PartialView();
+            var get_pr = dbTnt.td_pr.Find(pr_no);
+            //if (!string.IsNullOrEmpty(get_pr.po_no))
+            //{
+            var get_import = from a in dbTnt.td_import
+                             where a.po_no == get_pr.po_no
+                             select a;
+
+            return PartialView(get_import);
+
+            //    if (get_import.Any())
+            //    {
+            //        return PartialView(get_import);
+            //    }
+            //    else
+            //    {
+            //        return PartialView(null);
+            //    }
+            //}
+            //else
+            //{
+            //    return PartialView(null);
+            //}
         }
 
         [HttpGet]

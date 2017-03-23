@@ -15,6 +15,7 @@ namespace TncNokTooling.Controllers
     {
         private TncNokToolingEntities DBTNT = new TncNokToolingEntities();
 
+        [Chk_Authen]
         public ActionResult Status()
         {
             return View();
@@ -123,6 +124,7 @@ namespace TncNokTooling.Controllers
 
         //--------------------------------------------//
 
+        [Chk_Authen]
         public ActionResult Action()
         {
             return View();
@@ -219,6 +221,7 @@ namespace TncNokTooling.Controllers
 
         //--------------------------------------------//
 
+        [Chk_Authen]
         public ActionResult UserType()
         {
             return View();
@@ -315,6 +318,7 @@ namespace TncNokTooling.Controllers
 
         //--------------------------------------------//
 
+        [Chk_Authen]
         public ActionResult Users()
         {
             return View();
@@ -413,6 +417,7 @@ namespace TncNokTooling.Controllers
 
         //--------------------------------------------//
 
+        [Chk_Authen]
         public ActionResult UserNOK()
         {
             return View();
@@ -539,6 +544,7 @@ namespace TncNokTooling.Controllers
 
         //--------------------------------------------//
 
+        [Chk_Authen]
         public ActionResult FileType()
         {
             return View();
@@ -635,5 +641,28 @@ namespace TncNokTooling.Controllers
 
         //--------------------------------------------//
 
+        [Chk_Authen]
+        public ActionResult ChangeNOKPassword()
+        {
+            ViewBag.NOKUser = DBTNT.tm_user_nok;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ChangeNOKPass()
+        {
+            var emp = Request.Form["seluser"];
+            var get_user = DBTNT.tm_user_nok.Find(emp);
+            if (get_user != null)
+            {
+                var keyNew = EncryptDecrypt.GeneratePassword(10);
+                get_user.password = EncryptDecrypt.EncodePassword(Request.Form["pass_confirmation"], keyNew);
+                get_user.vcode = keyNew;
+                DBTNT.SaveChanges();
+                //Change password success
+            }
+
+            return RedirectToAction("ChangeNOKPassword", "Admin");
+        }
     }
 }

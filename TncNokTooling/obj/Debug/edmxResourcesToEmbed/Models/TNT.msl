@@ -279,5 +279,24 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="td_import">
+      <EntityTypeMapping TypeName="TncNokToolingModel.td_import">
+        <MappingFragment StoreEntitySet="td_import">
+          <ScalarProperty Name="due_date" ColumnName="due_date" />
+          <ScalarProperty Name="destination" ColumnName="destination" />
+          <ScalarProperty Name="ship_qty" ColumnName="ship_qty" />
+          <ScalarProperty Name="insp_qty" ColumnName="insp_qty" />
+          <ScalarProperty Name="order_qty" ColumnName="order_qty" />
+          <ScalarProperty Name="order_status" ColumnName="order_status" />
+          <ScalarProperty Name="spec" ColumnName="spec" />
+          <ScalarProperty Name="order_name" ColumnName="order_name" />
+          <ScalarProperty Name="product" ColumnName="product" />
+          <ScalarProperty Name="plant" ColumnName="plant" />
+          <ScalarProperty Name="po_added" ColumnName="po_added" />
+          <ScalarProperty Name="po_no" ColumnName="po_no" />
+          <ScalarProperty Name="delivery_status" ColumnName="delivery_status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -8,6 +8,7 @@
         <EntityContainer Name="TncNokToolingModelStoreContainer">
           <EntitySet Name="td_eta_tnc" EntityType="TncNokToolingModel.Store.td_eta_tnc" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="td_files" EntityType="TncNokToolingModel.Store.td_files" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="td_import" EntityType="TncNokToolingModel.Store.td_import" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="td_pr" EntityType="TncNokToolingModel.Store.td_pr" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="td_tooling" EntityType="TncNokToolingModel.Store.td_tooling" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="td_tran" EntityType="TncNokToolingModel.Store.td_tran" store:Type="Tables" Schema="dbo" />
@@ -176,6 +177,26 @@
           <Property Name="file_path" Type="nvarchar(max)" Nullable="false" />
           <Property Name="upl_dt" Type="datetime" Nullable="false" />
           <Property Name="upl_by" Type="nvarchar" Nullable="false" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="td_import">
+          <Key>
+            <PropertyRef Name="po_no" />
+            <PropertyRef Name="po_added" />
+          </Key>
+          <Property Name="delivery_status" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="po_no" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="po_added" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="plant" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="product" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="order_name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="spec" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="order_status" Type="nvarchar" MaxLength="50" />
+          <Property Name="order_qty" Type="int" />
+          <Property Name="insp_qty" Type="int" />
+          <Property Name="ship_qty" Type="int" />
+          <Property Name="destination" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="due_date" Type="date" />
+          <Property Name="del_flag" Type="bit" />
         </EntityType>
         <EntityType Name="td_pr">
           <Key>
@@ -808,6 +829,7 @@
             <End Role="tm_site" EntitySet="tm_site" />
             <End Role="tm_user" EntitySet="tm_user" />
           </AssociationSet>
+          <EntitySet Name="td_import" EntityType="TncNokToolingModel.td_import" />
         </EntityContainer>
         <EntityType Name="td_files">
           <Key>
@@ -1391,6 +1413,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="td_import">
+          <Key>
+            <PropertyRef Name="po_no" />
+            <PropertyRef Name="po_added" />
+          </Key>
+          <Property Type="String" Name="delivery_status" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="po_no" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="po_added" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="plant" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="product" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="order_name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="spec" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="order_status" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="order_qty" />
+          <Property Type="Int32" Name="insp_qty" />
+          <Property Type="Int32" Name="ship_qty" />
+          <Property Type="String" Name="destination" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="due_date" Precision="0" />
+          <Property Type="Boolean" Name="del_flag" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1672,6 +1714,26 @@
               <MappingFragment StoreEntitySet="tm_site">
                 <ScalarProperty Name="site_name" ColumnName="site_name" />
                 <ScalarProperty Name="site_id" ColumnName="site_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="td_import">
+            <EntityTypeMapping TypeName="TncNokToolingModel.td_import">
+              <MappingFragment StoreEntitySet="td_import">
+                <ScalarProperty Name="del_flag" ColumnName="del_flag" />
+                <ScalarProperty Name="due_date" ColumnName="due_date" />
+                <ScalarProperty Name="destination" ColumnName="destination" />
+                <ScalarProperty Name="ship_qty" ColumnName="ship_qty" />
+                <ScalarProperty Name="insp_qty" ColumnName="insp_qty" />
+                <ScalarProperty Name="order_qty" ColumnName="order_qty" />
+                <ScalarProperty Name="order_status" ColumnName="order_status" />
+                <ScalarProperty Name="spec" ColumnName="spec" />
+                <ScalarProperty Name="order_name" ColumnName="order_name" />
+                <ScalarProperty Name="product" ColumnName="product" />
+                <ScalarProperty Name="plant" ColumnName="plant" />
+                <ScalarProperty Name="po_added" ColumnName="po_added" />
+                <ScalarProperty Name="po_no" ColumnName="po_no" />
+                <ScalarProperty Name="delivery_status" ColumnName="delivery_status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
