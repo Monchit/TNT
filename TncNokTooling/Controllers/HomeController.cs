@@ -418,7 +418,7 @@ namespace TncNokTooling.Controllers
                     }
                     else
                     {
-                        query = query.Where(w => w.ulv_id == ulv && w.org == org);
+                        query = query.Where(w => w.ulv_id == ulv && w.org == org && w.status_id < 90);
                     }
                 }
                 else

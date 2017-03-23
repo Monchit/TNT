@@ -282,6 +282,7 @@
     <EntitySetMapping Name="td_import">
       <EntityTypeMapping TypeName="TncNokToolingModel.td_import">
         <MappingFragment StoreEntitySet="td_import">
+          <ScalarProperty Name="del_flag" ColumnName="del_flag" />
           <ScalarProperty Name="due_date" ColumnName="due_date" />
           <ScalarProperty Name="destination" ColumnName="destination" />
           <ScalarProperty Name="ship_qty" ColumnName="ship_qty" />

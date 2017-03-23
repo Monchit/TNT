@@ -191,6 +191,7 @@
     <Property Name="ship_qty" Type="int" />
     <Property Name="destination" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="due_date" Type="date" />
+    <Property Name="del_flag" Type="bit" />
   </EntityType>
   <EntityType Name="td_pr">
     <Key>

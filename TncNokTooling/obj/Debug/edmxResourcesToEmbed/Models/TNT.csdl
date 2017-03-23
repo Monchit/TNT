@@ -701,5 +701,6 @@
     <Property Type="Int32" Name="ship_qty" />
     <Property Type="String" Name="destination" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Type="DateTime" Name="due_date" Precision="0" />
+    <Property Type="Boolean" Name="del_flag" />
   </EntityType>
 </Schema>
