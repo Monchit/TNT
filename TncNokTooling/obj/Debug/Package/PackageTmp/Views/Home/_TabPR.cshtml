@@ -178,7 +178,8 @@
                             <td>Invoice no.: @inv.invoice_no</td>
                             <td class="txtcenter">@inv.rec_qty</td>
                             <td>ETA TNC: @String.Format("{0:dd/MM/yyyy}", inv.eta_tnc)</td>
-                            <td class="txtcenter"><a href="@Url.Content(inv.file_path)" target="_blank"><i class="icon-file"></i></a></td>
+                            <td></td>
+                            @*<td class="txtcenter"><a href="@Url.Content(inv.file_path)" target="_blank"><i class="icon-file"></i></a></td>*@
                             <td></td>
                             <td></td>
                         </tr>
@@ -190,6 +191,7 @@
         </table>
     </div>
 </div>
+
 <hr />
 <div class="row-fluid">
     @foreach (var item in ViewBag.ShowTran)

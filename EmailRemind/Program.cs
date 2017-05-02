@@ -17,13 +17,12 @@ namespace EmailRemind
                 TncNokToolingEntities dbTNT = new TncNokToolingEntities();
 
                 var query = from a in dbTNT.td_tran
-                            where a.act_id == null && a.status_id < 90
+                            where a.act_id == null && a.status_id < 80
                             select a;
 
                 foreach (var item in query)
                 {
                     string email = "";
-
 
                     if (item.status_id == 5 || item.status_id == 6 || item.status_id == 7)//Import-Export
                     {
@@ -50,34 +49,6 @@ namespace EmailRemind
                         }
                     }
                 }
-
-                //// Send mails via Smtp
-                //string smtpServerIP = "10.201.31.239";
-                //int port = 25;
-
-                //// To
-                //MailMessage mailMsg = new MailMessage();
-                //string to = "itadmin@nok.co.th";
-                //string from = "TNCAdmin@nok.co.th";
-
-                //mailMsg.To.Add(to);
-                ////if (!string.IsNullOrEmpty(CC))
-                ////    mailMsg.CC.Add(CC);
-                ////if (!string.IsNullOrEmpty(BCC))
-                ////    mailMsg.Bcc.Add(BCC);
-
-                //// From
-                //MailAddress mailAddress = new MailAddress(from);
-                //mailMsg.From = mailAddress;
-
-                //// Subject and Body
-                //mailMsg.Subject = "Test";
-                //mailMsg.Body = "Test";
-                //mailMsg.IsBodyHtml = true;
-
-                //// Init SmtpClient and send
-                //SmtpClient smtpClient = new SmtpClient(smtpServerIP, Convert.ToInt32(port));
-                //smtpClient.Send(mailMsg);
 
                 //Console.WriteLine("OK");
             }

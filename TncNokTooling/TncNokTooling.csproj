@@ -382,6 +382,9 @@
     <Compile Include="Models\V_Employee_Info.cs">
       <DependentUpon>TNC_Admin.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\v_issue_group.cs">
+      <DependentUpon>TNT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\v_sys_user.cs">
       <DependentUpon>TNT.tt</DependentUpon>
     </Compile>
@@ -540,6 +543,7 @@
     <Content Include="Images\waiting.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="img\Excel-icon16.png" />
     <Content Include="img\glyphicons-halflings-white.png" />
     <Content Include="img\glyphicons-halflings.png" />
     <Content Include="Scripts\bootstrap.js" />
@@ -630,6 +634,7 @@
       <DependentUpon>TNT.edmx</DependentUpon>
       <LastGenOutput>TNT.cs</LastGenOutput>
     </Content>
+    <Content Include="Formats\Format.xlsx" />
     <None Include="Properties\PublishProfiles\webex.pubxml" />
     <None Include="Properties\PublishProfiles\webin01.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
@@ -963,6 +968,7 @@
     <Content Include="Views\Home\ChgPwdNok.cshtml" />
     <Content Include="Views\Home\UploadNOK.cshtml" />
     <Content Include="Views\Admin\ChangeNOKPassword.cshtml" />
+    <Content Include="Views\Admin\UpdatePO.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -25,7 +25,7 @@
 
         $(document).off('click', '.addinv').on('click', '.addinv', function () {
             var line = $(this).attr("data-line");
-            $('<tr><td><input type="hidden" name="prline" value="' + line + '" /></td><td colspan="4">Invoice no.: <input type="text" name="invno" class="input-medium" /> ETA TNC: <input type="text" name="eta" class="input-small datepicker" /> Q\'ty: <input type="text" name="recqty" class="input-mini" /> <input type="file" name="invfile" /></td><td class="txtright"><button type="button" class="btn btn-small btn-danger delinv"><i class="icon-remove icon-white"></i></button></td></tr>').insertAfter($(this).closest('tr'));
+            $('<tr><td><input type="hidden" name="prline" value="' + line + '" /></td><td colspan="4">Invoice no.: <input type="text" name="invno" class="input-medium" /> ETA TNC: <input type="text" name="eta" class="input-small datepicker" /> Q\'ty: <input type="text" name="recqty" class="input-mini" /> </td><td class="txtright"><button type="button" class="btn btn-small btn-danger delinv"><i class="icon-remove icon-white"></i></button></td></tr>').insertAfter($(this).closest('tr'));
 
             //$(this).closest('tr').next().prev().after();
             //$(this).parent().parent().parent().next('<tr><td></td><td colspan="4"></td><td></td></tr>');
@@ -112,7 +112,8 @@
                             <td>Invoice no.: @inv.invoice_no</td>
                             <td class="txtcenter">@inv.rec_qty</td>
                             <td>ETA TNC: @String.Format("{0:dd/MM/yyyy}", inv.eta_tnc)</td>
-                            <td class="txtcenter"><a href="@Url.Content(inv.file_path)" target="_blank"><i class="icon-file"></i></a></td>
+                            <td></td>
+                            @*<td class="txtcenter"><a href="@Url.Content(inv.file_path)" target="_blank"><i class="icon-file"></i></a></td>*@
                             <td class="txtright"><button type="button" class="btn btn-small btn-danger delinvdb" data-prline="@inv.pr_line" data-inv="@inv.invoice_no"><i class="icon-remove icon-white"></i></button></td>
                         </tr>
                     }

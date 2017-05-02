@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "Update PO";
+}
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.validate({
+                form: '#form_upd_po'
+            });
+
+            $("#prno_search").select2({
+                multiple: false,
+                placeholder: "PR No.",
+                minimumInputLength: 3,
+                ajax: {
+                    url: '@Url.Action("Selecte2PRNo", "Admin")',
+                    dataType: 'json',
+                    data: function (term, page) {
+                        return {
+                            searchTerm: term
+                        };
+                    },
+                    results: function (data, page) {
+                        return { results: data };
+                    }
+                },
+                formatResult: function (item) { return item.text; },
+                formatSelection: function (item) { return item.text; }
+            });
+
+            $("#btnSearch").click(function () {
+                var pr = $("#prno_search").select2("val");
+                $.get("@Url.Action("GetPRPO","Admin")", "id=" + pr, function (data) {
+                    $("#prno").val(data.pr_no);
+                    $("#pono").val(data.po_no);
+                });
+            });
+        });
+    </script>
+}
+
+<h3>UpdatePO</h3>
+
+<hr />
+
+<form class="form-inline">
+    <label>PR No. : </label>
+    <input type="text" id="prno_search" name="prno_search" class="input-medium" placeholder="PR No.">
+    <button type="button" id="btnSearch" class="btn btn-primary"><i class="icon-search icon-white"></i> Search</button>
+</form>
+
+<hr />
+
+<form id="form_upd_po" name="form_upd_po" class="form-horizontal" method="post" action="@Url.Action("UpdatePOData", "Admin")" enctype="multipart/form-data">
+    <div class="control-group">
+        <label class="control-label" for="prno">PR No. : </label>
+        <div class="controls">
+            <input type="text" id="prno" name="prno" placeholder="No select PR No." readonly="readonly" class="input-small" data-validation="required">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="pono">PO No. : </label>
+        <div class="controls">
+            <input type="text" id="pono" name="pono" placeholder="PO No." class="input-medium">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="pono">PO File : </label>
+        <div class="controls">
+            <input type="file" id="pofile" name="pofile" data-validation="extension" data-validation-allowing="pdf" data-validation-optional="true">
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn btn-success"><i class="icon-ok icon-white"></i> Update</button>
+        </div>
+    </div>
+</form>

@@ -100,6 +100,7 @@
       <End Role="tm_user" EntitySet="tm_user" />
     </AssociationSet>
     <EntitySet Name="td_import" EntityType="TncNokToolingModel.td_import" />
+    <EntitySet Name="v_issue_group" EntityType="TncNokToolingModel.v_issue_group" />
   </EntityContainer>
   <EntityType Name="td_files">
     <Key>
@@ -279,6 +280,7 @@
     <Property Name="next" Type="Byte" />
     <Property Name="name2" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
     <NavigationProperty Name="td_tran" Relationship="TncNokToolingModel.FK_td_tran_tm_status" FromRole="tm_status" ToRole="td_tran" />
+    <Property Type="Boolean" Name="active" />
   </EntityType>
   <EntityType Name="tm_type">
     <Key>
@@ -685,22 +687,30 @@
   </Association>
   <EntityType Name="td_import">
     <Key>
-      <PropertyRef Name="po_no" />
-      <PropertyRef Name="po_added" />
+      <PropertyRef Name="id" />
     </Key>
-    <Property Type="String" Name="delivery_status" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Type="String" Name="po_no" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="po_added" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="plant" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="product" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Type="String" Name="order_name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Type="String" Name="spec" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="spec" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="order_status" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Type="Int32" Name="order_qty" />
     <Property Type="Int32" Name="insp_qty" />
     <Property Type="Int32" Name="ship_qty" />
-    <Property Type="String" Name="destination" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Type="DateTime" Name="due_date" Precision="0" />
-    <Property Type="Boolean" Name="del_flag" />
+    <Property Type="Boolean" Name="del_flag" Nullable="false" />
+    <Property Type="DateTime" Name="etd_date" Precision="0" />
+    <Property Type="String" Name="note" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="update_dt" Precision="3" Nullable="false" />
+    <Property Type="Byte" Name="status_id" Nullable="false" />
+  </EntityType>
+  <EntityType Name="v_issue_group">
+    <Key>
+      <PropertyRef Name="issue_group" />
+    </Key>
+    <Property Type="Int32" Name="issue_group" Nullable="false" />
+    <Property Type="String" Name="group_name" MaxLength="255" FixedLength="false" Unicode="true" />
   </EntityType>
 </Schema>

@@ -104,6 +104,7 @@
                                             goto case 11;
                                         case 11: <text>
                                         @Html.MenuLink("User", "Users", "Admin")
+                                        @Html.MenuLink("User NOK", "UserNOK", "Admin")
                                             </text>
                                             goto case 12;
                                         case 12: <text><li class="divider"></li></text>
@@ -113,6 +114,8 @@
                                         case 17: <text>
                                             @Html.MenuLink("PR Data", "PRData", "Master")
                                             @Html.MenuLink("Lead Time", "LeadTime", "Master")
+                                            @Html.MenuLink("Change Password User NOK", "ChangeNOKPassword", "Admin")
+                                            @Html.MenuLink("Update PO","UpdatePO","Admin")
                                             </text>
                                             break;
                                     }
@@ -122,6 +125,8 @@
                             else if (user_type > 20)//NOK
                             {
                                 @Html.MenuLink("Search", "NOKSearch", "Home")
+                                @Html.MenuLink("Upload","UploadNOK","Home")
+                                @Html.MenuLink("Change Password","ChgPwdNok","Home")
                             }
                         }
                         <li class="dropdown">
@@ -147,7 +152,7 @@
             <p>
                 Copyright &copy; @DateTime.Now.Year - Thai NOK Co.,Ltd. All Rights Reserved.
                 <br />
-                <small>Created by <a href="mailto:monchit@nok.co.th">Monchit W.</a> (IT - Information Technology Group)</small>
+                <small>Created by <a href="mailto:monchit@nok.co.th">Monchit W.</a> (IS - Information System Group)</small>
             </p>
         </footer>
     </div>

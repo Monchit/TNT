@@ -21,6 +21,12 @@
     <EntitySet Name="tm_user_lv" EntityType="TncNokToolingModel.Store.tm_user_lv" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tm_user_nok" EntityType="TncNokToolingModel.Store.tm_user_nok" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tm_user_type" EntityType="TncNokToolingModel.Store.tm_user_type" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="v_issue_group" EntityType="TncNokToolingModel.Store.v_issue_group" store:Type="Views" store:Schema="dbo" store:Name="v_issue_group">
+      <DefiningQuery>SELECT 
+      [v_issue_group].[issue_group] AS [issue_group], 
+      [v_issue_group].[group_name] AS [group_name]
+      FROM [dbo].[v_issue_group] AS [v_issue_group]</DefiningQuery>
+    </EntitySet>
     <EntitySet Name="v_sys_user" EntityType="TncNokToolingModel.Store.v_sys_user" store:Type="Views" store:Schema="dbo" store:Name="v_sys_user">
       <DefiningQuery>SELECT 
       [v_sys_user].[emp_code] AS [emp_code], 
@@ -175,23 +181,24 @@
   </EntityType>
   <EntityType Name="td_import">
     <Key>
-      <PropertyRef Name="po_no" />
-      <PropertyRef Name="po_added" />
+      <PropertyRef Name="id" />
     </Key>
-    <Property Name="delivery_status" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="po_no" Type="varchar" Nullable="false" MaxLength="10" />
     <Property Name="po_added" Type="varchar" Nullable="false" MaxLength="30" />
     <Property Name="plant" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="product" Type="nvarchar" Nullable="false" MaxLength="50" />
-    <Property Name="order_name" Type="nvarchar" Nullable="false" MaxLength="100" />
-    <Property Name="spec" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="spec" Type="nvarchar(max)" Nullable="false" />
     <Property Name="order_status" Type="nvarchar" MaxLength="50" />
     <Property Name="order_qty" Type="int" />
     <Property Name="insp_qty" Type="int" />
     <Property Name="ship_qty" Type="int" />
-    <Property Name="destination" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="due_date" Type="date" />
-    <Property Name="del_flag" Type="bit" />
+    <Property Name="del_flag" Type="bit" Nullable="false" />
+    <Property Name="etd_date" Type="date" />
+    <Property Name="note" Type="nvarchar(max)" />
+    <Property Name="update_dt" Type="datetime" Nullable="false" />
+    <Property Name="status_id" Type="tinyint" Nullable="false" />
   </EntityType>
   <EntityType Name="td_pr">
     <Key>
@@ -337,6 +344,7 @@
     <Property Name="lv_max" Type="tinyint" />
     <Property Name="next" Type="tinyint" />
     <Property Name="name2" Type="varchar" MaxLength="50" />
+    <Property Name="active" Type="bit" />
   </EntityType>
   <EntityType Name="tm_type">
     <Key>
@@ -381,6 +389,16 @@
     </Key>
     <Property Name="id" Type="tinyint" Nullable="false" />
     <Property Name="name" Type="varchar" Nullable="false" MaxLength="20" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'TncNokTooling.dbo.v_issue_group' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="v_issue_group">
+    <Key>
+      <PropertyRef Name="issue_group" />
+    </Key>
+    <Property Name="issue_group" Type="int" Nullable="false" />
+    <Property Name="group_name" Type="nvarchar" MaxLength="255" />
   </EntityType>
   <!--Errors Found During Generation:
       warning 6002: The table/view 'TncNokTooling.dbo.v_sys_user' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.

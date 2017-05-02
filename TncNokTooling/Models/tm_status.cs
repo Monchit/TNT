@@ -25,6 +25,7 @@ namespace TncNokTooling.Models
         public Nullable<byte> lv_max { get; set; }
         public Nullable<byte> next { get; set; }
         public string name2 { get; set; }
+        public Nullable<bool> active { get; set; }
     
         public virtual ICollection<td_tran> td_tran { get; set; }
     }

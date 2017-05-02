@@ -22,10 +22,10 @@ namespace GetPOFixed
                 foreach (var item in tnt_get)
                 {
                     //Console.WriteLine("v_tran:" + item.pr_no);
-                    var get_max_appcount = (from a in dbpr.PO_APP_LINE
-                                            where a.AppSign == "2" && a.PRNO == item.pr_no
-                                            group a by a.PRNO into g
-                                            select new { prno = g.Key, max_app = g.Max(m => m.AppCount) }).FirstOrDefault();
+                    //var get_max_appcount = (from a in dbpr.PO_APP_LINE
+                    //                        where a.AppSign == "2" && a.PRNO == item.pr_no
+                    //                        group a by a.PRNO into g
+                    //                        select new { prno = g.Key, max_app = g.Max(m => m.AppCount) }).FirstOrDefault();
 
                     var get_po = (from a in dbpr.PO_APP_LINE
                                   where a.AppSign == "2" && a.POStatus == "O" && a.PRNO == item.pr_no
@@ -44,32 +44,34 @@ namespace GetPOFixed
 
                             td_tran addTran = new td_tran();
                             addTran.pr_no = item.pr_no;
-                            addTran.status_id = 13;
-                            addTran.ulv_id = 1;
-                            addTran.org = 133;
-                            addTran.rev = updTran.rev;
-                            addTran.act_dt = DateTime.Now;
-                            dbtnt.td_tran.Add(addTran);
-                        }
-                    }
-                    else
-                    {
-                        var updTran = dbtnt.td_tran.First(w => w.pr_no == item.pr_no && w.status_id == 5 && w.ulv_id == 1 && w.act_id == null);
-                        if (updTran != null)
-                        {
-                            updTran.act_id = "SKIP";
-                            updTran.act_dt = DateTime.Now;
-
-                            td_tran addTran = new td_tran();
-                            addTran.pr_no = item.pr_no;
-                            addTran.status_id = 100;//Completed
-                            addTran.ulv_id = 1;
+                            addTran.status_id = 81;//81=Wait for NOK receive PO, 82=Already received PO from TNC
+                            addTran.ulv_id = 0;
                             addTran.org = 0;
                             addTran.rev = updTran.rev;
                             addTran.act_dt = DateTime.Now;
                             dbtnt.td_tran.Add(addTran);
                         }
+
+                        //Send Email to NOK
                     }
+                    //else
+                    //{
+                    //    var updTran = dbtnt.td_tran.First(w => w.pr_no == item.pr_no && w.status_id == 5 && w.ulv_id == 1 && w.act_id == null);
+                    //    if (updTran != null)
+                    //    {
+                    //        updTran.act_id = "SKIP";
+                    //        updTran.act_dt = DateTime.Now;
+
+                    //        td_tran addTran = new td_tran();
+                    //        addTran.pr_no = item.pr_no;
+                    //        addTran.status_id = 100;//Completed
+                    //        addTran.ulv_id = 1;
+                    //        addTran.org = 0;
+                    //        addTran.rev = updTran.rev;
+                    //        addTran.act_dt = DateTime.Now;
+                    //        dbtnt.td_tran.Add(addTran);
+                    //    }
+                    //}
                 }
 
                 dbtnt.SaveChanges();

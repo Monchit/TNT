@@ -2,44 +2,72 @@
     ViewBag.Title = "NOK Search";
 }
 
+<style type="text/css">
+.rowComp {
+    background-color:#d6fbca !important;
+    color:#4b803b !important;
+}
+.rowRej {
+    background-color: #fda0a0 !important;
+    color:#e52020 !important;
+}
+</style>
+
 @section scripts {
     <script type="text/javascript">
         $(document).ready(function () {
             var obj = new Object();
             $('#jTableList').jtable({
-                //title: 'Data Record',
+                title: 'TNC PO Data',
                 paging: true,
                 pageSize: 10, //Set page size (default: 10)
                 sorting: true,
                 selecting: true, //Enable selecting
                 multiselect: false, //Allow multiple selecting
-                defaultSorting: 'po_no', //Set default sorting
+                defaultSorting: 'due_date ASC', //Set default sorting
                 actions: {
                     listAction: '@Url.Action("NOKList", "Home")'
                 },
-                //recordsLoaded: function (event, data) {
-                //    $("table.jtable").children().eq(1).children().each(function () {
-                //        if ($(this).children().eq(8).text() == "Completed") {
-                //            $(this).addClass("rowComp");
-                //        }
-                //        else if ($(this).children().eq(8).text() == "Rejected") {
-                //            $(this).addClass("rowRej");
-                //        }
-                //    });
-                //},
+                recordsLoaded: function (event, data) {
+                    $("table.jtable").children().eq(1).children().each(function () {
+                        if ($(this).children().eq(4).text() == "Completed") {
+                            $(this).addClass("rowComp");
+                        }
+                        else if ($(this).children().eq(4).text() == "Rejected") {
+                            $(this).addClass("rowRej");
+                        }
+                    });
+                },
+                toolbar: {
+                    items: [{
+                        tooltip: 'Click here to export to Excel',
+                        icon: '../img/Excel-icon16.png',
+                        text: 'Export to Excel',
+                        click: function () {
+                            $("#nok_export").submit();
+                        }
+                    }]
+                },
                 fields: {
                     pr_no: { list: false },
-                    plant: { title: 'Plant/Div', width: '8%' },
-                    item_code: { title: 'Item code', width: '9%' },
-                    po_no: { title: 'TNC PO No.', width: '7%' },
-                    issue_dt: { title: 'TNC Issue', width: '7%', type: 'date', displayFormat: 'dd-mm-yy' },
-                    due_date: { title: 'TNC Due', width: '7%', type: 'date', displayFormat: 'dd-mm-yy' },
-                    po_nok: { title: 'NOK PO No.', width: '8%' },
-                    nok_issue_dt: { title: 'NOK Issue', width: '8%', type: 'date', displayFormat: 'dd-mm-yy' },
-                    order_no: { title: 'Division order no.', width: '8%' },
-                    div_comp_dt: { title: 'Division Comp. Date', width: '8%', type: 'date', displayFormat: 'dd-mm-yy' },
-                    status: { title: 'Status', width: '20%' },
-                    status_id: { list: false }
+                    //nok_plant: { title: 'Plant/Div', width: '8%' },
+                    item_code: { title: 'Item code', width: '25%' },
+                    po_no: { title: 'TNC PO No.', width: '10%' },
+                    issue_dt: { title: 'TNC Issue', width: '10%', type: 'date', displayFormat: 'dd-mm-yy' },
+                    due_date: { title: 'TNC Due', width: '10%', type: 'date', displayFormat: 'dd-mm-yy' },
+                    //po_nok: { title: 'NOK PO No.', width: '8%' },
+                    //nok_issue_dt: { title: 'NOK Issue', width: '8%', type: 'date', displayFormat: 'dd-mm-yy' },
+                    //order_no: { title: 'Division order no.', width: '8%' },
+                    //div_comp_dt: { title: 'Division Comp. Date', width: '8%', type: 'date', displayFormat: 'dd-mm-yy' },
+                    status: { title: 'Status', width: '25%' },
+                    status_id: { list: false },
+                    condition: { title: 'Condition', width: '10%' },
+                    polink: {
+                        title: 'PO', width: '10%',
+                        display: function (data) {
+                            return "<a href='http://webexternal.nok.co.th/ponics/printPO.php?PONO=" + data.record.po_no + "&ACTION=PREVIEW&ISU=17/04/20' target='_blank' >View</a>";
+                        }
+                    }
                 },
                 //Register to selectionChanged event to hanlde events
                 selectionChanged: function () {
@@ -51,9 +79,15 @@
 
                             obj.pr_no = record.pr_no;
 
-                            var remote = "@Url.Action("_TabComment")";
+                            @*var remote = "@Url.Action("_TabComment")";
                             $.get(remote, obj, function (data) {
                                 $("#_TabComment").html(data);
+                                return false;
+                            });*@
+
+                            var remote = "@Url.Action("_TabNOK")";
+                            $.get(remote, obj, function (data) {
+                                $("#_TabNOK").html(data);
                                 return false;
                             });
 
@@ -63,7 +97,7 @@
                                 return false;
                             });
 
-                            var appremote = "@Url.Action("_TabNOKAppr")";
+                            @*var appremote = "@Url.Action("_TabNOKAppr")";
                             $.get(appremote, obj, function (data) {
                                 $("#divOperation").html(data);
                                 return false;
@@ -73,7 +107,7 @@
                             $.get(editremote, obj, function (data) {
                                 $("#divNokEdit").html(data);
                                 return false;
-                            });
+                            });*@
                         });
                     }
                 }
@@ -82,13 +116,13 @@
             $('#btn_search').click(function (e) {
                 e.preventDefault();
                 $('#jTableList').jtable('load', {
-                    id: $('#txt_pr').val(),
+                    //id: $('#txt_pr').val(),
                     po_no: $('#txt_po').val(),
                     item: $('#txt_item').val(),
-                    process: $('#sel_process').val(),
-                    requester: $('#txt_req').val(),
-                    req_group: $('#sel_req_group').val(),
-                    status: $('#sel_status').val(),
+                    //process: $('#sel_process').val(),
+                    //requester: $('#txt_req').val(),
+                    //req_group: $('#sel_req_group').val(),
+                    status: $('#txt_status').val(),
                     condition: $('#sel_condition').val()
                 });
             });
@@ -103,17 +137,15 @@
         </div>
         <div id="col_search" class="accordion-body collapse in">
             <div class="accordion-inner">
-                <form class="form-horizontal row-fluid">
+                <form class="form-horizontal row-fluid" id="nok_export" method="post" action="@Url.Action("NOKExport","Home")">
                     <div class="span5">
-                        <!-- Text input-->
-                        <div class="control-group">
+                        @*<div class="control-group">
                             <label class="control-label" for="txt_plant">Plant/Division :</label>
                             <div class="controls">
                                 <input id="txt_plant" name="txt_plant" type="text" placeholder="Plant/Division" class="input-large">
                             </div>
-                        </div>
+                        </div>*@
       
-                        <!-- Text input-->
                         <div class="control-group">
                             <label class="control-label" for="txt_item">Item code :</label>
                             <div class="controls">
@@ -121,7 +153,6 @@
                             </div>
                         </div>
                   
-                        <!-- Text input-->
                         <div class="control-group">
                             <label class="control-label" for="txt_po">TNC PO No. :</label>
                             <div class="controls">
@@ -129,18 +160,17 @@
                             </div>
                         </div>
 
-                        <!-- Text input-->
-                        <div class="control-group">
+                        @*<div class="control-group">
                             <label class="control-label" for="txt_po_nok">NOK PO No. :</label>
                             <div class="controls">
                                 <input id="txt_po_nok" name="txt_po_nok" type="text" placeholder="NOK PO No." class="input-large">
                             </div>
-                        </div>
+                        </div>*@
                     </div>
 
-                    <div class="span6">                
+                    <div class="span5">                
                         
-                        <div class="control-group">
+                        @*<div class="control-group">
                             <label class="control-label" for="txt_order">Order No. :</label>
                             <div class="controls">
                                 <input id="txt_order" name="txt_order" type="text" placeholder="Order No." class="input-large">
@@ -152,20 +182,32 @@
                             <div class="controls">
                                 <input id="txt_maker" name="txt_maker" type="text" placeholder="Maker Name" class="input-large">
                             </div>
+                        </div>*@
+
+                        <div class="control-group">
+                            <label class="control-label" for="txt_status">Status :</label>
+                            <div class="controls">
+                                <input id="txt_status" name="txt_status" type="text" placeholder="Status" class="input-large" />
+                                @*<select id="sel_status" name="sel_status" class="input-large">
+                                    <option value="">-- All --</option>
+                                </select>*@
+                            </div>
                         </div>
 
                         <div class="control-group">
-                            <label class="control-label" for="sel_status">Status :</label>
+                            <label class="control-label" for="sel_condition">Condition :</label>
                             <div class="controls">
-                                <select id="sel_status" name="sel_status" class="input-large">
+                                <select id="sel_condition" name="sel_condition" class="input-large">
                                     <option value="">-- All --</option>
+                                    <option>Normal</option>
+                                    <option>Urgent</option>
                                 </select>
                             </div>
                         </div>
                     </div>
 
-                    <div class="span1">
-                        <button id="btn_search" name="btn_search" class="btn btn-primary" type="submit">
+                    <div class="span2">
+                        <button id="btn_search" name="btn_search" class="btn btn-large btn-block btn-primary" type="submit">
                             <i class="icon-search icon-white"></i> Search</button></div>
                 </form>
             </div>
@@ -177,7 +219,7 @@
 <br />
 
 <div class="row-fluid">
-    <div class="span9" id="_TabComment">
+    <div class="span9" id="_TabNOK">
 
     </div>
     <div class="span3" id="_TabFiles">

@@ -2,36 +2,34 @@
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th>Status</th>
+            @*<th>Status</th>*@
             <th>PO No.</th>
             <th>Plant</th>
             <th>Product</th>
-            <th>Order Name</th>
             <th>Spec, Dimension</th>
             <th>Order Status</th>
             <th>Order Q'ty</th>
             <th>Receiving Inspection Q'ty</th>
             <th>Shipping Q'ty</th>
-            <th>Delivery Destination</th>
             <th>Due Date</th>
+            <th>ETD Due Date</th>
         </tr>
     </thead>
     <tbody>
     @foreach (var item in Model)
     {
         <tr>
-            <td>@item.delivery_status</td>
+            @*<td>@item.delivery_status</td>*@
             <td>@item.po_no@item.po_added</td>
             <td>@item.plant</td>
             <td>@item.product</td>
-            <td>@item.order_name</td>
             <td>@item.spec</td>
             <td>@item.order_status</td>
             <td>@item.order_qty</td>
             <td>@item.insp_qty</td>
             <td>@item.ship_qty</td>
-            <td>@item.destination</td>
-            <td>@item.due_date</td>
+            <td>@if (item.due_date != null) { <text>@item.due_date.Value.ToString("dd-MM-yyyy")</text> }</td>
+            <td>@if (item.etd_date != null) { <text>@item.etd_date.Value.ToString("dd-MM-yyyy")</text> }</td>
         </tr>
     }
     </tbody>

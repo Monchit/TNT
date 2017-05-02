@@ -48,5 +48,6 @@ namespace TncNokTooling.Models
         public DbSet<td_eta_tnc> td_eta_tnc { get; set; }
         public DbSet<tm_site> tm_site { get; set; }
         public DbSet<td_import> td_import { get; set; }
+        public DbSet<v_issue_group> v_issue_group { get; set; }
     }
 }

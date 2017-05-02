@@ -641,6 +641,88 @@ namespace TncNokTooling.Controllers
 
         //--------------------------------------------//
 
+        public ActionResult UpdatePO()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult UpdatePOData(HttpPostedFileBase pofile)//
+        {
+            try
+            {
+                string pr = Request.Form["prno"];
+
+                var query = DBTNT.td_pr.Find(pr);
+                if (!string.IsNullOrEmpty(Request.Form["pono"])) query.po_no = Request.Form["pono"];
+
+                //-------------------File Upload---------------------//
+
+                string subPath = "~/upload/" + pr.Substring(3, 2) + "/" + pr + "/";
+                if (!Directory.Exists(Server.MapPath(subPath)))
+                    Directory.CreateDirectory(Server.MapPath(subPath));
+
+                if (pofile != null && pofile.ContentLength > 0 && pofile.ContentType == "application/pdf")
+                {
+                    var fileName = Path.GetFileName(pofile.FileName.Replace('#', ' '));
+                    var path = Path.Combine(Server.MapPath(subPath), fileName);
+                    pofile.SaveAs(path);
+
+                    if (DBTNT.td_files.Find(pr, fileName) == null)
+                    {
+                        td_files fdb = new td_files();
+                        fdb.pr_no = pr;
+                        fdb.file_name = fileName;
+                        fdb.file_path = subPath;
+                        fdb.file_type = 10;
+                        fdb.upl_by = Session["TNT_Auth"].ToString();
+                        fdb.upl_dt = DateTime.Now;
+                        DBTNT.td_files.Add(fdb);
+                    }
+                }
+
+                DBTNT.SaveChanges();
+
+                TempData["noty_comp"] = "Update PO Completed.";
+                return RedirectToAction("UpdatePO", "Admin");
+            }
+            catch (Exception ex)
+            {
+                TempData["noty_warn"] = "Error : " + ex;
+                return RedirectToAction("UpdatePO", "Admin");
+            }
+        }
+
+        [HttpGet]
+        [OutputCache(Duration = 0, VaryByParam = "*", NoStore = true)]
+        public ActionResult Selecte2PRNo(string searchTerm)
+        {
+            var sel = DBTNT.td_pr
+                .Where(w => w.pr_no.Contains(searchTerm))
+                .OrderBy(o => o.pr_no)
+                .Select(s => new { id = s.pr_no, text = s.pr_no })
+                .Take(16).ToList();
+            return Json(sel, JsonRequestBehavior.AllowGet);
+        }
+
+        [OutputCache(Duration = 0, VaryByParam = "*", NoStore = true)]
+        public JsonResult GetPRPO(string id)
+        {
+            var data = (from a in DBTNT.td_pr
+                        where a.pr_no == id
+                        select new
+                        {
+                            a.pr_no,
+                            a.po_no
+                        }).FirstOrDefault();
+            if (data != null)
+                return Json(data, JsonRequestBehavior.AllowGet);
+            else
+                return Json(0, JsonRequestBehavior.AllowGet);
+        }
+
+        //--------------------------------------------//
+
         [Chk_Authen]
         public ActionResult ChangeNOKPassword()
         {

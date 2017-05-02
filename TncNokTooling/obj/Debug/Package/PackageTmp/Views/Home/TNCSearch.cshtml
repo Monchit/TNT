@@ -68,16 +68,26 @@
                 },
                 fields: {
                     pr_no: { title: 'PR No.', width: '8%' },
-                    item_code: { title: 'Item code', width: '15%' },
-                    po_no: { title: 'PO No.', width: '7%' },
-                    condition: { title: 'Condition', width: '6%' },
+                    item_code: { title: 'Item code', width: '12%' },
+                    po_no: { title: 'PO No.', list: false },
+                    polink: {
+                        title: 'PO No.', width: '7%', sorting:false,
+                        display: function (data) {
+                            if (data.record.po_no != null) {
+                                return "<a href='http://webexternal.nok.co.th/ponics/printPO.php?PONO=" + data.record.po_no + "&ACTION=PREVIEW&ISU=17/04/20' target='_blank' >" + data.record.po_no + "</a>";
+                            } else {
+                                return "-";
+                            }
+                        }
+                    },
+                    condition: { title: 'Condition', width: '7%' },
                     rank: { title: 'Rank', width: '4%' },
                     group_name: { title: 'Issue Group', width: '14%' },
                     issue_dt: { title: 'Issue Date', width: '7%', type: 'date', displayFormat: 'dd-mm-yy' },
                     due_date: { title: 'Due Date', width: '7%', type: 'date', displayFormat: 'dd-mm-yy' },
                     status: { title: 'Status', width: '24%' },
                     status_id: { list: false },
-                    site_name: { title: 'Site', width: '8%' }
+                    site_name: { title: 'Site', width: '9%' }
                 },
                 //Register to selectionChanged event to hanlde events
                 selectionChanged: function () {
@@ -104,6 +114,12 @@
                                 $("#_TabFiles").html(data);
                                 return false;
                             });
+
+                            @*var rejremote = "@Url.Action("_TabRej")";
+                            $.get(rejremote, obj, function (data) {
+                                $("#_TabRej").html(data);
+                                return false;
+                            });*@
 
                             var appremote = "@Url.Action("_TabApprove")";
                             $.get(appremote, obj, function (data) {
@@ -237,7 +253,7 @@
                                     <option value="">-- All --</option>
                                     @foreach (var item in ViewBag.ReqGroup)
                                     {
-                                        <option value="@item.id">@item.group_name</option>
+                                        <option value="@item.issue_group">@item.group_name</option>
                                     }
                                 </select>
                             </div>
@@ -288,5 +304,6 @@
         </div>
     </div>
     <div class="span3" id="_TabFiles"></div>
+    <div class="span3" id="_TabRej"></div>
 </div>
 <div class="row-fluid"><div id="divOperation" class="span9"></div></div>

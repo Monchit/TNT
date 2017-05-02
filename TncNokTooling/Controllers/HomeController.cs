@@ -107,7 +107,7 @@ namespace TncNokTooling.Controllers
                         Session["TNT_Name"] = username;
                         Session["TNT_UType"] = query.utype;
 
-                        return RedirectToAction("UploadNOK", "Home");
+                        return RedirectToAction("NOKSearch", "Home");
                     }
                     else
                     {
@@ -175,15 +175,16 @@ namespace TncNokTooling.Controllers
         public ActionResult TNCSearch()
         {
             ViewBag.ProcessList = dbTnt.tm_process;
-            ViewBag.ReqGroup = dbTNC.tnc_group_master.OrderBy(o => o.group_name);
-            ViewBag.SearchStatus = dbTnt.tm_status.OrderBy(o => o.id);
+            ViewBag.ReqGroup = dbTnt.v_issue_group;
+            //ViewBag.ReqGroup = dbTNC.tnc_group_master.OrderBy(o => o.group_name);
+            ViewBag.SearchStatus = dbTnt.tm_status.Where(w => w.active == true).OrderBy(o => o.id);
             return View();
         }
 
         [Chk_Authen]
         public ActionResult NOKSearch()
         {
-            ViewBag.ProcessList = dbTnt.tm_process;
+            //ViewBag.ProcessList = dbTnt.tm_process;
             return View();
         }
 
@@ -206,22 +207,18 @@ namespace TncNokTooling.Controllers
 
                 foreach (var item in reader)
                 {
-                    string word = item[1].ToString();
+                    string word = item[0].ToString();
                     int q = word.IndexOf('Q');
                     int t = word.IndexOf('T');
                     int w_len = word.Length;
                     string po, added = string.Empty;
                     int x = -10;
-                    if (q != -1 && t != -1)//have t and q
-                    {
-                        if (q < t) x = q;
-                        else x = t;
-                    }
-                    else if (q != -1 && t == -1)
+
+                    if (q != -1)
                     {
                         x = q;
                     }
-                    else if (q == -1 && t != -1)
+                    else if (t != -1)
                     {
                         x = t;
                     }
@@ -231,39 +228,121 @@ namespace TncNokTooling.Controllers
                         po = word.Substring(x, 7);
                         added = word.Substring(x + 7, w_len - (x + 7));
                         //string format = "dd/MM/yyyy";
+                        bool del_temp = true;
 
                         td_import imp = new td_import();
-                        imp.delivery_status = item[0].ToString();
                         imp.po_no = po;
                         imp.po_added = added;
-                        imp.plant = item[2].ToString();
-                        imp.product = item[3].ToString();
-                        imp.order_name = item[4].ToString();
-                        imp.spec = item[5].ToString();
-                        imp.order_status = item[6].ToString();
-                        imp.order_qty = string.IsNullOrEmpty(item[7].ToString()) ? 0 : int.Parse(item[7].ToString());
-                        imp.insp_qty = string.IsNullOrEmpty(item[8].ToString()) ? 0 : int.Parse(item[8].ToString());
-                        imp.ship_qty = string.IsNullOrEmpty(item[9].ToString()) ? 0 : int.Parse(item[9].ToString());
-                        imp.destination = item[10].ToString();
-                        imp.due_date = DateTime.Parse(item[11].ToString());
-                            //DateTime.ParseExact(item[11].ToString(), format, CultureInfo.InvariantCulture);
+                        imp.plant = item[1].ToString();
+                        imp.product = item[2].ToString();
+                        imp.spec = item[3].ToString();
+                        if (!string.IsNullOrEmpty(item[4].ToString()))
+                        {
+                            var temp_status = item[4].ToString().Trim();
+                            imp.order_status = temp_status;
+                            if (temp_status == "Already received PO from TNC")
+                            {
+                                imp.status_id = 82;
+                            }
+                            else if (temp_status == "Design finished and issued PO to maker")
+                            {
+                                imp.status_id = 83;
+                            }
+                            else if (temp_status == "Mold making finished")
+                            {
+                                imp.status_id = 84;
+                            }
+                            else if (temp_status == "Trial finished")
+                            {
+                                imp.status_id = 85;
+                            }
+                            else if (temp_status == "Waiting for shipping")
+                            {
+                                imp.status_id = 95;
+                                del_temp = false;
+                            }
+                            else
+                            {
+                                imp.status_id = 81;
+                            }
+                        }
+                        else
+                        {
+                            imp.status_id = 81;
+                        }
+
+                        imp.order_qty = string.IsNullOrEmpty(item[5].ToString()) ? 0 : int.Parse(item[5].ToString());
+                        imp.insp_qty = string.IsNullOrEmpty(item[6].ToString()) ? 0 : int.Parse(item[6].ToString());
+                        imp.ship_qty = string.IsNullOrEmpty(item[7].ToString()) ? 0 : int.Parse(item[7].ToString());
+                        //imp.destination = item[9].ToString();
+                        if (!string.IsNullOrEmpty(item[8].ToString())) imp.due_date = DateTime.Parse(item[8].ToString());//Maker Due
+                        if (!string.IsNullOrEmpty(item[9].ToString())) imp.etd_date = DateTime.Parse(item[9].ToString());
+                        if (!string.IsNullOrEmpty(item[10].ToString())) imp.note = item[10].ToString();
+                        imp.update_dt = DateTime.Now;
+                        imp.del_flag = del_temp;
+                        //DateTime.ParseExact(item[11].ToString(), format, CultureInfo.InvariantCulture);
+
+                        SendEmailCenter("", GetEMailImEx(), 3);
 
                         dbTnt.td_import.Add(imp);
+
+                        ManageNOKImportTran();
                     }
                 }
 
                 ((System.Data.Entity.Infrastructure.IObjectContextAdapter)dbTnt).ObjectContext.ExecuteStoreCommand("TRUNCATE TABLE td_import");
-                //DELETE FROM td_import WHERE flag = 1
+                //DELETE FROM td_import WHERE del_flag = 1
 
                 dbTnt.SaveChanges();
                 TempData["noty_comp"] = "Upload Completed.";
                 return RedirectToAction("UploadNOK", "Home");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
-                //TempData["noty_warn"] = "Error : " + ex;
-                //return RedirectToAction("UploadNOK", "Home");
+                //throw;
+                TempData["noty_warn"] = "Error : " + ex;
+                return RedirectToAction("UploadNOK", "Home");
+            }
+        }
+
+        private void ManageNOKImportTran()
+        {
+            using(var localdb = new TncNokToolingEntities()){
+                var get_import = from a in localdb.td_import
+                                 group a by a.po_no into g
+                                 select new { po = g.Key, status = g.Min(p => p.status_id) };
+
+                foreach (var item in get_import)
+                {
+                    var get_pr = localdb.td_pr.Where(w => w.po_no == item.po).FirstOrDefault();
+                    if (get_pr != null)
+                    {
+                        var get_tran = localdb.td_tran.Where(w => w.pr_no == get_pr.pr_no && w.act_id == null 
+                                                                && w.status_id > 80 && w.status_id < 96);
+                        foreach (var tran in get_tran)
+                        {
+                            var tr = localdb.td_tran.Find(tran.pr_no, tran.status_id, tran.ulv_id, tran.org, tran.rev);
+                            tr.act_id = "SKIP";
+                            tr.act_dt = DateTime.Now;
+                        }
+
+                        byte i = 0;
+                        while (localdb.td_tran.Find(get_pr.pr_no, item.status, 0, 0, i) != null)
+                        {
+                            i++;
+                        }
+
+                        td_tran add = new td_tran();
+                        add.pr_no = get_pr.pr_no;
+                        add.status_id = item.status;
+                        add.ulv_id = 0;
+                        add.org = 0;
+                        add.rev = i;
+                        add.act_dt = DateTime.Now;
+                        localdb.td_tran.Add(add);
+                    }
+                }
+                localdb.SaveChanges();
             }
         }
 
@@ -405,7 +484,6 @@ namespace TncNokTooling.Controllers
             try
             {
                 var query = from a in dbTnt.v_tran
-                            //where a.status_id < 90
                             select a;
 
                 int org = int.Parse(Session["TNT_Org"].ToString());
@@ -418,7 +496,7 @@ namespace TncNokTooling.Controllers
                     }
                     else
                     {
-                        query = query.Where(w => w.ulv_id == ulv && w.org == org && w.status_id < 90);
+                        query = query.Where(w => w.ulv_id == ulv && w.org == org && w.status_id < 96);
                     }
                 }
                 else
@@ -489,17 +567,29 @@ namespace TncNokTooling.Controllers
         }
 
         [HttpPost]
-        public JsonResult NOKList(string po_no, string item, string status, int jtStartIndex = 0, int jtPageSize = 0, string jtSorting = null)
+        public JsonResult NOKList(string po_no, string item, string status, string condition, int jtStartIndex = 0, int jtPageSize = 0, string jtSorting = null)
         {
             try
             {
                 var query = from a in dbTnt.v_tran
-                            where a.status_id > 7 && a.status_id < 14
+                            where a.po_no != null && a.status_id > 7 && a.status_id < 96
                             select a;
 
+                if (!string.IsNullOrEmpty(po_no))
+                {
+                    query = query.Where(w => w.po_no.ToUpper().Contains(po_no));
+                }
                 if (!string.IsNullOrEmpty(item))// Item code
                 {
                     query = query.Where(w => w.item_code.ToUpper().Contains(item.ToUpper()));
+                }
+                if (!string.IsNullOrEmpty(status))
+                {
+                    query = query.Where(w => w.status.ToUpper().Contains(status.ToUpper()));
+                }
+                if (!string.IsNullOrEmpty(condition))
+                {
+                    query = query.Where(w => w.condition == condition);
                 }
 
                 //Get data from database
@@ -510,12 +600,14 @@ namespace TncNokTooling.Controllers
                     .Select(s => new
                     {
                         s.pr_no,
+                        //s.nok_plant,
                         s.item_code,
                         s.po_no,
                         s.issue_dt,
                         s.due_date,
                         s.status,
-                        s.status_id
+                        s.status_id,
+                        s.condition
                     }).OrderBy(jtSorting).Skip(jtStartIndex).Take(jtPageSize);
 
                 return Json(new { Result = "OK", Records = output, TotalRecordCount = TotalRecord });
@@ -901,7 +993,9 @@ namespace TncNokTooling.Controllers
 
                             if (issue_cost != null && owner_cost != null)
                             {
-                                if (issue_cost.emp_group.Value == owner_cost.group_id.Value && issue_cost.emp_depart.Value == owner_cost.dept_id.Value && issue_cost.emp_plant.Value == owner_cost.plant_id.Value)
+                                if (issue_cost.emp_group.Value == owner_cost.group_id.Value 
+                                    && issue_cost.emp_depart.Value == owner_cost.dept_id.Value 
+                                    && issue_cost.emp_plant.Value == owner_cost.plant_id.Value)
                                 {
                                     UpdateDue(pr_no);
                                     TransferPRtoPO(pr_no);
@@ -947,7 +1041,7 @@ namespace TncNokTooling.Controllers
                         CreateTran(pr_no, chk_status.next.Value, chk_status.lv_min.Value, 133, rev);
                         SendEmailCenter(pr_no, GetEMailImEx(), status: GetStatusName(chk_status.next.Value));
                     }
-                    else if (status == 13)//Receive Tooling
+                    else if (status == 95)//Receive Tooling
                     {
                         CreateTran(pr_no, 100, 0, 0, rev);
                         SendEmailCenter(pr_no, GetEmailAll(pr_no), 3);
@@ -1009,7 +1103,29 @@ namespace TncNokTooling.Controllers
 
         private string GetEmailAll(string pr_no)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var emails = "";
+
+                var get_tran = (from a in dbTnt.td_tran
+                                where a.pr_no == pr_no && a.actor != null
+                                select a.actor).Distinct().ToList();
+
+                var get_email = from a in dbTNC.tnc_user
+                                where get_tran.Contains(a.emp_code) && a.email != null && a.email != ""
+                                select a.email;
+
+                foreach (var item in get_email)
+                {
+                    emails += "," + item;
+                }
+
+                return emails.Substring(1);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         private string GetStatusName(byte id)
@@ -1288,7 +1404,7 @@ namespace TncNokTooling.Controllers
                         {
                             ViewBag.ActionForm = "_FormSendPO";
                         }
-                        else if (item.status_id == 13)
+                        else if (item.status_id == 95)
                         {
                             ViewBag.ActionForm = "_FormReceiveTooling";
                         }
@@ -1311,6 +1427,14 @@ namespace TncNokTooling.Controllers
 
         [HttpGet]
         [OutputCache(Duration = 0, NoStore = true)]
+        public ActionResult _TabRej(string pr_no)
+        {
+            //var get_files = dbTnt.td_files.Where(w => w.pr_no == pr_no).OrderBy(o => o.file_type);// && w.file_type != 4
+            return PartialView();
+        }
+
+        [HttpGet]
+        [OutputCache(Duration = 0, NoStore = true)]
         public ActionResult _TabTNC(string pr_no)
         {
             var get_tran = dbTnt.v_tran_show.Where(w => w.pr_no == pr_no).OrderBy(o => o.rev).ThenBy(o => o.status_id).ThenBy(o => o.ulv_id);
@@ -1319,32 +1443,60 @@ namespace TncNokTooling.Controllers
             return PartialView(get_tran);
         }
 
+        public void NOKExport()
+        {
+            TNCUtility util = new TNCUtility();
+            var query = from a in dbTnt.v_tran
+                        where a.po_no != null && a.status_id > 7 && a.status_id < 100
+                        select a;
+
+            string po_no = Request.Form["txt_po"];
+            string item = Request.Form["txt_item"];
+            string status = Request.Form["txt_status"];
+            string condition = Request.Form["sel_condition"];
+
+            if (!string.IsNullOrEmpty(po_no))
+            {
+                query = query.Where(w => w.po_no.ToUpper().Contains(po_no));
+            }
+            if (!string.IsNullOrEmpty(item))// Item code
+            {
+                query = query.Where(w => w.item_code.ToUpper().Contains(item.ToUpper()));
+            }
+            if (!string.IsNullOrEmpty(status))
+            {
+                query = query.Where(w => w.status.ToUpper().Contains(status.ToUpper()));
+            }
+            if (!string.IsNullOrEmpty(condition))
+            {
+                query = query.Where(w => w.condition == condition);
+            }
+
+            var output = query.ToList()
+                    .Select(s => new
+                    {
+                        Item_code = s.item_code,
+                        TNC_PO_No = s.po_no,
+                        TNC_Issue_date = s.issue_dt.ToString("dd-MM-yyyy"),
+                        TNC_Due_date = s.due_date.ToString("dd-MM-yyyy"),
+                        TNC_Status = s.status,
+                        Condition = s.condition
+                    });
+
+            util.CreateExcel(output.ToList(), "DataExport");
+        }
+
         [HttpGet]
         [OutputCache(Duration = 0, NoStore = true)]
         public ActionResult _TabNOK(string pr_no)
         {
             var get_pr = dbTnt.td_pr.Find(pr_no);
-            //if (!string.IsNullOrEmpty(get_pr.po_no))
-            //{
+
             var get_import = from a in dbTnt.td_import
                              where a.po_no == get_pr.po_no
                              select a;
 
             return PartialView(get_import);
-
-            //    if (get_import.Any())
-            //    {
-            //        return PartialView(get_import);
-            //    }
-            //    else
-            //    {
-            //        return PartialView(null);
-            //    }
-            //}
-            //else
-            //{
-            //    return PartialView(null);
-            //}
         }
 
         [HttpGet]
@@ -1580,7 +1732,7 @@ namespace TncNokTooling.Controllers
                     po.isTransfer = "0";//0=Transfer , 1=Transferred , I= , T=No Transfer
                     po.CreateDate = dt;
                     //po.UploadDate =
-                    po.PIC = "T206263";
+                    po.PIC = imex;
                     po.vendor = "";
                     po.item = item.td_pr.item_code.ToUpper();
                     po.description = item.description.ToUpper();
@@ -1726,6 +1878,13 @@ namespace TncNokTooling.Controllers
                             "Reason : " + content + "<br />" +
                             "<br /><a href='" + int_link + "/TNCSearch'>TNC-NOK Tooling</a><br />";
                     }
+                    else if (type == 6)//NOK Upload
+                    {
+                        subject = "NOK Upload Data";
+                        body += "Dear. Import-Export,<br /><br />" +
+                            "NOK Upload New data to TNC/NOK Tooling Web completed.<br />" +
+                            "<br /><a href='" + int_link + "/TNCSearch'>TNC-NOK Tooling</a><br />";
+                    }
 
                     body += "<br /><b>Best Regard.<br />" + "From TNC-NOK Tooling System</b>";
 
@@ -1751,24 +1910,24 @@ namespace TncNokTooling.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateInv(short[] prline, string[] invno, string[] eta, int[] recqty, IEnumerable<HttpPostedFileBase> invfile)
-        {
+        public ActionResult UpdateInv(short[] prline, string[] invno, string[] eta, int[] recqty)
+        {//, IEnumerable<HttpPostedFileBase> invfile
             try
             {
                 var prno = Request.Form["hdpr"];
                 TNCConversion convert = new TNCConversion();
-                string subPath = "~/upload/" + prno.Substring(3, 2) + "/" + prno + "/";
-                if (!Directory.Exists(Server.MapPath(subPath)))
-                    Directory.CreateDirectory(Server.MapPath(subPath));
+                //string subPath = "~/upload/" + prno.Substring(3, 2) + "/" + prno + "/";
+                //if (!Directory.Exists(Server.MapPath(subPath)))
+                //    Directory.CreateDirectory(Server.MapPath(subPath));
 
                 byte i = 0;
-                foreach (var file in invfile)
+                foreach (var file in prline)
                 {
-                    if (file != null && file.ContentLength > 0 && file.ContentType == "application/pdf")
-                    {
-                        var fileName = Path.GetFileName(file.FileName.Replace('#', ' '));
-                        var path = Path.Combine(Server.MapPath(subPath), fileName);
-                        file.SaveAs(path);
+                    //if (file != null && file.ContentLength > 0 && file.ContentType == "application/pdf")
+                    //{
+                    //    var fileName = Path.GetFileName(file.FileName.Replace('#', ' '));
+                    //    var path = Path.Combine(Server.MapPath(subPath), fileName);
+                    //    file.SaveAs(path);
 
                         td_eta_tnc inv = new td_eta_tnc();
                         inv.pr_no = prno;
@@ -1776,10 +1935,10 @@ namespace TncNokTooling.Controllers
                         inv.invoice_no = invno[i].ToUpper();
                         inv.eta_tnc = convert.DateDisplayToDB(eta[i]);
                         inv.rec_qty = recqty[i];
-                        inv.file_path = subPath + fileName;
+                        //inv.file_path = subPath + fileName;
 
                         dbTnt.td_eta_tnc.Add(inv);
-                    }
+                    //}
                     i++;
                 }
                 dbTnt.SaveChanges();

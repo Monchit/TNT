@@ -14,19 +14,21 @@ namespace TncNokTooling.Models
     
     public partial class td_import
     {
-        public string delivery_status { get; set; }
+        public int id { get; set; }
         public string po_no { get; set; }
         public string po_added { get; set; }
         public string plant { get; set; }
         public string product { get; set; }
-        public string order_name { get; set; }
         public string spec { get; set; }
         public string order_status { get; set; }
         public Nullable<int> order_qty { get; set; }
         public Nullable<int> insp_qty { get; set; }
         public Nullable<int> ship_qty { get; set; }
-        public string destination { get; set; }
         public Nullable<System.DateTime> due_date { get; set; }
-        public Nullable<bool> del_flag { get; set; }
+        public bool del_flag { get; set; }
+        public Nullable<System.DateTime> etd_date { get; set; }
+        public string note { get; set; }
+        public System.DateTime update_dt { get; set; }
+        public byte status_id { get; set; }
     }
 }

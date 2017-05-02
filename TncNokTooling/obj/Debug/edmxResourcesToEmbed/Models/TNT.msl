@@ -145,6 +145,7 @@
     <EntitySetMapping Name="tm_status">
       <EntityTypeMapping TypeName="TncNokToolingModel.tm_status">
         <MappingFragment StoreEntitySet="tm_status">
+          <ScalarProperty Name="active" ColumnName="active" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="lv_min" ColumnName="lv_min" />
@@ -282,20 +283,30 @@
     <EntitySetMapping Name="td_import">
       <EntityTypeMapping TypeName="TncNokToolingModel.td_import">
         <MappingFragment StoreEntitySet="td_import">
+          <ScalarProperty Name="status_id" ColumnName="status_id" />
+          <ScalarProperty Name="update_dt" ColumnName="update_dt" />
+          <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="etd_date" ColumnName="etd_date" />
           <ScalarProperty Name="del_flag" ColumnName="del_flag" />
           <ScalarProperty Name="due_date" ColumnName="due_date" />
-          <ScalarProperty Name="destination" ColumnName="destination" />
           <ScalarProperty Name="ship_qty" ColumnName="ship_qty" />
           <ScalarProperty Name="insp_qty" ColumnName="insp_qty" />
           <ScalarProperty Name="order_qty" ColumnName="order_qty" />
           <ScalarProperty Name="order_status" ColumnName="order_status" />
           <ScalarProperty Name="spec" ColumnName="spec" />
-          <ScalarProperty Name="order_name" ColumnName="order_name" />
           <ScalarProperty Name="product" ColumnName="product" />
           <ScalarProperty Name="plant" ColumnName="plant" />
           <ScalarProperty Name="po_added" ColumnName="po_added" />
           <ScalarProperty Name="po_no" ColumnName="po_no" />
-          <ScalarProperty Name="delivery_status" ColumnName="delivery_status" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="v_issue_group">
+      <EntityTypeMapping TypeName="TncNokToolingModel.v_issue_group">
+        <MappingFragment StoreEntitySet="v_issue_group">
+          <ScalarProperty Name="group_name" ColumnName="group_name" />
+          <ScalarProperty Name="issue_group" ColumnName="issue_group" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
