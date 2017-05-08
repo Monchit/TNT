@@ -63,10 +63,7 @@
                     status_id: { list: false },
                     condition: { title: 'Condition', width: '10%' },
                     polink: {
-                        title: 'PO', width: '10%',
-                        display: function (data) {
-                            return "<a href='http://webexternal.nok.co.th/ponics/printPO.php?PONO=" + data.record.po_no + "&ACTION=PREVIEW&ISU=17/04/20' target='_blank' >View</a>";
-                        }
+                        title: 'PO', width: '10%', sorting: false
                     }
                 },
                 //Register to selectionChanged event to hanlde events

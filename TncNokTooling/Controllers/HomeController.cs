@@ -538,6 +538,8 @@ namespace TncNokTooling.Controllers
                 //Get data from database
                 int TotalRecord = query.Count();
 
+                var isu = DateTime.Now.ToString("yy/MM/dd");
+
                 // Paging
                 var output = query
                     .Select(s => new
@@ -545,6 +547,7 @@ namespace TncNokTooling.Controllers
                         s.pr_no,
                         s.item_code,
                         s.po_no,
+                        polink = "<a href='http://webexternal.nok.co.th/ponics/printPO.php?PONO=" + s.po_no + "&ACTION=PRINT&ISU=" + isu + "&" + s.condition.ToUpper() + "=true' target='_blank'>" + s.po_no + "</a>",
                         s.condition,
                         s.rank,
                         s.issue_dt,
@@ -594,6 +597,7 @@ namespace TncNokTooling.Controllers
 
                 //Get data from database
                 int TotalRecord = query.Count();
+                var isu = DateTime.Now.ToString("yy/MM/dd");
 
                 // Paging
                 var output = query
@@ -607,7 +611,8 @@ namespace TncNokTooling.Controllers
                         s.due_date,
                         s.status,
                         s.status_id,
-                        s.condition
+                        s.condition,
+                        polink = "<a href='http://webexternal.nok.co.th/ponics/printPO.php?PONO=" + s.po_no + "&ACTION=PRINT&ISU=" + isu + "&" + s.condition.ToUpper() + "=true' target='_blank'>View</a>"
                     }).OrderBy(jtSorting).Skip(jtStartIndex).Take(jtPageSize);
 
                 return Json(new { Result = "OK", Records = output, TotalRecordCount = TotalRecord });

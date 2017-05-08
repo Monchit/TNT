@@ -70,16 +70,7 @@
                     pr_no: { title: 'PR No.', width: '8%' },
                     item_code: { title: 'Item code', width: '12%' },
                     po_no: { title: 'PO No.', list: false },
-                    polink: {
-                        title: 'PO No.', width: '7%', sorting:false,
-                        display: function (data) {
-                            if (data.record.po_no != null) {
-                                return "<a href='http://webexternal.nok.co.th/ponics/printPO.php?PONO=" + data.record.po_no + "&ACTION=PREVIEW&ISU=17/04/20' target='_blank' >" + data.record.po_no + "</a>";
-                            } else {
-                                return "-";
-                            }
-                        }
-                    },
+                    polink: { title: 'PO No.', width: '7%', sorting: false },
                     condition: { title: 'Condition', width: '7%' },
                     rank: { title: 'Rank', width: '4%' },
                     group_name: { title: 'Issue Group', width: '14%' },
