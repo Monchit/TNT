@@ -189,7 +189,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActiveMenu.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\Chk_Authen.cs" />
@@ -942,12 +941,10 @@
     <Content Include="Views\Home\_FormApvRejCan1.cshtml" />
     <Content Include="Views\Home\MgrEditPR.cshtml" />
     <Content Include="Views\Home\_FormReqMgr.cshtml" />
-    <Content Include="Views\Account\Index2.cshtml" />
     <Content Include="Views\Home\_FormReq.cshtml" />
     <Content Include="Views\Home\_FormEditPR.cshtml" />
     <Content Include="Views\Home\_FormReceiveTooling.cshtml" />
     <Content Include="Views\Home\_FormSendPO.cshtml" />
-    <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Home\TNCNOKMenu.cshtml" />
     <Content Include="Views\Home\TNCSearch.cshtml" />
     <Content Include="Views\Home\NOKSearch.cshtml" />

@@ -28,7 +28,7 @@ namespace TncNokTooling.Models
         public string kouza { get; set; }
         public string status { get; set; }
     
-        public virtual td_pr td_pr { get; set; }
         public virtual ICollection<td_eta_tnc> td_eta_tnc { get; set; }
+        public virtual td_pr td_pr { get; set; }
     }
 }

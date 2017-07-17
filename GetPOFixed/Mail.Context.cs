@@ -13,10 +13,10 @@ namespace GetPOFixed
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class TncNokToolingEntities : DbContext
+    public partial class MailCenterEntities : DbContext
     {
-        public TncNokToolingEntities()
-            : base("name=TncNokToolingEntities")
+        public MailCenterEntities()
+            : base("name=MailCenterEntities")
         {
         }
     
@@ -25,9 +25,6 @@ namespace GetPOFixed
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<td_pr> td_pr { get; set; }
-        public DbSet<td_tran> td_tran { get; set; }
-        public DbSet<v_tran> v_tran { get; set; }
-        public DbSet<tm_user_nok> tm_user_nok { get; set; }
+        public DbSet<TT_MAIL_WIP> TT_MAIL_WIP { get; set; }
     }
 }

@@ -26,7 +26,6 @@ namespace TncNokTooling.Models
         }
     
         public DbSet<td_files> td_files { get; set; }
-        public DbSet<td_pr> td_pr { get; set; }
         public DbSet<td_tooling> td_tooling { get; set; }
         public DbSet<td_tran> td_tran { get; set; }
         public DbSet<tm_action> tm_action { get; set; }
@@ -49,5 +48,6 @@ namespace TncNokTooling.Models
         public DbSet<tm_site> tm_site { get; set; }
         public DbSet<td_import> td_import { get; set; }
         public DbSet<v_issue_group> v_issue_group { get; set; }
+        public DbSet<td_pr> td_pr { get; set; }
     }
 }

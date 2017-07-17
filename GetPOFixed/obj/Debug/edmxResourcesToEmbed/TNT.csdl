@@ -8,6 +8,7 @@
       <End Role="td_tran" EntitySet="td_tran" />
     </AssociationSet>
     <EntitySet Name="v_tran" EntityType="TncNokToolingModel.v_tran" />
+    <EntitySet Name="tm_user_nok" EntityType="TncNokToolingModel.tm_user_nok" />
   </EntityContainer>
   <EntityType Name="td_pr">
     <Key>
@@ -24,7 +25,7 @@
     <Property Name="issue_plant" Type="Int32" />
     <Property Name="ext" Type="String" MaxLength="4" Unicode="false" FixedLength="false" />
     <Property Name="rank" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
-    <Property Name="cost_code" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="cost_code" Type="String" Nullable="false" MaxLength="80" Unicode="false" FixedLength="false" />
     <Property Name="item_code" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
     <Property Name="problem" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
     <Property Name="process" Type="Byte" Nullable="false" />
@@ -36,6 +37,13 @@
     <Property Name="po_no" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
     <Property Name="issue_group_name" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
     <NavigationProperty Name="td_tran" Relationship="TncNokToolingModel.FK_td_tran_td_pr1" FromRole="td_pr" ToRole="td_tran" />
+    <Property Type="String" Name="po_nok" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="order_no" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="plant" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="maker" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="maker_comp_dt" Precision="0" />
+    <Property Type="DateTime" Name="div_comp_dt" Precision="0" />
+    <Property Type="Byte" Name="site_id" />
   </EntityType>
   <EntityType Name="td_tran">
     <Key>
@@ -85,6 +93,7 @@
       <PropertyRef Name="process" />
       <PropertyRef Name="nok_plant" />
       <PropertyRef Name="org" />
+      <PropertyRef Name="site_name" />
     </Key>
     <Property Type="String" Name="pr_no" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="item_code" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -103,5 +112,20 @@
     <Property Type="Byte" Name="nok_plant" Nullable="false" />
     <Property Type="Int32" Name="org" Nullable="false" />
     <Property Type="String" Name="requester" MaxLength="511" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="site_name" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tm_user_nok">
+    <Key>
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Type="String" Name="username" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="password" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="Byte" Name="utype" Nullable="false" />
+    <Property Type="String" Name="email" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="fname" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="lname" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="Byte" Name="ulv" />
+    <Property Type="String" Name="vcode" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Boolean" Name="active" Nullable="false" />
   </EntityType>
 </Schema>

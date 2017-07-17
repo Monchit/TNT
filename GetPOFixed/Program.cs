@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebCommonFunction;
 
 namespace GetPOFixed
 {
@@ -12,24 +13,35 @@ namespace GetPOFixed
         {
             PREntities dbpr = new PREntities();
             TncNokToolingEntities dbtnt = new TncNokToolingEntities();
+            MailCenterEntities dbMail = new MailCenterEntities();
 
             try
             {
+                //---------------Get Email Admin-----------------//
+
+                var get_mail = from a in dbtnt.tm_user_nok
+                               where a.active == true && !string.IsNullOrEmpty(a.email)
+                               select a.email;
+                string mailto = "";
+
+                foreach (var x in get_mail)
+                {
+                    mailto += ", " + x;
+                }
+                mailto = mailto.Substring(2);
+
+                //---------------Manage Tran-----------------//
+
                 var tnt_get = from a in dbtnt.v_tran
                               where a.status_id == 5 && a.ulv_id == 1 && a.po_no == null
                               select a;
-
+                
                 foreach (var item in tnt_get)
                 {
-                    //Console.WriteLine("v_tran:" + item.pr_no);
-                    //var get_max_appcount = (from a in dbpr.PO_APP_LINE
-                    //                        where a.AppSign == "2" && a.PRNO == item.pr_no
-                    //                        group a by a.PRNO into g
-                    //                        select new { prno = g.Key, max_app = g.Max(m => m.AppCount) }).FirstOrDefault();
-
                     var get_po = (from a in dbpr.PO_APP_LINE
                                   where a.AppSign == "2" && a.POStatus == "O" && a.PRNO == item.pr_no
                                   select a).FirstOrDefault();
+
                     if (get_po != null)
                     {
                         var pr = dbtnt.td_pr.Find(item.pr_no);
@@ -50,9 +62,35 @@ namespace GetPOFixed
                             addTran.rev = updTran.rev;
                             addTran.act_dt = DateTime.Now;
                             dbtnt.td_tran.Add(addTran);
-                        }
 
-                        //Send Email to NOK
+                            //-----------------Send Email------------------//
+
+                            string subject = "[" + get_po.PONO + "] New PO from TNC";
+                            string buyer = get_po.PO_APP_HEAD.Buyer.Trim();
+                            string issue_by = "";
+                            if (buyer == "T206497")
+                            {
+                                issue_by = "Sailom P.";
+                            }
+                            else if (buyer == "T206263")
+                            {
+                                issue_by = "Jaruporn W.";
+                            }
+
+                            //var get_iss_email = dbtnt.td_tran.Where(w => w.pr_no == item.pr_no && w.act_id == "ISS")
+                            //                    .Select(s => s.actor).FirstOrDefault();
+
+                            string ext_link = "http://webexternal.nok.co.th/TNT/Home/NOKSearch?id=" + get_po.PONO;
+                            string body = "Dear All, <br />You have new PO from Thai NOK Co.,Ltd.<br />Issue by : " + issue_by
+                                        + "<br />Information list below<br />PO No. " + get_po.PONO
+                                        + "<a href='" + ext_link + "'> [>>View Detail Here<<]</a>"
+                                        + "<br /><br />Best Regards,<br />From TNC Tooling Web";
+
+                            TNCUtility tnc_util = new TNCUtility();
+
+                            tnc_util.SendMail(41, "TNCAutoMail-TNT@nok.co.th", mailto, subject, body, "");//For Real
+                            //tnc_util.SendMail(41, "TNCAutoMail-TNT@nok.co.th", "monchit@nok.co.th", subject, body);//For Test
+                        }
                     }
                     //else
                     //{
@@ -73,9 +111,7 @@ namespace GetPOFixed
                     //    }
                     //}
                 }
-
                 dbtnt.SaveChanges();
-
             }
             catch (Exception)
             {

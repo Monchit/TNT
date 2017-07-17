@@ -107,7 +107,16 @@ namespace TncNokTooling.Controllers
                         Session["TNT_Name"] = username;
                         Session["TNT_UType"] = query.utype;
 
-                        return RedirectToAction("NOKSearch", "Home");
+                        if (Session["TNT_Redirect"] != null)
+                        {
+                            string url = Session["TNT_Redirect"].ToString();
+                            Session.Remove("TNT_Redirect");
+                            return Redirect(url);
+                        }
+                        else
+                        {
+                            return RedirectToAction("NOKSearch", "Home");
+                        }  
                     }
                     else
                     {
@@ -184,7 +193,7 @@ namespace TncNokTooling.Controllers
         [Chk_Authen]
         public ActionResult NOKSearch()
         {
-            //ViewBag.ProcessList = dbTnt.tm_process;
+            ViewBag.SearchStatus = dbTnt.tm_status.Where(w => w.id > 80 && w.id < 96);
             return View();
         }
 
@@ -231,11 +240,13 @@ namespace TncNokTooling.Controllers
                         bool del_temp = true;
 
                         td_import imp = new td_import();
-                        imp.po_no = po;
-                        imp.po_added = added;
-                        imp.plant = item[1].ToString();
-                        imp.product = item[2].ToString();
-                        imp.spec = item[3].ToString();
+                        imp.po_no = po;//require
+                        imp.po_added = added;//require
+                        imp.plant = item[1].ToString();//require
+                        imp.product = item[2].ToString();//require
+                        imp.spec = item[3].ToString();//require
+
+                        //status require
                         if (!string.IsNullOrEmpty(item[4].ToString()))
                         {
                             var temp_status = item[4].ToString().Trim();
@@ -252,11 +263,16 @@ namespace TncNokTooling.Controllers
                             {
                                 imp.status_id = 84;
                             }
-                            else if (temp_status == "Trial finished")
-                            {
-                                imp.status_id = 85;
-                            }
-                            else if (temp_status == "Waiting for shipping")
+                            //else if (temp_status == "Trial finished")
+                            //{
+                            //    imp.status_id = 85;
+                            //}
+                            //else if (temp_status == "Waiting for shipping")
+                            //{
+                            //    imp.status_id = 86;
+                            //    del_temp = false;
+                            //}
+                            else if (temp_status == "Shipping is completed")//Shipped
                             {
                                 imp.status_id = 95;
                                 del_temp = false;
@@ -278,22 +294,29 @@ namespace TncNokTooling.Controllers
                         if (!string.IsNullOrEmpty(item[8].ToString())) imp.due_date = DateTime.Parse(item[8].ToString());//Maker Due
                         if (!string.IsNullOrEmpty(item[9].ToString())) imp.etd_date = DateTime.Parse(item[9].ToString());
                         if (!string.IsNullOrEmpty(item[10].ToString())) imp.note = item[10].ToString();
-                        imp.update_dt = DateTime.Now;
-                        imp.del_flag = del_temp;
+                        
+                        imp.update_dt = DateTime.Now;//require
+                        imp.del_flag = del_temp;//require
+
                         //DateTime.ParseExact(item[11].ToString(), format, CultureInfo.InvariantCulture);
 
-                        SendEmailCenter("", GetEMailImEx(), 3);
+                        //SendEmailCenter("", GetEMailImEx(), 3);
 
                         dbTnt.td_import.Add(imp);
-
-                        ManageNOKImportTran();
+                        //dbTnt.SaveChanges();
+                        //ManageNOKImportTran();
                     }
                 }
 
-                ((System.Data.Entity.Infrastructure.IObjectContextAdapter)dbTnt).ObjectContext.ExecuteStoreCommand("TRUNCATE TABLE td_import");
+                
+
+                ((System.Data.Entity.Infrastructure.IObjectContextAdapter)dbTnt).ObjectContext.ExecuteStoreCommand("DELETE FROM td_import WHERE del_flag = 1");
                 //DELETE FROM td_import WHERE del_flag = 1
+                //TRUNCATE TABLE td_import
 
                 dbTnt.SaveChanges();
+                ManageNOKImportTran();
+
                 TempData["noty_comp"] = "Upload Completed.";
                 return RedirectToAction("UploadNOK", "Home");
             }
@@ -318,7 +341,7 @@ namespace TncNokTooling.Controllers
                     if (get_pr != null)
                     {
                         var get_tran = localdb.td_tran.Where(w => w.pr_no == get_pr.pr_no && w.act_id == null 
-                                                                && w.status_id > 80 && w.status_id < 96);
+                                                                && w.status_id > 80 && w.status_id < 96);//w.status_id < item.status
                         foreach (var tran in get_tran)
                         {
                             var tr = localdb.td_tran.Find(tran.pr_no, tran.status_id, tran.ulv_id, tran.org, tran.rev);
@@ -342,6 +365,9 @@ namespace TncNokTooling.Controllers
                         localdb.td_tran.Add(add);
                     }
                 }
+
+                SendEmailCenter("", GetEmailAdmin(), 6, "NOK Import new data.");
+
                 localdb.SaveChanges();
             }
         }
@@ -570,12 +596,12 @@ namespace TncNokTooling.Controllers
         }
 
         [HttpPost]
-        public JsonResult NOKList(string po_no, string item, string status, string condition, int jtStartIndex = 0, int jtPageSize = 0, string jtSorting = null)
+        public JsonResult NOKList(string po_no, string item, string condition, byte status = 0, int jtStartIndex = 0, int jtPageSize = 0, string jtSorting = null)
         {
             try
             {
                 var query = from a in dbTnt.v_tran
-                            where a.po_no != null && a.status_id > 7 && a.status_id < 96
+                            where a.status_id > 7 && a.status_id < 96 //&& a.po_no != null
                             select a;
 
                 if (!string.IsNullOrEmpty(po_no))
@@ -586,9 +612,9 @@ namespace TncNokTooling.Controllers
                 {
                     query = query.Where(w => w.item_code.ToUpper().Contains(item.ToUpper()));
                 }
-                if (!string.IsNullOrEmpty(status))
+                if (status != 0)
                 {
-                    query = query.Where(w => w.status.ToUpper().Contains(status.ToUpper()));
+                    query = query.Where(w => w.status_id == status);
                 }
                 if (!string.IsNullOrEmpty(condition))
                 {
@@ -612,7 +638,8 @@ namespace TncNokTooling.Controllers
                         s.status,
                         s.status_id,
                         s.condition,
-                        polink = "<a href='http://webexternal.nok.co.th/ponics/printPO.php?PONO=" + s.po_no + "&ACTION=PRINT&ISU=" + isu + "&" + s.condition.ToUpper() + "=true' target='_blank'>View</a>"
+                        polink = "<a href='http://webexternal.nok.co.th/ponics/printPO.php?PONO=" + s.po_no + "&ACTION=PRINT&ISU=" + isu + "&" + s.condition.ToUpper() + "=true' target='_blank' data-pr='" + s.pr_no + "' class='NOKView'>Download</a>",
+                        received = s.po_nok != null ? "<i class='icon-ok'></i>" : ""
                     }).OrderBy(jtSorting).Skip(jtStartIndex).Take(jtPageSize);
 
                 return Json(new { Result = "OK", Records = output, TotalRecordCount = TotalRecord });
@@ -983,8 +1010,8 @@ namespace TncNokTooling.Controllers
                     if (status == 1)//Issuer
                     {
                         var get_pr = dbTnt.td_pr.Find(pr_no);
-                        var issue_cost = dbTNC.tnc_user.Find(get_pr.issue_by);
-                        var sp_route = dbTnt.tm_control_route.Find(issue_cost.emp_group.Value);
+                        var issue_cost = dbTNC.tnc_user.Find(get_pr.issue_by);//Issuer
+                        var sp_route = dbTnt.tm_control_route.Find(issue_cost.emp_group.Value);//
                         if (sp_route != null)//Short Route
                         {
                             UpdateDue(pr_no);
@@ -1165,6 +1192,43 @@ namespace TncNokTooling.Controllers
             }
             email = email.Substring(2);
 
+            return email;
+        }
+
+        private string GetEmailAdmin()
+        {
+            string email = "";
+
+            var query = from a in dbTnt.tm_user
+                        where a.utype_id != 1
+                        select a.emp_code;
+
+            foreach (var item in query)
+            {
+                var getmail = (from a in dbTNC.tnc_user
+                               where a.emp_code == item && (a.email != null && a.email != "")
+                               select a).FirstOrDefault();
+
+                if (getmail != null) email += ", " + getmail.email;
+            }
+            email = email.Substring(2);
+
+            return email;
+        }
+
+        private string GetEmailIssuer(string pr_no)
+        {
+            var get_issue_tran = (from a in dbTnt.td_tran
+                                  where a.pr_no == pr_no && a.act_id == "ISS"
+                                  select a.actor).FirstOrDefault();
+            string email = "";
+            if (get_issue_tran != null)
+            {
+                var getmail = (from a in dbTNC.tnc_user
+                               where a.emp_code == get_issue_tran && (a.email != null && a.email != "")
+                               select a.email).FirstOrDefault();
+                if (getmail != null) email = getmail;
+            }
             return email;
         }
 
@@ -1409,7 +1473,7 @@ namespace TncNokTooling.Controllers
                         {
                             ViewBag.ActionForm = "_FormSendPO";
                         }
-                        else if (item.status_id == 95)
+                        else if (item.status_id > 81 && item.status_id < 96)
                         {
                             ViewBag.ActionForm = "_FormReceiveTooling";
                         }
@@ -1489,6 +1553,28 @@ namespace TncNokTooling.Controllers
                     });
 
             util.CreateExcel(output.ToList(), "DataExport");
+        }
+
+        public void ExportNOKList()
+        {
+            TNCUtility util = new TNCUtility();
+            var get_current = from a in dbTnt.td_tran.Where(w => w.act_id == null && w.status_id > 7 && w.status_id < 95)
+                              join b in dbTnt.td_pr on a.pr_no equals b.pr_no into g
+                              from b in g.DefaultIfEmpty()
+                              join c in dbTnt.td_tooling on b.pr_no equals c.pr_no
+                              orderby a.pr_no ascending
+                              select new
+                              {
+                                  PR = a.pr_no,
+                                  Item = b.item_code,
+                                  PO = b.po_no,
+                                  Line = c.pr_line,
+                                  Detail = c.description,
+                                  Qty = c.qty,
+                                  Unit = c.unit
+                              };
+
+            util.CreateExcel(get_current.ToList(), "ExportPOLine");
         }
 
         [HttpGet]
@@ -1824,8 +1910,8 @@ namespace TncNokTooling.Controllers
 
                 var get_pr = dbTnt.td_pr.Find(pr_no);
 
-                if (get_pr != null)
-                {
+                //if (get_pr != null)
+                //{
                     TNCUtility tnc_util = new TNCUtility();
                     string subject = "";
                     string body = "";//For Real
@@ -1890,12 +1976,20 @@ namespace TncNokTooling.Controllers
                             "NOK Upload New data to TNC/NOK Tooling Web completed.<br />" +
                             "<br /><a href='" + int_link + "/TNCSearch'>TNC-NOK Tooling</a><br />";
                     }
+                    else if (type == 7)//NOK Receive
+                    {
+                        subject = "NOK Received PO No. " + get_pr.po_no;
+                        body += "Dear. Admin,<br /><br />" +
+                            "NOK received PO from TNC/NOK Tooling Web.<br />" +
+                            "PR No. <b>" + pr_no + "</b>" +
+                            "<br /><a href='" + int_link + "/TNCSearch'>TNC-NOK Tooling</a><br />";
+                    }
 
                     body += "<br /><b>Best Regard.<br />" + "From TNC-NOK Tooling System</b>";
 
                     tnc_util.SendMail(41, "TNCAutoMail-TNT@nok.co.th", mailto, subject, body);//, bcc: "monchit@nok.co.th");//For Real
                     //tnc_util.SendMail(41, "TNCAutoMail-TNT@nok.co.th", "monchit@nok.co.th", subject, body);//For Test
-                }
+                //}
             }
         }
 
@@ -1940,7 +2034,7 @@ namespace TncNokTooling.Controllers
                         inv.invoice_no = invno[i].ToUpper();
                         inv.eta_tnc = convert.DateDisplayToDB(eta[i]);
                         inv.rec_qty = recqty[i];
-                        //inv.file_path = subPath + fileName;
+                        inv.file_path = "";//subPath + fileName;
 
                         dbTnt.td_eta_tnc.Add(inv);
                     //}
@@ -2003,6 +2097,48 @@ namespace TncNokTooling.Controllers
             {
                 TempData["noty_warn"] = "Approve failed !!!";
                 return RedirectToAction("TNCSearch", "Home");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult UpdNokView(string pr)
+        {
+            var query = dbTnt.td_pr.Find(pr);
+            if (query != null)
+            {
+                query.po_nok = DateTime.Now;
+
+                var get_tran = dbTnt.td_tran.Where(w => w.pr_no == query.pr_no && w.act_id == null
+                                                                && w.status_id == 81).FirstOrDefault();
+
+                string adminMail = GetEmailAdmin() + ",";
+
+                if (get_tran != null)
+                {
+                    var tr = dbTnt.td_tran.Find(get_tran.pr_no, get_tran.status_id, get_tran.ulv_id, get_tran.org, get_tran.rev);
+                    tr.act_id = "SKIP";
+                    tr.act_dt = DateTime.Now;
+
+                    td_tran add = new td_tran();
+                    add.pr_no = query.pr_no;
+                    add.status_id = 82;
+                    add.ulv_id = 0;
+                    add.org = 0;
+                    add.rev = get_tran.rev;
+                    add.act_dt = DateTime.Now;
+                    dbTnt.td_tran.Add(add);
+
+                    dbTnt.SaveChanges();
+
+                    SendEmailCenter(query.pr_no, adminMail + GetEmailIssuer(query.pr_no), 7);
+                }
+
+                
+                return Json("OK");
+            }
+            else
+            {
+                return Json("NG");
             }
         }
 

@@ -7,23 +7,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TncNokTooling.Models
+namespace GetPOFixed
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class tm_site
+    public partial class TT_MAIL_WIP
     {
-        public tm_site()
-        {
-            this.tm_user = new HashSet<tm_user>();
-            this.td_pr = new HashSet<td_pr>();
-        }
-    
-        public byte site_id { get; set; }
-        public string site_name { get; set; }
-    
-        public virtual ICollection<tm_user> tm_user { get; set; }
-        public virtual ICollection<td_pr> td_pr { get; set; }
+        public long ID { get; set; }
+        public int ProgramID { get; set; }
+        public System.DateTime CreateDate { get; set; }
+        public string Sender { get; set; }
+        public string Receiver { get; set; }
+        public string CC { get; set; }
+        public string BCC { get; set; }
+        public string Title { get; set; }
+        public string HTMLBody { get; set; }
+        public short Flag { get; set; }
     }
 }

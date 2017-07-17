@@ -57,7 +57,8 @@
       [v_tran].[nok_plant] AS [nok_plant], 
       [v_tran].[org] AS [org], 
       [v_tran].[requester] AS [requester], 
-      [v_tran].[site_name] AS [site_name]
+      [v_tran].[site_name] AS [site_name], 
+      [v_tran].[po_nok] AS [po_nok]
       FROM [dbo].[v_tran] AS [v_tran]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="v_tran_show" EntityType="TncNokToolingModel.Store.v_tran_show" store:Type="Views" store:Schema="dbo" store:Name="v_tran_show">
@@ -187,9 +188,9 @@
     <Property Name="po_no" Type="varchar" Nullable="false" MaxLength="10" />
     <Property Name="po_added" Type="varchar" Nullable="false" MaxLength="30" />
     <Property Name="plant" Type="nvarchar" Nullable="false" MaxLength="50" />
-    <Property Name="product" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="product" Type="nvarchar(max)" Nullable="false" />
     <Property Name="spec" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="order_status" Type="nvarchar" MaxLength="50" />
+    <Property Name="order_status" Type="nvarchar" MaxLength="100" />
     <Property Name="order_qty" Type="int" />
     <Property Name="insp_qty" Type="int" />
     <Property Name="ship_qty" Type="int" />
@@ -226,7 +227,7 @@
     <Property Name="issue_name" Type="varchar" Nullable="false" MaxLength="50" />
     <Property Name="po_no" Type="varchar" MaxLength="50" />
     <Property Name="issue_group_name" Type="varchar" MaxLength="50" />
-    <Property Name="po_nok" Type="varchar" MaxLength="50" />
+    <Property Name="po_nok" Type="datetime" />
     <Property Name="order_no" Type="varchar" MaxLength="50" />
     <Property Name="plant" Type="varchar" MaxLength="50" />
     <Property Name="maker" Type="varchar" MaxLength="50" />
@@ -382,6 +383,7 @@
     <Property Name="lname" Type="nvarchar" MaxLength="50" />
     <Property Name="ulv" Type="tinyint" />
     <Property Name="vcode" Type="varchar" MaxLength="20" />
+    <Property Name="active" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="tm_user_type">
     <Key>
@@ -455,6 +457,7 @@
     <Property Name="org" Type="int" Nullable="false" />
     <Property Name="requester" Type="nvarchar" MaxLength="511" />
     <Property Name="site_name" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="po_nok" Type="date" />
   </EntityType>
   <!--Errors Found During Generation:
       warning 6002: The table/view 'TncNokTooling.dbo.v_tran_show' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.

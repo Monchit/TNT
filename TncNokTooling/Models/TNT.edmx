@@ -62,7 +62,8 @@
       [v_tran].[nok_plant] AS [nok_plant], 
       [v_tran].[org] AS [org], 
       [v_tran].[requester] AS [requester], 
-      [v_tran].[site_name] AS [site_name]
+      [v_tran].[site_name] AS [site_name], 
+      [v_tran].[po_nok] AS [po_nok]
       FROM [dbo].[v_tran] AS [v_tran]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="v_tran_show" EntityType="TncNokToolingModel.Store.v_tran_show" store:Type="Views" store:Schema="dbo" store:Name="v_tran_show">
@@ -192,9 +193,9 @@
           <Property Name="po_no" Type="varchar" Nullable="false" MaxLength="10" />
           <Property Name="po_added" Type="varchar" Nullable="false" MaxLength="30" />
           <Property Name="plant" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="product" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="product" Type="nvarchar(max)" Nullable="false" />
           <Property Name="spec" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="order_status" Type="nvarchar" MaxLength="50" />
+          <Property Name="order_status" Type="nvarchar" MaxLength="100" />
           <Property Name="order_qty" Type="int" />
           <Property Name="insp_qty" Type="int" />
           <Property Name="ship_qty" Type="int" />
@@ -231,7 +232,7 @@
           <Property Name="issue_name" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="po_no" Type="varchar" MaxLength="50" />
           <Property Name="issue_group_name" Type="varchar" MaxLength="50" />
-          <Property Name="po_nok" Type="varchar" MaxLength="50" />
+          <Property Name="po_nok" Type="datetime" />
           <Property Name="order_no" Type="varchar" MaxLength="50" />
           <Property Name="plant" Type="varchar" MaxLength="50" />
           <Property Name="maker" Type="varchar" MaxLength="50" />
@@ -387,6 +388,7 @@
           <Property Name="lname" Type="nvarchar" MaxLength="50" />
           <Property Name="ulv" Type="tinyint" />
           <Property Name="vcode" Type="varchar" MaxLength="20" />
+          <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="tm_user_type">
           <Key>
@@ -460,6 +462,7 @@
           <Property Name="org" Type="int" Nullable="false" />
           <Property Name="requester" Type="nvarchar" MaxLength="511" />
           <Property Name="site_name" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="po_nok" Type="date" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'TncNokTooling.dbo.v_tran_show' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -750,7 +753,6 @@
       <Schema Namespace="TncNokToolingModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="TncNokToolingEntities" p1:LazyLoadingEnabled="true">
           <EntitySet Name="td_files" EntityType="TncNokToolingModel.td_files" />
-          <EntitySet Name="td_pr" EntityType="TncNokToolingModel.td_pr" />
           <EntitySet Name="td_tooling" EntityType="TncNokToolingModel.td_tooling" />
           <EntitySet Name="td_tran" EntityType="TncNokToolingModel.td_tran" />
           <EntitySet Name="tm_action" EntityType="TncNokToolingModel.tm_action" />
@@ -766,37 +768,9 @@
           <EntitySet Name="tm_user_lv" EntityType="TncNokToolingModel.tm_user_lv" />
           <EntitySet Name="tm_user_type" EntityType="TncNokToolingModel.tm_user_type" />
           <EntitySet Name="v_tran" EntityType="TncNokToolingModel.v_tran" />
-          <AssociationSet Name="FK_td_files_td_pr1" Association="TncNokToolingModel.FK_td_files_td_pr1">
-            <End Role="td_pr" EntitySet="td_pr" />
-            <End Role="td_files" EntitySet="td_files" />
-          </AssociationSet>
           <AssociationSet Name="FK_td_files_tm_file_type" Association="TncNokToolingModel.FK_td_files_tm_file_type">
             <End Role="tm_file_type" EntitySet="tm_file_type" />
             <End Role="td_files" EntitySet="td_files" />
-          </AssociationSet>
-          <AssociationSet Name="FK_td_pr_tm_nok_plant" Association="TncNokToolingModel.FK_td_pr_tm_nok_plant">
-            <End Role="tm_nok_plant" EntitySet="tm_nok_plant" />
-            <End Role="td_pr" EntitySet="td_pr" />
-          </AssociationSet>
-          <AssociationSet Name="FK_td_pr_tm_process" Association="TncNokToolingModel.FK_td_pr_tm_process">
-            <End Role="tm_process" EntitySet="tm_process" />
-            <End Role="td_pr" EntitySet="td_pr" />
-          </AssociationSet>
-          <AssociationSet Name="FK_td_pr_tm_product" Association="TncNokToolingModel.FK_td_pr_tm_product">
-            <End Role="tm_product" EntitySet="tm_product" />
-            <End Role="td_pr" EntitySet="td_pr" />
-          </AssociationSet>
-          <AssociationSet Name="FK_td_pr_tm_type" Association="TncNokToolingModel.FK_td_pr_tm_type">
-            <End Role="tm_type" EntitySet="tm_type" />
-            <End Role="td_pr" EntitySet="td_pr" />
-          </AssociationSet>
-          <AssociationSet Name="FK_td_tooling_td_pr1" Association="TncNokToolingModel.FK_td_tooling_td_pr1">
-            <End Role="td_pr" EntitySet="td_pr" />
-            <End Role="td_tooling" EntitySet="td_tooling" />
-          </AssociationSet>
-          <AssociationSet Name="FK_td_tran_td_pr1" Association="TncNokToolingModel.FK_td_tran_td_pr1">
-            <End Role="td_pr" EntitySet="td_pr" />
-            <End Role="td_tran" EntitySet="td_tran" />
           </AssociationSet>
           <AssociationSet Name="FK_td_tran_tm_action" Association="TncNokToolingModel.FK_td_tran_tm_action">
             <End Role="tm_action" EntitySet="tm_action" />
@@ -839,16 +813,45 @@
             <End Role="td_eta_tnc" EntitySet="td_eta_tnc" />
           </AssociationSet>
           <EntitySet Name="tm_site" EntityType="TncNokToolingModel.tm_site" />
-          <AssociationSet Name="FK_td_pr_tm_site" Association="TncNokToolingModel.FK_td_pr_tm_site">
-            <End Role="tm_site" EntitySet="tm_site" />
-            <End Role="td_pr" EntitySet="td_pr" />
-          </AssociationSet>
           <AssociationSet Name="FK_tm_user_tm_site" Association="TncNokToolingModel.FK_tm_user_tm_site">
             <End Role="tm_site" EntitySet="tm_site" />
             <End Role="tm_user" EntitySet="tm_user" />
           </AssociationSet>
           <EntitySet Name="td_import" EntityType="TncNokToolingModel.td_import" />
           <EntitySet Name="v_issue_group" EntityType="TncNokToolingModel.v_issue_group" />
+          <EntitySet Name="td_pr" EntityType="TncNokToolingModel.td_pr" />
+          <AssociationSet Name="FK_td_files_td_pr1" Association="TncNokToolingModel.FK_td_files_td_pr1">
+            <End Role="td_pr" EntitySet="td_pr" />
+            <End Role="td_files" EntitySet="td_files" />
+          </AssociationSet>
+          <AssociationSet Name="FK_td_pr_tm_nok_plant" Association="TncNokToolingModel.FK_td_pr_tm_nok_plant">
+            <End Role="tm_nok_plant" EntitySet="tm_nok_plant" />
+            <End Role="td_pr" EntitySet="td_pr" />
+          </AssociationSet>
+          <AssociationSet Name="FK_td_pr_tm_process" Association="TncNokToolingModel.FK_td_pr_tm_process">
+            <End Role="tm_process" EntitySet="tm_process" />
+            <End Role="td_pr" EntitySet="td_pr" />
+          </AssociationSet>
+          <AssociationSet Name="FK_td_pr_tm_product" Association="TncNokToolingModel.FK_td_pr_tm_product">
+            <End Role="tm_product" EntitySet="tm_product" />
+            <End Role="td_pr" EntitySet="td_pr" />
+          </AssociationSet>
+          <AssociationSet Name="FK_td_pr_tm_site" Association="TncNokToolingModel.FK_td_pr_tm_site">
+            <End Role="tm_site" EntitySet="tm_site" />
+            <End Role="td_pr" EntitySet="td_pr" />
+          </AssociationSet>
+          <AssociationSet Name="FK_td_pr_tm_type" Association="TncNokToolingModel.FK_td_pr_tm_type">
+            <End Role="tm_type" EntitySet="tm_type" />
+            <End Role="td_pr" EntitySet="td_pr" />
+          </AssociationSet>
+          <AssociationSet Name="FK_td_tooling_td_pr1" Association="TncNokToolingModel.FK_td_tooling_td_pr1">
+            <End Role="td_pr" EntitySet="td_pr" />
+            <End Role="td_tooling" EntitySet="td_tooling" />
+          </AssociationSet>
+          <AssociationSet Name="FK_td_tran_td_pr1" Association="TncNokToolingModel.FK_td_tran_td_pr1">
+            <End Role="td_pr" EntitySet="td_pr" />
+            <End Role="td_tran" EntitySet="td_tran" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="td_files">
           <Key>
@@ -861,50 +864,8 @@
           <Property Name="file_path" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="upl_dt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="upl_by" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="td_pr" Relationship="TncNokToolingModel.FK_td_files_td_pr1" FromRole="td_files" ToRole="td_pr" />
           <NavigationProperty Name="tm_file_type" Relationship="TncNokToolingModel.FK_td_files_tm_file_type" FromRole="td_files" ToRole="tm_file_type" />
-        </EntityType>
-        <EntityType Name="td_pr">
-          <Key>
-            <PropertyRef Name="pr_no" />
-          </Key>
-          <Property Name="pr_no" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
-          <Property Name="condition" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
-          <Property Name="due_date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="reason" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="issue_dt" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="issue_by" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
-          <Property Name="issue_group" Type="Int32" Nullable="false" />
-          <Property Name="issue_dept" Type="Int32" />
-          <Property Name="issue_plant" Type="Int32" />
-          <Property Name="ext" Type="String" MaxLength="4" Unicode="false" FixedLength="false" />
-          <Property Name="rank" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
-          <Property Name="cost_code" Type="String" Nullable="false" MaxLength="80" Unicode="false" FixedLength="false" />
-          <Property Name="item_code" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="problem" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
-          <Property Name="process" Type="Byte" Nullable="false" />
-          <Property Name="nok_plant" Type="Byte" Nullable="false" />
-          <Property Name="product" Type="Byte" Nullable="false" />
-          <Property Name="type" Type="Byte" Nullable="false" />
-          <Property Name="nok_contact" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
-          <Property Name="issue_name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="po_no" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="issue_group_name" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="td_files" Relationship="TncNokToolingModel.FK_td_files_td_pr1" FromRole="td_pr" ToRole="td_files" />
-          <NavigationProperty Name="tm_nok_plant" Relationship="TncNokToolingModel.FK_td_pr_tm_nok_plant" FromRole="td_pr" ToRole="tm_nok_plant" />
-          <NavigationProperty Name="tm_process" Relationship="TncNokToolingModel.FK_td_pr_tm_process" FromRole="td_pr" ToRole="tm_process" />
-          <NavigationProperty Name="tm_product" Relationship="TncNokToolingModel.FK_td_pr_tm_product" FromRole="td_pr" ToRole="tm_product" />
-          <NavigationProperty Name="tm_type" Relationship="TncNokToolingModel.FK_td_pr_tm_type" FromRole="td_pr" ToRole="tm_type" />
-          <NavigationProperty Name="td_tooling" Relationship="TncNokToolingModel.FK_td_tooling_td_pr1" FromRole="td_pr" ToRole="td_tooling" />
-          <NavigationProperty Name="td_tran" Relationship="TncNokToolingModel.FK_td_tran_td_pr1" FromRole="td_pr" ToRole="td_tran" />
-          <Property Type="String" Name="po_nok" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="order_no" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="plant" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="maker" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="maker_comp_dt" Precision="0" />
-          <Property Type="DateTime" Name="div_comp_dt" Precision="0" />
-          <Property Type="Byte" Name="site_id" />
-          <NavigationProperty Name="tm_site" Relationship="TncNokToolingModel.FK_td_pr_tm_site" FromRole="td_pr" ToRole="tm_site" />
+          <NavigationProperty Name="td_pr" Relationship="TncNokToolingModel.FK_td_files_td_pr1" FromRole="td_files" ToRole="td_pr" />
         </EntityType>
         <EntityType Name="td_tooling">
           <Key>
@@ -917,10 +878,10 @@
           <Property Name="qty" Type="Int32" Nullable="false" />
           <Property Name="unit" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
           <Property Name="sell" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="td_pr" Relationship="TncNokToolingModel.FK_td_tooling_td_pr1" FromRole="td_tooling" ToRole="td_pr" />
           <Property Type="String" Name="kouza" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="status" MaxLength="5" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="td_eta_tnc" Relationship="TncNokToolingModel.FK_td_eta_tnc_td_tooling" FromRole="td_tooling" ToRole="td_eta_tnc" />
+          <NavigationProperty Name="td_pr" Relationship="TncNokToolingModel.FK_td_tooling_td_pr1" FromRole="td_tooling" ToRole="td_pr" />
         </EntityType>
         <EntityType Name="td_tran">
           <Key>
@@ -939,10 +900,10 @@
           <Property Name="act_id" Type="String" MaxLength="5" Unicode="false" FixedLength="false" />
           <Property Name="act_dt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="comment" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="td_pr" Relationship="TncNokToolingModel.FK_td_tran_td_pr1" FromRole="td_tran" ToRole="td_pr" />
           <NavigationProperty Name="tm_action" Relationship="TncNokToolingModel.FK_td_tran_tm_action" FromRole="td_tran" ToRole="tm_action" />
           <NavigationProperty Name="tm_status" Relationship="TncNokToolingModel.FK_td_tran_tm_status" FromRole="td_tran" ToRole="tm_status" />
           <NavigationProperty Name="tm_user_lv" Relationship="TncNokToolingModel.FK_td_tran_tm_user_lv" FromRole="td_tran" ToRole="tm_user_lv" />
+          <NavigationProperty Name="td_pr" Relationship="TncNokToolingModel.FK_td_tran_td_pr1" FromRole="td_tran" ToRole="td_pr" />
         </EntityType>
         <EntityType Name="tm_action">
           <Key>
@@ -996,8 +957,8 @@
           </Key>
           <Property Name="id" Type="Byte" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="td_pr" Relationship="TncNokToolingModel.FK_td_pr_tm_nok_plant" FromRole="tm_nok_plant" ToRole="td_pr" />
           <NavigationProperty Name="tm_leadtime" Relationship="TncNokToolingModel.FK_tm_leadtime_tm_nok_plant" FromRole="tm_nok_plant" ToRole="tm_leadtime" />
+          <NavigationProperty Name="td_pr" Relationship="TncNokToolingModel.FK_td_pr_tm_nok_plant" FromRole="tm_nok_plant" ToRole="td_pr" />
         </EntityType>
         <EntityType Name="tm_process">
           <Key>
@@ -1005,8 +966,8 @@
           </Key>
           <Property Name="id" Type="Byte" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="td_pr" Relationship="TncNokToolingModel.FK_td_pr_tm_process" FromRole="tm_process" ToRole="td_pr" />
           <NavigationProperty Name="tm_leadtime" Relationship="TncNokToolingModel.FK_tm_leadtime_tm_process" FromRole="tm_process" ToRole="tm_leadtime" />
+          <NavigationProperty Name="td_pr" Relationship="TncNokToolingModel.FK_td_pr_tm_process" FromRole="tm_process" ToRole="td_pr" />
         </EntityType>
         <EntityType Name="tm_product">
           <Key>
@@ -1014,8 +975,8 @@
           </Key>
           <Property Name="id" Type="Byte" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="td_pr" Relationship="TncNokToolingModel.FK_td_pr_tm_product" FromRole="tm_product" ToRole="td_pr" />
           <NavigationProperty Name="tm_leadtime" Relationship="TncNokToolingModel.FK_tm_leadtime_tm_product" FromRole="tm_product" ToRole="tm_leadtime" />
+          <NavigationProperty Name="td_pr" Relationship="TncNokToolingModel.FK_td_pr_tm_product" FromRole="tm_product" ToRole="td_pr" />
         </EntityType>
         <EntityType Name="tm_status">
           <Key>
@@ -1036,8 +997,8 @@
           </Key>
           <Property Name="id" Type="Byte" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="td_pr" Relationship="TncNokToolingModel.FK_td_pr_tm_type" FromRole="tm_type" ToRole="td_pr" />
           <NavigationProperty Name="tm_leadtime" Relationship="TncNokToolingModel.FK_tm_leadtime_tm_type" FromRole="tm_type" ToRole="tm_leadtime" />
+          <NavigationProperty Name="td_pr" Relationship="TncNokToolingModel.FK_td_pr_tm_type" FromRole="tm_type" ToRole="td_pr" />
         </EntityType>
         <EntityType Name="tm_user">
           <Key>
@@ -1102,21 +1063,8 @@
           <Property Type="Int32" Name="org" Nullable="false" />
           <Property Type="String" Name="requester" MaxLength="511" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="site_name" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="po_nok" Precision="0" />
         </EntityType>
-        <Association Name="FK_td_files_td_pr1">
-          <End Role="td_pr" Type="TncNokToolingModel.td_pr" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="td_files" Type="TncNokToolingModel.td_files" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="td_pr">
-              <PropertyRef Name="pr_no" />
-            </Principal>
-            <Dependent Role="td_files">
-              <PropertyRef Name="pr_no" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_td_files_tm_file_type">
           <End Role="tm_file_type" Type="TncNokToolingModel.tm_file_type" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1128,82 +1076,6 @@
             </Principal>
             <Dependent Role="td_files">
               <PropertyRef Name="file_type" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_td_pr_tm_nok_plant">
-          <End Role="tm_nok_plant" Type="TncNokToolingModel.tm_nok_plant" Multiplicity="1" />
-          <End Role="td_pr" Type="TncNokToolingModel.td_pr" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tm_nok_plant">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="td_pr">
-              <PropertyRef Name="nok_plant" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_td_pr_tm_process">
-          <End Role="tm_process" Type="TncNokToolingModel.tm_process" Multiplicity="1" />
-          <End Role="td_pr" Type="TncNokToolingModel.td_pr" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tm_process">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="td_pr">
-              <PropertyRef Name="process" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_td_pr_tm_product">
-          <End Role="tm_product" Type="TncNokToolingModel.tm_product" Multiplicity="1" />
-          <End Role="td_pr" Type="TncNokToolingModel.td_pr" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tm_product">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="td_pr">
-              <PropertyRef Name="product" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_td_pr_tm_type">
-          <End Role="tm_type" Type="TncNokToolingModel.tm_type" Multiplicity="1" />
-          <End Role="td_pr" Type="TncNokToolingModel.td_pr" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tm_type">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="td_pr">
-              <PropertyRef Name="type" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_td_tooling_td_pr1">
-          <End Role="td_pr" Type="TncNokToolingModel.td_pr" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="td_tooling" Type="TncNokToolingModel.td_tooling" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="td_pr">
-              <PropertyRef Name="pr_no" />
-            </Principal>
-            <Dependent Role="td_tooling">
-              <PropertyRef Name="pr_no" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_td_tran_td_pr1">
-          <End Role="td_pr" Type="TncNokToolingModel.td_pr" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="td_tran" Type="TncNokToolingModel.td_tran" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="td_pr">
-              <PropertyRef Name="pr_no" />
-            </Principal>
-            <Dependent Role="td_tran">
-              <PropertyRef Name="pr_no" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1367,6 +1239,7 @@
           <Property Type="String" Name="lname" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Byte" Name="ulv" />
           <Property Type="String" Name="vcode" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
         </EntityType>
         <EntityType Name="td_eta_tnc">
           <Key>
@@ -1404,21 +1277,9 @@
           </Key>
           <Property Type="Byte" Name="site_id" Nullable="false" />
           <Property Type="String" Name="site_name" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="td_pr" Relationship="TncNokToolingModel.FK_td_pr_tm_site" FromRole="tm_site" ToRole="td_pr" />
           <NavigationProperty Name="tm_user" Relationship="TncNokToolingModel.FK_tm_user_tm_site" FromRole="tm_site" ToRole="tm_user" />
+          <NavigationProperty Name="td_pr" Relationship="TncNokToolingModel.FK_td_pr_tm_site" FromRole="tm_site" ToRole="td_pr" />
         </EntityType>
-        <Association Name="FK_td_pr_tm_site">
-          <End Type="TncNokToolingModel.tm_site" Role="tm_site" Multiplicity="0..1" />
-          <End Type="TncNokToolingModel.td_pr" Role="td_pr" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tm_site">
-              <PropertyRef Name="site_id" />
-            </Principal>
-            <Dependent Role="td_pr">
-              <PropertyRef Name="site_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tm_user_tm_site">
           <End Type="TncNokToolingModel.tm_site" Role="tm_site" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -1441,9 +1302,9 @@
           <Property Type="String" Name="po_no" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="po_added" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="plant" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="product" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="product" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="spec" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="order_status" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="order_status" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="order_qty" />
           <Property Type="Int32" Name="insp_qty" />
           <Property Type="Int32" Name="ship_qty" />
@@ -1461,6 +1322,150 @@
           <Property Type="Int32" Name="issue_group" Nullable="false" />
           <Property Type="String" Name="group_name" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="td_pr">
+          <Key>
+            <PropertyRef Name="pr_no" />
+          </Key>
+          <Property Type="String" Name="pr_no" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="condition" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="due_date" Nullable="false" Precision="0" />
+          <Property Type="String" Name="reason" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="issue_dt" Nullable="false" Precision="3" />
+          <Property Type="String" Name="issue_by" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="issue_group" Nullable="false" />
+          <Property Type="Int32" Name="issue_dept" />
+          <Property Type="Int32" Name="issue_plant" />
+          <Property Type="String" Name="ext" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="rank" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="cost_code" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="item_code" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="problem" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Byte" Name="process" Nullable="false" />
+          <Property Type="Byte" Name="nok_plant" Nullable="false" />
+          <Property Type="Byte" Name="product" Nullable="false" />
+          <Property Type="Byte" Name="type" Nullable="false" />
+          <Property Type="String" Name="nok_contact" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="issue_name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="po_no" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="issue_group_name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="po_nok" Precision="3" />
+          <Property Type="String" Name="order_no" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="plant" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="maker" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="maker_comp_dt" Precision="0" />
+          <Property Type="DateTime" Name="div_comp_dt" Precision="0" />
+          <Property Type="Byte" Name="site_id" />
+          <NavigationProperty Name="td_files" Relationship="TncNokToolingModel.FK_td_files_td_pr1" FromRole="td_pr" ToRole="td_files" />
+          <NavigationProperty Name="tm_nok_plant" Relationship="TncNokToolingModel.FK_td_pr_tm_nok_plant" FromRole="td_pr" ToRole="tm_nok_plant" />
+          <NavigationProperty Name="tm_process" Relationship="TncNokToolingModel.FK_td_pr_tm_process" FromRole="td_pr" ToRole="tm_process" />
+          <NavigationProperty Name="tm_product" Relationship="TncNokToolingModel.FK_td_pr_tm_product" FromRole="td_pr" ToRole="tm_product" />
+          <NavigationProperty Name="tm_site" Relationship="TncNokToolingModel.FK_td_pr_tm_site" FromRole="td_pr" ToRole="tm_site" />
+          <NavigationProperty Name="tm_type" Relationship="TncNokToolingModel.FK_td_pr_tm_type" FromRole="td_pr" ToRole="tm_type" />
+          <NavigationProperty Name="td_tooling" Relationship="TncNokToolingModel.FK_td_tooling_td_pr1" FromRole="td_pr" ToRole="td_tooling" />
+          <NavigationProperty Name="td_tran" Relationship="TncNokToolingModel.FK_td_tran_td_pr1" FromRole="td_pr" ToRole="td_tran" />
+        </EntityType>
+        <Association Name="FK_td_files_td_pr1">
+          <End Type="TncNokToolingModel.td_pr" Role="td_pr" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="TncNokToolingModel.td_files" Role="td_files" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="td_pr">
+              <PropertyRef Name="pr_no" />
+            </Principal>
+            <Dependent Role="td_files">
+              <PropertyRef Name="pr_no" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_td_pr_tm_nok_plant">
+          <End Type="TncNokToolingModel.tm_nok_plant" Role="tm_nok_plant" Multiplicity="1" />
+          <End Type="TncNokToolingModel.td_pr" Role="td_pr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tm_nok_plant">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="td_pr">
+              <PropertyRef Name="nok_plant" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_td_pr_tm_process">
+          <End Type="TncNokToolingModel.tm_process" Role="tm_process" Multiplicity="1" />
+          <End Type="TncNokToolingModel.td_pr" Role="td_pr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tm_process">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="td_pr">
+              <PropertyRef Name="process" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_td_pr_tm_product">
+          <End Type="TncNokToolingModel.tm_product" Role="tm_product" Multiplicity="1" />
+          <End Type="TncNokToolingModel.td_pr" Role="td_pr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tm_product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="td_pr">
+              <PropertyRef Name="product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_td_pr_tm_site">
+          <End Type="TncNokToolingModel.tm_site" Role="tm_site" Multiplicity="0..1" />
+          <End Type="TncNokToolingModel.td_pr" Role="td_pr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tm_site">
+              <PropertyRef Name="site_id" />
+            </Principal>
+            <Dependent Role="td_pr">
+              <PropertyRef Name="site_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_td_pr_tm_type">
+          <End Type="TncNokToolingModel.tm_type" Role="tm_type" Multiplicity="1" />
+          <End Type="TncNokToolingModel.td_pr" Role="td_pr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tm_type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="td_pr">
+              <PropertyRef Name="type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_td_tooling_td_pr1">
+          <End Type="TncNokToolingModel.td_pr" Role="td_pr" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="TncNokToolingModel.td_tooling" Role="td_tooling" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="td_pr">
+              <PropertyRef Name="pr_no" />
+            </Principal>
+            <Dependent Role="td_tooling">
+              <PropertyRef Name="pr_no" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_td_tran_td_pr1">
+          <End Type="TncNokToolingModel.td_pr" Role="td_pr" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="TncNokToolingModel.td_tran" Role="td_tran" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="td_pr">
+              <PropertyRef Name="pr_no" />
+            </Principal>
+            <Dependent Role="td_tran">
+              <PropertyRef Name="pr_no" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1476,41 +1481,6 @@
                 <ScalarProperty Name="file_path" ColumnName="file_path" />
                 <ScalarProperty Name="upl_dt" ColumnName="upl_dt" />
                 <ScalarProperty Name="upl_by" ColumnName="upl_by" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="td_pr">
-            <EntityTypeMapping TypeName="TncNokToolingModel.td_pr">
-              <MappingFragment StoreEntitySet="td_pr">
-                <ScalarProperty Name="site_id" ColumnName="site_id" />
-                <ScalarProperty Name="div_comp_dt" ColumnName="div_comp_dt" />
-                <ScalarProperty Name="maker_comp_dt" ColumnName="maker_comp_dt" />
-                <ScalarProperty Name="maker" ColumnName="maker" />
-                <ScalarProperty Name="plant" ColumnName="plant" />
-                <ScalarProperty Name="order_no" ColumnName="order_no" />
-                <ScalarProperty Name="po_nok" ColumnName="po_nok" />
-                <ScalarProperty Name="pr_no" ColumnName="pr_no" />
-                <ScalarProperty Name="condition" ColumnName="condition" />
-                <ScalarProperty Name="due_date" ColumnName="due_date" />
-                <ScalarProperty Name="reason" ColumnName="reason" />
-                <ScalarProperty Name="issue_dt" ColumnName="issue_dt" />
-                <ScalarProperty Name="issue_by" ColumnName="issue_by" />
-                <ScalarProperty Name="issue_group" ColumnName="issue_group" />
-                <ScalarProperty Name="issue_dept" ColumnName="issue_dept" />
-                <ScalarProperty Name="issue_plant" ColumnName="issue_plant" />
-                <ScalarProperty Name="ext" ColumnName="ext" />
-                <ScalarProperty Name="rank" ColumnName="rank" />
-                <ScalarProperty Name="cost_code" ColumnName="cost_code" />
-                <ScalarProperty Name="item_code" ColumnName="item_code" />
-                <ScalarProperty Name="problem" ColumnName="problem" />
-                <ScalarProperty Name="process" ColumnName="process" />
-                <ScalarProperty Name="nok_plant" ColumnName="nok_plant" />
-                <ScalarProperty Name="product" ColumnName="product" />
-                <ScalarProperty Name="type" ColumnName="type" />
-                <ScalarProperty Name="nok_contact" ColumnName="nok_contact" />
-                <ScalarProperty Name="issue_name" ColumnName="issue_name" />
-                <ScalarProperty Name="po_no" ColumnName="po_no" />
-                <ScalarProperty Name="issue_group_name" ColumnName="issue_group_name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1659,6 +1629,7 @@
           <EntitySetMapping Name="v_tran">
             <EntityTypeMapping TypeName="TncNokToolingModel.v_tran">
               <MappingFragment StoreEntitySet="v_tran">
+                <ScalarProperty Name="po_nok" ColumnName="po_nok" />
                 <ScalarProperty Name="site_name" ColumnName="site_name" />
                 <ScalarProperty Name="requester" ColumnName="requester" />
                 <ScalarProperty Name="org" ColumnName="org" />
@@ -1715,6 +1686,7 @@
           <EntitySetMapping Name="tm_user_nok">
             <EntityTypeMapping TypeName="TncNokToolingModel.tm_user_nok">
               <MappingFragment StoreEntitySet="tm_user_nok">
+                <ScalarProperty Name="active" ColumnName="active" />
                 <ScalarProperty Name="vcode" ColumnName="vcode" />
                 <ScalarProperty Name="ulv" ColumnName="ulv" />
                 <ScalarProperty Name="lname" ColumnName="lname" />
@@ -1773,6 +1745,41 @@
               <MappingFragment StoreEntitySet="v_issue_group">
                 <ScalarProperty Name="group_name" ColumnName="group_name" />
                 <ScalarProperty Name="issue_group" ColumnName="issue_group" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="td_pr">
+            <EntityTypeMapping TypeName="TncNokToolingModel.td_pr">
+              <MappingFragment StoreEntitySet="td_pr">
+                <ScalarProperty Name="site_id" ColumnName="site_id" />
+                <ScalarProperty Name="div_comp_dt" ColumnName="div_comp_dt" />
+                <ScalarProperty Name="maker_comp_dt" ColumnName="maker_comp_dt" />
+                <ScalarProperty Name="maker" ColumnName="maker" />
+                <ScalarProperty Name="plant" ColumnName="plant" />
+                <ScalarProperty Name="order_no" ColumnName="order_no" />
+                <ScalarProperty Name="po_nok" ColumnName="po_nok" />
+                <ScalarProperty Name="issue_group_name" ColumnName="issue_group_name" />
+                <ScalarProperty Name="po_no" ColumnName="po_no" />
+                <ScalarProperty Name="issue_name" ColumnName="issue_name" />
+                <ScalarProperty Name="nok_contact" ColumnName="nok_contact" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="product" ColumnName="product" />
+                <ScalarProperty Name="nok_plant" ColumnName="nok_plant" />
+                <ScalarProperty Name="process" ColumnName="process" />
+                <ScalarProperty Name="problem" ColumnName="problem" />
+                <ScalarProperty Name="item_code" ColumnName="item_code" />
+                <ScalarProperty Name="cost_code" ColumnName="cost_code" />
+                <ScalarProperty Name="rank" ColumnName="rank" />
+                <ScalarProperty Name="ext" ColumnName="ext" />
+                <ScalarProperty Name="issue_plant" ColumnName="issue_plant" />
+                <ScalarProperty Name="issue_dept" ColumnName="issue_dept" />
+                <ScalarProperty Name="issue_group" ColumnName="issue_group" />
+                <ScalarProperty Name="issue_by" ColumnName="issue_by" />
+                <ScalarProperty Name="issue_dt" ColumnName="issue_dt" />
+                <ScalarProperty Name="reason" ColumnName="reason" />
+                <ScalarProperty Name="due_date" ColumnName="due_date" />
+                <ScalarProperty Name="condition" ColumnName="condition" />
+                <ScalarProperty Name="pr_no" ColumnName="pr_no" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

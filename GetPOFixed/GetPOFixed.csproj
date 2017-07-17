@@ -47,8 +47,26 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WebCommonFunction">
+      <HintPath>\\webexternal\SourceControl\WebCommonFunction\SourceCode\WebCommonFunction\bin\Debug\WebCommonFunction.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mail.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Mail.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Mail.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Mail.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Mail.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Mail.edmx</DependentUpon>
+    </Compile>
     <Compile Include="PO_APP_HEAD.cs">
       <DependentUpon>PR.tt</DependentUpon>
     </Compile>
@@ -81,6 +99,9 @@
     <Compile Include="td_tran.cs">
       <DependentUpon>TNT.tt</DependentUpon>
     </Compile>
+    <Compile Include="tm_user_nok.cs">
+      <DependentUpon>TNT.tt</DependentUpon>
+    </Compile>
     <Compile Include="TNT.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -96,6 +117,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TNT.edmx</DependentUpon>
     </Compile>
+    <Compile Include="TT_MAIL_WIP.cs">
+      <DependentUpon>Mail.tt</DependentUpon>
+    </Compile>
     <Compile Include="v_tran.cs">
       <DependentUpon>TNT.tt</DependentUpon>
     </Compile>
@@ -106,6 +130,23 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>TNT.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <EntityDeploy Include="Mail.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Mail.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Mail.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Mail.edmx</DependentUpon>
+      <LastGenOutput>Mail.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Mail.edmx.diagram">
+      <DependentUpon>Mail.edmx</DependentUpon>
+    </None>
+    <None Include="Mail.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Mail.edmx</DependentUpon>
+      <LastGenOutput>Mail.cs</LastGenOutput>
+    </None>
     <None Include="packages.config" />
     <EntityDeploy Include="PR.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

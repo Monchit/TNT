@@ -14,3 +14,7 @@ C:\Users\monchit\Documents\Visual Studio 2012\Projects\TncNokTooling\GetPOFixed\
 C:\Users\monchit\Documents\Visual Studio 2012\Projects\TncNokTooling\GetPOFixed\obj\Debug\GetPOFixed.csprojResolveAssemblyReference.cache
 C:\Users\monchit\Documents\Visual Studio 2012\Projects\TncNokTooling\GetPOFixed\obj\Debug\GetPOFixed.exe
 C:\Users\monchit\Documents\Visual Studio 2012\Projects\TncNokTooling\GetPOFixed\obj\Debug\GetPOFixed.pdb
+C:\Users\monchit\Documents\Visual Studio 2012\Projects\TncNokTooling\GetPOFixed\bin\Debug\WebCommonFunction.dll
+C:\Users\monchit\Documents\Visual Studio 2012\Projects\TncNokTooling\GetPOFixed\bin\Debug\EPPlus.dll
+C:\Users\monchit\Documents\Visual Studio 2012\Projects\TncNokTooling\GetPOFixed\bin\Debug\WebCommonFunction.pdb
+C:\Users\monchit\Documents\Visual Studio 2012\Projects\TncNokTooling\GetPOFixed\bin\Debug\EPPlus.xml

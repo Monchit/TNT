@@ -32,5 +32,6 @@ namespace TncNokTooling.Models
         public int org { get; set; }
         public string requester { get; set; }
         public string site_name { get; set; }
+        public Nullable<System.DateTime> po_nok { get; set; }
     }
 }

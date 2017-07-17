@@ -21,7 +21,7 @@ namespace TncNokTooling.Models
         public System.DateTime upl_dt { get; set; }
         public string upl_by { get; set; }
     
-        public virtual td_pr td_pr { get; set; }
         public virtual tm_file_type tm_file_type { get; set; }
+        public virtual td_pr td_pr { get; set; }
     }
 }

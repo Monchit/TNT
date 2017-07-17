@@ -15,6 +15,15 @@
 
 <h2>@ViewBag.Title</h2><hr />
 
+<form class="form-horizontal" id="form_export" name="form_export" method="post" action="@Url.Action("ExportNOKList", "Home")">
+    <div class="control-group">
+        <label class="control-label" for="filebutton">Export PO Line : </label>
+        <div class="controls">
+            <button type="submit" class="btn btn-small btn-info"><i class="icon-list-alt icon-white"></i> Export</button>
+        </div>
+    </div>
+</form>
+
 <form class="form-horizontal" id="formUpload" name="formUpload" action="@Url.Action("UploadNokData", "Home")" method="post" enctype="multipart/form-data">
     <div class="control-group">
         <label class="control-label" for="filebutton">File Format : </label>

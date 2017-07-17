@@ -7,23 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TncNokTooling.Models
+namespace GetPOFixed
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class tm_site
+    public partial class tm_user_nok
     {
-        public tm_site()
-        {
-            this.tm_user = new HashSet<tm_user>();
-            this.td_pr = new HashSet<td_pr>();
-        }
-    
-        public byte site_id { get; set; }
-        public string site_name { get; set; }
-    
-        public virtual ICollection<tm_user> tm_user { get; set; }
-        public virtual ICollection<td_pr> td_pr { get; set; }
+        public string username { get; set; }
+        public string password { get; set; }
+        public byte utype { get; set; }
+        public string email { get; set; }
+        public string fname { get; set; }
+        public string lname { get; set; }
+        public Nullable<byte> ulv { get; set; }
+        public string vcode { get; set; }
+        public bool active { get; set; }
     }
 }

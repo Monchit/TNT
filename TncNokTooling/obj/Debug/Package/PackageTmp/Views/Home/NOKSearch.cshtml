@@ -15,6 +15,12 @@
 
 @section scripts {
     <script type="text/javascript">
+        function getParameterByName(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
         $(document).ready(function () {
             var obj = new Object();
             $('#jTableList').jtable({
@@ -51,19 +57,22 @@
                 fields: {
                     pr_no: { list: false },
                     //nok_plant: { title: 'Plant/Div', width: '8%' },
-                    item_code: { title: 'Item code', width: '25%' },
-                    po_no: { title: 'TNC PO No.', width: '10%' },
-                    issue_dt: { title: 'TNC Issue', width: '10%', type: 'date', displayFormat: 'dd-mm-yy' },
-                    due_date: { title: 'TNC Due', width: '10%', type: 'date', displayFormat: 'dd-mm-yy' },
+                    item_code: { title: 'Item code', width: '21%' },
+                    po_no: { title: 'TNC PO No.', width: '9%' },
+                    issue_dt: { title: 'TNC Issue', width: '9%', type: 'date', displayFormat: 'dd-mm-yy' },
+                    due_date: { title: 'TNC Due', width: '9%', type: 'date', displayFormat: 'dd-mm-yy' },
                     //po_nok: { title: 'NOK PO No.', width: '8%' },
                     //nok_issue_dt: { title: 'NOK Issue', width: '8%', type: 'date', displayFormat: 'dd-mm-yy' },
                     //order_no: { title: 'Division order no.', width: '8%' },
                     //div_comp_dt: { title: 'Division Comp. Date', width: '8%', type: 'date', displayFormat: 'dd-mm-yy' },
                     status: { title: 'Status', width: '25%' },
                     status_id: { list: false },
-                    condition: { title: 'Condition', width: '10%' },
+                    condition: { title: 'Condition', width: '9%' },
                     polink: {
-                        title: 'PO', width: '10%', sorting: false
+                        title: 'PO', width: '9%', sorting: false
+                    },
+                    received:{
+                        title: 'Received', width: '9%'
                     }
                 },
                 //Register to selectionChanged event to hanlde events
@@ -109,20 +118,36 @@
                     }
                 }
             });
+
             //Re-load records when user click 'load records' button.
             $('#btn_search').click(function (e) {
                 e.preventDefault();
                 $('#jTableList').jtable('load', {
-                    //id: $('#txt_pr').val(),
                     po_no: $('#txt_po').val(),
                     item: $('#txt_item').val(),
+                    status: $('#sel_status').val(),
+                    condition: $('#sel_condition').val()
+                    //id: $('#txt_pr').val(),
                     //process: $('#sel_process').val(),
                     //requester: $('#txt_req').val(),
-                    //req_group: $('#sel_req_group').val(),
-                    status: $('#txt_status').val(),
-                    condition: $('#sel_condition').val()
+                    //req_group: $('#sel_req_group').val()
                 });
             });
+
+            $(document).on("click", "a.NOKView", function () {
+                var obj = new Object();
+                obj.pr = $(this).attr('data-pr');
+                var remote = "@Url.Action("UpdNokView", "Home")";
+                $.post(remote, obj, function (data) {
+                    $('#jTableList').jtable('reload');
+                });
+            });
+
+            $("#txt_po").val(getParameterByName('id'));
+
+            if ($('#txt_po').val() != "") {
+                $('#jTableList').jtable('load', { po_no: $('#txt_po').val() });
+            }
         });
     </script>
 }
@@ -184,10 +209,14 @@
                         <div class="control-group">
                             <label class="control-label" for="txt_status">Status :</label>
                             <div class="controls">
-                                <input id="txt_status" name="txt_status" type="text" placeholder="Status" class="input-large" />
-                                @*<select id="sel_status" name="sel_status" class="input-large">
+                                @*<input id="txt_status" name="txt_status" type="text" placeholder="Status" class="input-large" />*@
+                                <select id="sel_status" name="sel_status" class="input-large">
                                     <option value="">-- All --</option>
-                                </select>*@
+                                @foreach (var item in ViewBag.SearchStatus)
+                                {
+                                    <option value="@item.id">@item.name</option>
+                                }
+                                </select>
                             </div>
                         </div>
 

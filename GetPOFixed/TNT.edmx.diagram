@@ -4,11 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="deeb255c184b4c179aeb7ce6b1b27546" Name="Diagram1">
+      <Diagram DiagramId="deeb255c184b4c179aeb7ce6b1b27546" Name="Diagram1" ZoomLevel="84">
         <EntityTypeShape EntityType="TncNokToolingModel.td_pr" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="TncNokToolingModel.td_tran" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TncNokToolingModel.td_tran" Width="1.5" PointX="2.75" PointY="1.125" IsExpanded="true" />
         <AssociationConnector Association="TncNokToolingModel.FK_td_tran_td_pr1" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="TncNokToolingModel.v_tran" Width="1.5" PointX="5" PointY="1.125" />
+        <EntityTypeShape EntityType="TncNokToolingModel.v_tran" Width="1.5" PointX="4.75" PointY="1.125" />
+        <EntityTypeShape EntityType="TncNokToolingModel.tm_user_nok" Width="1.5" PointX="6.75" PointY="1.125" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

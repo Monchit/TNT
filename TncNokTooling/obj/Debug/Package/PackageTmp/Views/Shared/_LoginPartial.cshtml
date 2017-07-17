@@ -1,9 +1,6 @@
 ﻿@if (Session["TNT_Auth"] == null)
 {
     <text>
-        @*<form id="formLogin" name="formLogin" class="navbar-form pull-right" action="@Url.Action("Index","Account")" method="post">
-            <button type="submit" class="btn btn-success"><i class="icon-user icon-white"></i> Log in</button>
-        </form>*@
         <div class="pull-right"><a href="@Url.Action("Index","Home")" class="btn btn-success"><i class="icon-user icon-white"></i> Sign in</a></div>
         
     </text>

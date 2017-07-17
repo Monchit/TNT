@@ -43,7 +43,7 @@ namespace TncNokTooling.Models
         public string issue_name { get; set; }
         public string po_no { get; set; }
         public string issue_group_name { get; set; }
-        public string po_nok { get; set; }
+        public Nullable<System.DateTime> po_nok { get; set; }
         public string order_no { get; set; }
         public string plant { get; set; }
         public string maker { get; set; }
@@ -55,9 +55,9 @@ namespace TncNokTooling.Models
         public virtual tm_nok_plant tm_nok_plant { get; set; }
         public virtual tm_process tm_process { get; set; }
         public virtual tm_product tm_product { get; set; }
+        public virtual tm_site tm_site { get; set; }
         public virtual tm_type tm_type { get; set; }
         public virtual ICollection<td_tooling> td_tooling { get; set; }
         public virtual ICollection<td_tran> td_tran { get; set; }
-        public virtual tm_site tm_site { get; set; }
     }
 }

@@ -16,14 +16,14 @@ namespace TncNokTooling.Models
     {
         public tm_process()
         {
-            this.td_pr = new HashSet<td_pr>();
             this.tm_leadtime = new HashSet<tm_leadtime>();
+            this.td_pr = new HashSet<td_pr>();
         }
     
         public byte id { get; set; }
         public string name { get; set; }
     
-        public virtual ICollection<td_pr> td_pr { get; set; }
         public virtual ICollection<tm_leadtime> tm_leadtime { get; set; }
+        public virtual ICollection<td_pr> td_pr { get; set; }
     }
 }

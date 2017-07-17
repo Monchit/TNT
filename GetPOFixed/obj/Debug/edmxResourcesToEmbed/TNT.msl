@@ -4,6 +4,13 @@
     <EntitySetMapping Name="td_pr">
       <EntityTypeMapping TypeName="TncNokToolingModel.td_pr">
         <MappingFragment StoreEntitySet="td_pr">
+          <ScalarProperty Name="site_id" ColumnName="site_id" />
+          <ScalarProperty Name="div_comp_dt" ColumnName="div_comp_dt" />
+          <ScalarProperty Name="maker_comp_dt" ColumnName="maker_comp_dt" />
+          <ScalarProperty Name="maker" ColumnName="maker" />
+          <ScalarProperty Name="plant" ColumnName="plant" />
+          <ScalarProperty Name="order_no" ColumnName="order_no" />
+          <ScalarProperty Name="po_nok" ColumnName="po_nok" />
           <ScalarProperty Name="pr_no" ColumnName="pr_no" />
           <ScalarProperty Name="condition" ColumnName="condition" />
           <ScalarProperty Name="due_date" ColumnName="due_date" />
@@ -47,6 +54,7 @@
     <EntitySetMapping Name="v_tran">
       <EntityTypeMapping TypeName="TncNokToolingModel.v_tran">
         <MappingFragment StoreEntitySet="v_tran">
+          <ScalarProperty Name="site_name" ColumnName="site_name" />
           <ScalarProperty Name="requester" ColumnName="requester" />
           <ScalarProperty Name="org" ColumnName="org" />
           <ScalarProperty Name="nok_plant" ColumnName="nok_plant" />
@@ -64,6 +72,21 @@
           <ScalarProperty Name="condition" ColumnName="condition" />
           <ScalarProperty Name="item_code" ColumnName="item_code" />
           <ScalarProperty Name="pr_no" ColumnName="pr_no" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tm_user_nok">
+      <EntityTypeMapping TypeName="TncNokToolingModel.tm_user_nok">
+        <MappingFragment StoreEntitySet="tm_user_nok">
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="vcode" ColumnName="vcode" />
+          <ScalarProperty Name="ulv" ColumnName="ulv" />
+          <ScalarProperty Name="lname" ColumnName="lname" />
+          <ScalarProperty Name="fname" ColumnName="fname" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="utype" ColumnName="utype" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="username" ColumnName="username" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

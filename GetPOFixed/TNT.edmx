@@ -8,6 +8,7 @@
         <EntityContainer Name="TncNokToolingModelStoreContainer">
           <EntitySet Name="td_pr" EntityType="TncNokToolingModel.Store.td_pr" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="td_tran" EntityType="TncNokToolingModel.Store.td_tran" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tm_user_nok" EntityType="TncNokToolingModel.Store.tm_user_nok" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="v_tran" EntityType="TncNokToolingModel.Store.v_tran" store:Type="Views" store:Schema="dbo" store:Name="v_tran">
             <DefiningQuery>SELECT 
       [v_tran].[pr_no] AS [pr_no], 
@@ -26,7 +27,8 @@
       [v_tran].[process] AS [process], 
       [v_tran].[nok_plant] AS [nok_plant], 
       [v_tran].[org] AS [org], 
-      [v_tran].[requester] AS [requester]
+      [v_tran].[requester] AS [requester], 
+      [v_tran].[site_name] AS [site_name]
       FROM [dbo].[v_tran] AS [v_tran]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_td_tran_td_pr1" Association="TncNokToolingModel.Store.FK_td_tran_td_pr1">
@@ -49,7 +51,7 @@
           <Property Name="issue_plant" Type="int" />
           <Property Name="ext" Type="varchar" MaxLength="4" />
           <Property Name="rank" Type="char" Nullable="false" MaxLength="1" />
-          <Property Name="cost_code" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="cost_code" Type="varchar" Nullable="false" MaxLength="80" />
           <Property Name="item_code" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="problem" Type="varchar(max)" />
           <Property Name="process" Type="tinyint" Nullable="false" />
@@ -60,6 +62,13 @@
           <Property Name="issue_name" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="po_no" Type="varchar" MaxLength="50" />
           <Property Name="issue_group_name" Type="varchar" MaxLength="50" />
+          <Property Name="po_nok" Type="varchar" MaxLength="50" />
+          <Property Name="order_no" Type="varchar" MaxLength="50" />
+          <Property Name="plant" Type="varchar" MaxLength="50" />
+          <Property Name="maker" Type="varchar" MaxLength="50" />
+          <Property Name="maker_comp_dt" Type="date" />
+          <Property Name="div_comp_dt" Type="date" />
+          <Property Name="site_id" Type="tinyint" />
         </EntityType>
         <EntityType Name="td_tran">
           <Key>
@@ -79,6 +88,20 @@
           <Property Name="act_dt" Type="datetime" Nullable="false" />
           <Property Name="comment" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="tm_user_nok">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="utype" Type="tinyint" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="fname" Type="nvarchar" MaxLength="50" />
+          <Property Name="lname" Type="nvarchar" MaxLength="50" />
+          <Property Name="ulv" Type="tinyint" />
+          <Property Name="vcode" Type="varchar" MaxLength="20" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'TncNokTooling.dbo.v_tran' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
@@ -97,6 +120,7 @@
             <PropertyRef Name="process" />
             <PropertyRef Name="nok_plant" />
             <PropertyRef Name="org" />
+            <PropertyRef Name="site_name" />
           </Key>
           <Property Name="pr_no" Type="varchar" Nullable="false" MaxLength="10" />
           <Property Name="item_code" Type="varchar" Nullable="false" MaxLength="50" />
@@ -115,6 +139,7 @@
           <Property Name="nok_plant" Type="tinyint" Nullable="false" />
           <Property Name="org" Type="int" Nullable="false" />
           <Property Name="requester" Type="nvarchar" MaxLength="511" />
+          <Property Name="site_name" Type="varchar" Nullable="false" MaxLength="20" />
         </EntityType>
         <Association Name="FK_td_tran_td_pr1">
           <End Role="td_pr" Type="TncNokToolingModel.Store.td_pr" Multiplicity="1">
@@ -142,6 +167,7 @@
             <End Role="td_tran" EntitySet="td_tran" />
           </AssociationSet>
           <EntitySet Name="v_tran" EntityType="TncNokToolingModel.v_tran" />
+          <EntitySet Name="tm_user_nok" EntityType="TncNokToolingModel.tm_user_nok" />
         </EntityContainer>
         <EntityType Name="td_pr">
           <Key>
@@ -158,7 +184,7 @@
           <Property Name="issue_plant" Type="Int32" />
           <Property Name="ext" Type="String" MaxLength="4" Unicode="false" FixedLength="false" />
           <Property Name="rank" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
-          <Property Name="cost_code" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="cost_code" Type="String" Nullable="false" MaxLength="80" Unicode="false" FixedLength="false" />
           <Property Name="item_code" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="problem" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
           <Property Name="process" Type="Byte" Nullable="false" />
@@ -170,6 +196,13 @@
           <Property Name="po_no" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="issue_group_name" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="td_tran" Relationship="TncNokToolingModel.FK_td_tran_td_pr1" FromRole="td_pr" ToRole="td_tran" />
+          <Property Type="String" Name="po_nok" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="order_no" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="plant" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="maker" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="maker_comp_dt" Precision="0" />
+          <Property Type="DateTime" Name="div_comp_dt" Precision="0" />
+          <Property Type="Byte" Name="site_id" />
         </EntityType>
         <EntityType Name="td_tran">
           <Key>
@@ -219,6 +252,7 @@
             <PropertyRef Name="process" />
             <PropertyRef Name="nok_plant" />
             <PropertyRef Name="org" />
+            <PropertyRef Name="site_name" />
           </Key>
           <Property Type="String" Name="pr_no" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="item_code" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -237,6 +271,21 @@
           <Property Type="Byte" Name="nok_plant" Nullable="false" />
           <Property Type="Int32" Name="org" Nullable="false" />
           <Property Type="String" Name="requester" MaxLength="511" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="site_name" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tm_user_nok">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Type="String" Name="username" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="password" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Byte" Name="utype" Nullable="false" />
+          <Property Type="String" Name="email" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="fname" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="lname" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Byte" Name="ulv" />
+          <Property Type="String" Name="vcode" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -247,6 +296,13 @@
           <EntitySetMapping Name="td_pr">
             <EntityTypeMapping TypeName="TncNokToolingModel.td_pr">
               <MappingFragment StoreEntitySet="td_pr">
+                <ScalarProperty Name="site_id" ColumnName="site_id" />
+                <ScalarProperty Name="div_comp_dt" ColumnName="div_comp_dt" />
+                <ScalarProperty Name="maker_comp_dt" ColumnName="maker_comp_dt" />
+                <ScalarProperty Name="maker" ColumnName="maker" />
+                <ScalarProperty Name="plant" ColumnName="plant" />
+                <ScalarProperty Name="order_no" ColumnName="order_no" />
+                <ScalarProperty Name="po_nok" ColumnName="po_nok" />
                 <ScalarProperty Name="pr_no" ColumnName="pr_no" />
                 <ScalarProperty Name="condition" ColumnName="condition" />
                 <ScalarProperty Name="due_date" ColumnName="due_date" />
@@ -290,6 +346,7 @@
           <EntitySetMapping Name="v_tran">
             <EntityTypeMapping TypeName="TncNokToolingModel.v_tran">
               <MappingFragment StoreEntitySet="v_tran">
+                <ScalarProperty Name="site_name" ColumnName="site_name" />
                 <ScalarProperty Name="requester" ColumnName="requester" />
                 <ScalarProperty Name="org" ColumnName="org" />
                 <ScalarProperty Name="nok_plant" ColumnName="nok_plant" />
@@ -307,6 +364,21 @@
                 <ScalarProperty Name="condition" ColumnName="condition" />
                 <ScalarProperty Name="item_code" ColumnName="item_code" />
                 <ScalarProperty Name="pr_no" ColumnName="pr_no" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tm_user_nok">
+            <EntityTypeMapping TypeName="TncNokToolingModel.tm_user_nok">
+              <MappingFragment StoreEntitySet="tm_user_nok">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="vcode" ColumnName="vcode" />
+                <ScalarProperty Name="ulv" ColumnName="ulv" />
+                <ScalarProperty Name="lname" ColumnName="lname" />
+                <ScalarProperty Name="fname" ColumnName="fname" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="utype" ColumnName="utype" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

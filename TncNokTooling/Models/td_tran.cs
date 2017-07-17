@@ -24,9 +24,9 @@ namespace TncNokTooling.Models
         public System.DateTime act_dt { get; set; }
         public string comment { get; set; }
     
-        public virtual td_pr td_pr { get; set; }
         public virtual tm_action tm_action { get; set; }
         public virtual tm_status tm_status { get; set; }
         public virtual tm_user_lv tm_user_lv { get; set; }
+        public virtual td_pr td_pr { get; set; }
     }
 }

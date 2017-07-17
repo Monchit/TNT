@@ -3,6 +3,7 @@
   <EntityContainer Name="TncNokToolingModelStoreContainer">
     <EntitySet Name="td_pr" EntityType="TncNokToolingModel.Store.td_pr" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="td_tran" EntityType="TncNokToolingModel.Store.td_tran" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tm_user_nok" EntityType="TncNokToolingModel.Store.tm_user_nok" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="v_tran" EntityType="TncNokToolingModel.Store.v_tran" store:Type="Views" store:Schema="dbo" store:Name="v_tran">
       <DefiningQuery>SELECT 
       [v_tran].[pr_no] AS [pr_no], 
@@ -21,7 +22,8 @@
       [v_tran].[process] AS [process], 
       [v_tran].[nok_plant] AS [nok_plant], 
       [v_tran].[org] AS [org], 
-      [v_tran].[requester] AS [requester]
+      [v_tran].[requester] AS [requester], 
+      [v_tran].[site_name] AS [site_name]
       FROM [dbo].[v_tran] AS [v_tran]</DefiningQuery>
     </EntitySet>
     <AssociationSet Name="FK_td_tran_td_pr1" Association="TncNokToolingModel.Store.FK_td_tran_td_pr1">
@@ -44,7 +46,7 @@
     <Property Name="issue_plant" Type="int" />
     <Property Name="ext" Type="varchar" MaxLength="4" />
     <Property Name="rank" Type="char" Nullable="false" MaxLength="1" />
-    <Property Name="cost_code" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="cost_code" Type="varchar" Nullable="false" MaxLength="80" />
     <Property Name="item_code" Type="varchar" Nullable="false" MaxLength="50" />
     <Property Name="problem" Type="varchar(max)" />
     <Property Name="process" Type="tinyint" Nullable="false" />
@@ -55,6 +57,13 @@
     <Property Name="issue_name" Type="varchar" Nullable="false" MaxLength="50" />
     <Property Name="po_no" Type="varchar" MaxLength="50" />
     <Property Name="issue_group_name" Type="varchar" MaxLength="50" />
+    <Property Name="po_nok" Type="varchar" MaxLength="50" />
+    <Property Name="order_no" Type="varchar" MaxLength="50" />
+    <Property Name="plant" Type="varchar" MaxLength="50" />
+    <Property Name="maker" Type="varchar" MaxLength="50" />
+    <Property Name="maker_comp_dt" Type="date" />
+    <Property Name="div_comp_dt" Type="date" />
+    <Property Name="site_id" Type="tinyint" />
   </EntityType>
   <EntityType Name="td_tran">
     <Key>
@@ -74,6 +83,20 @@
     <Property Name="act_dt" Type="datetime" Nullable="false" />
     <Property Name="comment" Type="nvarchar(max)" />
   </EntityType>
+  <EntityType Name="tm_user_nok">
+    <Key>
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Name="username" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="utype" Type="tinyint" Nullable="false" />
+    <Property Name="email" Type="nvarchar" MaxLength="50" />
+    <Property Name="fname" Type="nvarchar" MaxLength="50" />
+    <Property Name="lname" Type="nvarchar" MaxLength="50" />
+    <Property Name="ulv" Type="tinyint" />
+    <Property Name="vcode" Type="varchar" MaxLength="20" />
+    <Property Name="active" Type="bit" Nullable="false" />
+  </EntityType>
   <!--Errors Found During Generation:
       warning 6002: The table/view 'TncNokTooling.dbo.v_tran' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
@@ -92,6 +115,7 @@
       <PropertyRef Name="process" />
       <PropertyRef Name="nok_plant" />
       <PropertyRef Name="org" />
+      <PropertyRef Name="site_name" />
     </Key>
     <Property Name="pr_no" Type="varchar" Nullable="false" MaxLength="10" />
     <Property Name="item_code" Type="varchar" Nullable="false" MaxLength="50" />
@@ -110,6 +134,7 @@
     <Property Name="nok_plant" Type="tinyint" Nullable="false" />
     <Property Name="org" Type="int" Nullable="false" />
     <Property Name="requester" Type="nvarchar" MaxLength="511" />
+    <Property Name="site_name" Type="varchar" Nullable="false" MaxLength="20" />
   </EntityType>
   <Association Name="FK_td_tran_td_pr1">
     <End Role="td_pr" Type="TncNokToolingModel.Store.td_pr" Multiplicity="1">
